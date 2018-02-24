@@ -1,1 +1,1 @@
-# Helix-Starter-Kit
+# Helix Starter Kit
