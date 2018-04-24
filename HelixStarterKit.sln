@@ -28,7 +28,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORM", "ORM", "{8EBC29D4-B0A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4044620C-5382-4158-B192-9168488E15A3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "code", "src\Foundation\Ioc\code\code.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -38,6 +50,7 @@ Global
 		{A355FAB3-4300-4A5A-B385-65DDF48F5596} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
 		{8EBC29D4-B0A6-44BF-8A57-466AE266FFDE} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
 		{4044620C-5382-4158-B192-9168488E15A3} = {06F867A9-FA92-4E58-89B1-DEEBC0CDFFE9}
+		{4ADAF54C-6EDD-487C-9F97-D044F375D954} = {181B34F6-97EB-4318-9CC7-3C35CD290BDD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DB09A00-2D51-4C23-B8C9-C7079A5E94D0}
