@@ -28,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORM", "ORM", "{8EBC29D4-B0A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4044620C-5382-4158-B192-9168488E15A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "code", "src\Foundation\Ioc\code\code.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.Ioc", "src\Foundation\Ioc\code\Helix.Foundation.Ioc.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
