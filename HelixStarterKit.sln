@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{491EEF17-E0E0-413D-97B8-B405B8792264}"
+	ProjectSection(SolutionItems) = preProject
+		publishsettings.targets = publishsettings.targets
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Feature", "Feature", "{D6453E2A-BE77-41AE-8A14-116D888C5588}"
 EndProject
@@ -11,9 +15,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Foundation", "Foundation", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project", "Project", "{06F867A9-FA92-4E58-89B1-DEEBC0CDFFE9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serialization", "{96A78F94-DF03-4ABD-ADFF-EC1447BD2A06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{181B34F6-97EB-4318-9CC7-3C35CD290BDD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{A355FAB3-4300-4A5A-B385-65DDF48F5596}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORM", "ORM", "{8EBC29D4-B0A6-44BF-8A57-466AE266FFDE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4044620C-5382-4158-B192-9168488E15A3}"
+EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{96A78F94-DF03-4ABD-ADFF-EC1447BD2A06} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
+		{181B34F6-97EB-4318-9CC7-3C35CD290BDD} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
+		{A355FAB3-4300-4A5A-B385-65DDF48F5596} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
+		{8EBC29D4-B0A6-44BF-8A57-466AE266FFDE} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
+		{4044620C-5382-4158-B192-9168488E15A3} = {06F867A9-FA92-4E58-89B1-DEEBC0CDFFE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DB09A00-2D51-4C23-B8C9-C7079A5E94D0}
