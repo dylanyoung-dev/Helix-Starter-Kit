@@ -3,4 +3,10 @@
 ################################################################################
 
 /.vs
-/HelixStarterKit/.vs/HelixStarterKit/v15
+/Helix.sln/.vs/Helix/v15
+/packages
+*.user
+/node_modules
+/Libraries
+**/code/obj
+**/code/bin
