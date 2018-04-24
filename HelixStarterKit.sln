@@ -5,6 +5,9 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{491EEF17-E0E0-413D-97B8-B405B8792264}"
 	ProjectSection(SolutionItems) = preProject
+		gulp-config.js = gulp-config.js
+		gulpfile.js = gulpfile.js
+		package.json = package.json
 		publishsettings.targets = publishsettings.targets
 		README.md = README.md
 	EndProjectSection
