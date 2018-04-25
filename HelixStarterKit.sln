@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{404462
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.Ioc", "src\Foundation\Ioc\code\Helix.Foundation.Ioc.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.Serialization", "src\Foundation\Serialization\code\Helix.Foundation.Serialization.csproj", "{758D66AA-010B-42BC-A034-79063EED827A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4ADAF54C-6EDD-487C-9F97-D044F375D954}.Release|Any CPU.Build.0 = Release|Any CPU
+		{758D66AA-010B-42BC-A034-79063EED827A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{758D66AA-010B-42BC-A034-79063EED827A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{758D66AA-010B-42BC-A034-79063EED827A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{758D66AA-010B-42BC-A034-79063EED827A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{8EBC29D4-B0A6-44BF-8A57-466AE266FFDE} = {95FC65A8-D4A4-4086-9C23-8627B9B3EF42}
 		{4044620C-5382-4158-B192-9168488E15A3} = {06F867A9-FA92-4E58-89B1-DEEBC0CDFFE9}
 		{4ADAF54C-6EDD-487C-9F97-D044F375D954} = {181B34F6-97EB-4318-9CC7-3C35CD290BDD}
+		{758D66AA-010B-42BC-A034-79063EED827A} = {96A78F94-DF03-4ABD-ADFF-EC1447BD2A06}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DB09A00-2D51-4C23-B8C9-C7079A5E94D0}
