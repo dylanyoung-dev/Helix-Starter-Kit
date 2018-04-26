@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Project.Common", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.Search", "src\Foundation\Search\code\Helix.Foundation.Search.csproj", "{1C97D65A-802C-4BDF-B1D3-7390B35689D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.ORM", "src\Foundation\ORM\code\Helix.Foundation.ORM.csproj", "{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{1C97D65A-802C-4BDF-B1D3-7390B35689D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C97D65A-802C-4BDF-B1D3-7390B35689D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C97D65A-802C-4BDF-B1D3-7390B35689D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{758D66AA-010B-42BC-A034-79063EED827A} = {96A78F94-DF03-4ABD-ADFF-EC1447BD2A06}
 		{DCF83BCB-949F-4B66-89F2-2D8869C4D436} = {4044620C-5382-4158-B192-9168488E15A3}
 		{1C97D65A-802C-4BDF-B1D3-7390B35689D0} = {A355FAB3-4300-4A5A-B385-65DDF48F5596}
+		{BFCFE76E-49BA-439D-AC87-92AEB9AE8321} = {8EBC29D4-B0A6-44BF-8A57-466AE266FFDE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3DB09A00-2D51-4C23-B8C9-C7079A5E94D0}
