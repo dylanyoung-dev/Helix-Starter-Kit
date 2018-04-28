@@ -127,6 +127,7 @@
     <Content Include="App_Config\Include\Foundation\Foundation.Serialization.config" />
     <Content Include="App_Config\Include\Foundation\Foundation.Serialization.Settings.config" />
     <None Include="App_Config\Include\Unicorn.Base.config" />
+    <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
