@@ -124,6 +124,8 @@
     <Content Include="App_Config\Include\Unicorn\Unicorn.Configs.Default.example" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config" />
+    <Content Include="App_Config\Include\Foundation\Foundation.Serialization.config" />
+    <Content Include="App_Config\Include\Foundation\Foundation.Serialization.Settings.config" />
     <None Include="App_Config\Include\Unicorn.Base.config" />
     <None Include="Web.config" />
   </ItemGroup>
