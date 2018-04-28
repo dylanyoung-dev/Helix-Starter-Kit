@@ -124,6 +124,7 @@
     <Content Include="App_Config\Include\Unicorn\Unicorn.Configs.Default.example" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config" />
+    <None Include="App_Config\Include\Unicorn.Base.config" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

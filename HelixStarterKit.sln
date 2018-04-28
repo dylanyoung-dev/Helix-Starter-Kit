@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 	ProjectSection(SolutionItems) = preProject
 		gulp-config.js = gulp-config.js
 		gulpfile.js = gulpfile.js
+		Leprechaun.config = Leprechaun.config
 		package.json = package.json
 		publishsettings.targets = publishsettings.targets
 		README.md = README.md
@@ -37,6 +38,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.Search", "src\Foundation\Search\code\Helix.Foundation.Search.csproj", "{1C97D65A-802C-4BDF-B1D3-7390B35689D0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helix.Foundation.ORM", "src\Foundation\ORM\code\Helix.Foundation.ORM.csproj", "{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGen", "CodeGen", "{79B07CE5-F2B9-4490-8E3D-9DADBACFA9BB}"
+	ProjectSection(SolutionItems) = preProject
+		tools\Leprechaun-1.0.0\Scripts\Constants.csx = tools\Leprechaun-1.0.0\Scripts\Constants.csx
+		tools\Leprechaun-1.0.0\Scripts\Diagnostics.csx = tools\Leprechaun-1.0.0\Scripts\Diagnostics.csx
+		tools\Leprechaun-1.0.0\Scripts\GlassMapper.csx = tools\Leprechaun-1.0.0\Scripts\GlassMapper.csx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
