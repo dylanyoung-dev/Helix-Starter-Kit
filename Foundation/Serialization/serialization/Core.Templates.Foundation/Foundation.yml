@@ -1,0 +1,22 @@
+﻿---
+ID: "2ad99562-50b5-4173-9fbe-6e8fec40f99c"
+Parent: "3c1715fe-6a13-4fcf-845f-de308ba9741d"
+Template: "a87a00b1-e6db-45ab-8b54-636fec3b5523"
+Path: /sitecore/templates/Foundation
+DB: core
+BranchID: "30235f43-6242-4107-87ab-5267e34edf0c"
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: applications/32x32/folder_gear.png
+- ID: "f6d8a61c-2f84-4401-bd24-52d2068172bc"
+  Hint: __Originator
+  Value: "{72E4178E-14EA-4A0D-927B-A62052E80C2C}"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20180428T164218Z

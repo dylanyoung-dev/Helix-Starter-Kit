@@ -1,0 +1,18 @@
+﻿---
+ID: "33f27702-6f70-452d-ac54-b415b45aa23e"
+Parent: "1ce3b36c-9b0c-4eb5-a996-bfcb4eaa5287"
+Template: "c3b037a0-46e5-4b67-ac7a-a144b962a56f"
+Path: /sitecore/layout/Placeholder Settings/Project
+DB: master
+SharedFields:
+- ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
+  Hint: __Icon
+  Value: applications/32x32/folder_window.png
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20180428T163840Z

@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Config\Include\Project\Project.Common.Serialization.config" />
+    <Content Include="App_Config\Environment\Project\HelixVariables.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Web.config" />
   </ItemGroup>
