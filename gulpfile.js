@@ -22,6 +22,17 @@ gulp.task('default', function (callback) {
 });
 
 ////////////////////////////
+//    Generate Glass Models
+////////////////////////////
+gulp.task('_Code-Generation', function (x) {
+    exec('.\\Tools\\Leprechaun-1.0.0\\Leprechaun.console.exe /c .\\Leprechaun.config', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
+        x(err);
+    });
+});
+
+////////////////////////////
 //    Move Sitecore Dlls
 ////////////////////////////
 gulp.task('_Copy-Sitecore-Dlls', function () {
