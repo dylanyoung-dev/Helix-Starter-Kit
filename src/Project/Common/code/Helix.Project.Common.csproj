@@ -103,6 +103,7 @@
       <IsTransformFile>True</IsTransformFile>
     </None>
     <None Include="Properties\PublishProfiles\Debug.pubxml" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
