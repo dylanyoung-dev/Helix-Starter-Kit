@@ -98,10 +98,6 @@
       <DependentUpon>HelixVariables.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
     </None>
-    <None Include="App_Config\Environment\Project\HelixVariables.Local.config">
-      <DependentUpon>HelixVariables.config</DependentUpon>
-      <IsTransformFile>True</IsTransformFile>
-    </None>
     <None Include="App_Config\Environment\Project\HelixVariables.Release.config">
       <DependentUpon>HelixVariables.config</DependentUpon>
       <IsTransformFile>True</IsTransformFile>
