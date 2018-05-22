@@ -15,27 +15,24 @@ var config = require('./gulp-config.js')();
 
 module.exports.config = config;
 
-gulp.task('default', function (callback) {
-    return runSequence(
-        "Copy-Sitecore-Dlls",
-        callback);
-});
+// Default Task
+gulp.task('default', ['_CopySitecoreDlls', '_PublishProjects', '_CompileAssets'], function () { });
 
 ////////////////////////////
-//    Generate Glass Models
+//    Generate Glass (Using Leprechaun)
 ////////////////////////////
-gulp.task('_Code-Generation', function (x) {
-    exec('.\\Tools\\Leprechaun-1.0.0\\Leprechaun.console.exe /c .\\Leprechaun.config', function (err, stdout, stderr) {
+gulp.task('CodeGeneration', function (cb) {
+    exec('.\\Tools\\Leprechaun-1.0.0\\Leprechaun.console.exe /c .\\src\\Leprechaun.config', function (err, stdout, stderr) {
         console.log(stdout);
         console.log(stderr);
-        x(err);
+        cb(err);
     });
 });
 
 ////////////////////////////
 //    Move Sitecore Dlls
 ////////////////////////////
-gulp.task('_Copy-Sitecore-Dlls', function () {
+gulp.task('_CopySitecoreDlls', function () {
 
     fs.statSync(config.sitecoreLibraries);
 
@@ -50,21 +47,18 @@ gulp.task('_Copy-Sitecore-Dlls', function () {
 ////////////////////////////
 //    Publish All Projects
 ////////////////////////////
-gulp.task('_Publish-All-Projects', function () {
-    var publishScript = `${__dirname}\\build\\Publish.ps1`;
-
-    var process = exec("powershell.exe -executionpolicy unrestricted -File \"" + publishScript + "\" -BuildConfiguration \"" + config.buildConfiguration + "\"", function (err, stdout, stderr) {
-        if (err !== null) throw err;
-        console.log(err);
-        console.log(stderr);
-        console.log(stdout);
-    });
+gulp.task("_PublishProjects", function (callback) {
+    return runSequence(
+        "__BuildSolution",
+        "__PublishFoundation",
+        "__PublishFeature",
+        "__PublishProject", callback);
 });
 
 ////////////////////////////
 //     Compile Assets
 ////////////////////////////
-gulp.task('_Compile-Assets', function () {
+gulp.task('_CompileAssets', function () {
     return runSequence("task:compile-styles", callback);
 });
 
@@ -76,4 +70,78 @@ gulp.task('task:compile-styles', function () {
         .pipe($.flatten())
         .pipe(gulp.dest(config.styles.build));
 
+});
+
+var cleanProjectFiles = function (layerName) {
+    const filesToDelete = [
+        gulpConfig.webRoot + '/bin/Helixbase.' + layerName + '.*',
+        gulpConfig.webRoot + '/App_Config/Include/' + layerName
+    ];
+    console.log("Removing " + layerName + " configs/binaries");
+    return gulp.src(filesToDelete, { read: false })
+        .pipe(clean({ force: true }));
+};
+
+var publishProjects = function (location, dest) {
+    dest = dest || config.websiteRoot;
+    var targets = ["Build"];
+
+    console.log("publish to " + dest + " folder");
+    return gulp.src([location + "/**/code/*.csproj"])
+        .pipe(foreach(function (stream, file) {
+            return stream
+                .pipe(debug({ title: "Building project:" }))
+                .pipe(msbuild({
+                    targets: targets,
+                    configuration: config.buildConfiguration,
+                    logCommand: false,
+                    verbosity: "minimal",
+                    stdout: true,
+                    errorOnFail: true,
+                    maxcpucount: 0,
+                    toolsVersion: config.MSBuildToolsVersion,
+                    properties: {
+                        DeployOnBuild: "true",
+                        DeployDefaultTarget: "WebPublish",
+                        WebPublishMethod: "FileSystem",
+                        DeleteExistingFiles: "false",
+                        publishUrl: dest,
+                        _FindDependencies: "false"
+                    }
+                }));
+        }));
+};
+
+gulp.task("__BuildSolution", function () {
+    var targets = ["Build"];
+
+    return gulp.src("./" + config.solutionName + ".sln")
+        .pipe(debug({ title: "NuGet restore:" }))
+        .pipe(nugetRestore())
+        .pipe(debug({ title: "Building solution:" }))
+        .pipe(msbuild({
+            targets: targets,
+            configuration: config.buildConfiguration,
+            logCommand: false,
+            verbosity: "minimal",
+            stdout: true,
+            errorOnFail: true,
+            maxcpucount: 0,
+            toolsVersion: config.MSBuildToolsVersion
+        }));
+});
+
+gulp.task("__PublishFoundation", function () {
+    //cleanProjectFiles("Foundation"),
+    publishProjects("./src/Foundation");
+});
+
+gulp.task("__PublishFeature", function () {
+    //cleanProjectFiles("Feature"),
+    publishProjects("./src/Feature");
+});
+
+gulp.task("__PublishProject", function () {
+    //cleanProjectFiles("Project"),
+    publishProjects("./src/Project");
 });

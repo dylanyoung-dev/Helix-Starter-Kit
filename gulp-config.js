@@ -6,6 +6,7 @@ module.exports = function () {
         solutionName: "Helix",
         licensePath: sitecoreRoot + "\\Data\\license.xml",
         runCleanBuilds: false,
+        MSBuildToolsVersion: "Any",
         buildConfiguration: "Debug",
         styles: {
             source: [
