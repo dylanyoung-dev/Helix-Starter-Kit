@@ -8,6 +8,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 		gulp-config.js = gulp-config.js
 		gulpfile.js = gulpfile.js
 		Leprechaun.config = Leprechaun.config
+		NuGet.config = NuGet.config
 		package.json = package.json
 		publishsettings.targets = publishsettings.targets
 		README.md = README.md
