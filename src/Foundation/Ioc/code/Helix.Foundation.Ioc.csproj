@@ -89,8 +89,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Properties\PublishProfiles\Debug.pubxml" />
+    <None Include="Properties\PublishProfiles\Release.pubxml" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
