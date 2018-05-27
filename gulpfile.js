@@ -12,9 +12,24 @@ var runSequence = require("run-sequence");
 var $ = require('gulp-load-plugins')({ lazy: true });
 
 var config = require('./gulp-config.js')();
-var starter = require("./tools/scripts/gulp-functions.js");
+var functions = require("./tools/scripts/gulp-functions.js");
+var starter = require("./tools/scripts/starterkit.js");
+
+var config;
+if (fs.existsSync("./gulp-config.user.js")) {
+    config = require("./gulp-config.user.js")();
+} else {
+    config = require("./gulp-config.js")();
+}
 
 module.exports.config = config;
+
+starter.header("Helix Starter Kit","A starting point for any Sitecore Helix project","0.0.1");
+
+
+
+
+
 
 // Default Task
 gulp.task('default', ['_PublishProjects', '_CleanBuild', '_CompileAssets'], function () { });
@@ -81,16 +96,16 @@ gulp.task('__task:compile-styles', function () {
 });
 
 gulp.task("publish-foundation", function () {
-    starter.cleanProjectFiles("Foundation"),
+    functions.cleanProjectFiles("Foundation"),
     publishProjects("./src/Foundation");
 });
 
 gulp.task("publish-feature", function () {
-    starter.cleanProjectFiles("Feature");
+    functions.cleanProjectFiles("Feature");
     publishProjects("./src/Feature");
 });
 
 gulp.task("publish-project", function () {
-    starter.cleanProjectFiles("Project"),
+    functions.cleanProjectFiles("Project"),
     publishProjects("./src/Project");
 });
