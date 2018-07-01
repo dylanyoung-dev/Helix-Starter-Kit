@@ -21,8 +21,5 @@ namespace Helix.Foundation.ORM.Models
 
         [SitecoreInfo(SitecoreInfoType.Version)]
         int Version { get; set; }
-
-        [SitecoreInfo(SitecoreInfoType.Url)]
-        string Url { get; set; }
     }
 }
