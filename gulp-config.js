@@ -1,10 +1,10 @@
 module.exports = function () {
     var sitecoreRoot = "C:\\inetpub\\wwwroot\\starterkit.sc";
     var config = {
-        websiteRoot: sitecoreRoot + "\\Website",
-        sitecoreLibraries: sitecoreRoot + "\\Website\\bin",
+        websiteRoot: sitecoreRoot,
+        sitecoreLibraries: sitecoreRoot + "\\bin",
         solutionName: "Helix",
-        licensePath: sitecoreRoot + "\\Data\\license.xml",
+        licensePath: sitecoreRoot + "\\App_Data\\license.xml",
         runCleanBuilds: false,
         MSBuildToolsVersion: "auto",
         buildConfiguration: "Debug",
@@ -13,7 +13,7 @@ module.exports = function () {
                 `**/code/scss/**/*.{scss, sass, css}`,
                 `!**/code/css/**/*.{scss, sass, css}`
             ],
-            build: sitecoreRoot + `\\Website\\css\\`
+            build: sitecoreRoot + `\\css\\`
         },
         options: {
             sass: {

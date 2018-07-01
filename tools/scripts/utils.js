@@ -13,10 +13,10 @@ Utils.CleanDlls = function (location, layerName) {
         location.concat(layerName) + "*"
     ];
 
+    console.log("Removing " + filesToDelete + " Dlls");
+
     return gulp.src(filesToDelete, { read: false })
         .pipe(clean({ force: true }));
-
-    console.log("Removing " + filesToDelete + " Dlls");
 };
 
 Utils.CleanConfigs = function (location, layerName) {
@@ -25,10 +25,10 @@ Utils.CleanConfigs = function (location, layerName) {
         location.concat('/', layerName, '/') + "*"
     ];
 
+    console.log("Removing " + filesToDelete + " Dlls");
+
     return gulp.src(filesToDelete, { read: false })
         .pipe(clean({ force: true }));
-
-    console.log("Removing " + filesToDelete + " Dlls");
 };
 
 Utils.CleanProjectFiles = function (layerName) {
@@ -53,6 +53,7 @@ Utils.PublishProjects = function (location, dest) {
     var targets = ["Build"];
 
     console.log("publish to " + dest + " folder");
+    console.log("files: " + location + "/**/code/*.csproj")
     return gulp.src([location + "/**/code/*.csproj"])
         .pipe(foreach(function (stream, file) {
             return stream

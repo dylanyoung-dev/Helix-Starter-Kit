@@ -12,8 +12,6 @@ namespace Helix.Foundation.ORM.Ioc
     {
         public void Configure(IServiceCollection serviceCollection)
         {
-            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-
             serviceCollection.AddTransient<ISitecoreContext>(provider => new SitecoreContext());
         }
     }
