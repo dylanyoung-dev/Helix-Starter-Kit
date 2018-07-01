@@ -36,4 +36,4 @@ Building off of this Starter Kit, is meant to be extremely easy.  Pull down the 
 
 ## Contribution
 
-Refer to the [Issues page](/sitecoremaster/Helix-Starter-Kit/issues) for items that are un-assigned and are good starting projects for contributors.
+Refer to the [Issues Page](https://github.com/sitecoremaster/Helix-Starter-Kit/issues) for items that are un-assigned and are good starting projects for contributors.
