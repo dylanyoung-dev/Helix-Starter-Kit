@@ -31,6 +31,13 @@ starter.header("Helix Starter Kit","A starting point for any Sitecore Helix proj
 gulp.task('default', ['__task:publish-projects', '__task:compile-assets'], function () { });
 
 ////////////////////////////
+//    Machine Setup
+////////////////////////////
+gulp.task('__task:environment-setup', function (cb) {
+
+});
+
+////////////////////////////
 //    Generate Glass (Using Leprechaun)
 ////////////////////////////
 gulp.task('__task:code-generation', function (cb) {
