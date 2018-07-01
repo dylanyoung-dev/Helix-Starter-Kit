@@ -1,19 +1,19 @@
 var gulp = require("gulp");
+var path = require("path");
 var msbuild = require("gulp-msbuild");
 var debug = require("gulp-debug");
-var path = require("path");
 var nugetRestore = require("gulp-nuget-restore");
 var fs = require("fs");
-var util = require("gulp-util");
+var gulpUtils = require("gulp-util");
 var exec = require("child_process").exec;
 var merge = require("merge-stream");
 var runSequence = require("run-sequence");
 
-var $ = require('gulp-load-plugins')({ lazy: true });
-
 var config = require('./gulp-config.js')();
-var functions = require("./tools/scripts/gulp-functions.js");
+var utils = require("./tools/scripts/utils.js");
 var starter = require("./tools/scripts/starterkit.js");
+
+var $ = require('gulp-load-plugins')({ lazy: true });
 
 var config;
 if (fs.existsSync("./gulp-config.user.js")) {
@@ -27,12 +27,8 @@ module.exports.config = config;
 starter.header("Helix Starter Kit","A starting point for any Sitecore Helix project","0.0.1");
 
 
-
-
-
-
 // Default Task
-gulp.task('default', ['_PublishProjects', '_CleanBuild', '_CompileAssets'], function () { });
+gulp.task('default', ['__task:publish-projects', '__task:compile-assets'], function () { });
 
 ////////////////////////////
 //    Generate Glass (Using Leprechaun)
@@ -96,16 +92,16 @@ gulp.task('__task:compile-styles', function () {
 });
 
 gulp.task("publish-foundation", function () {
-    functions.cleanProjectFiles("Foundation"),
-    publishProjects("./src/Foundation");
+    return utils.CleanProjectFiles("Foundation"),
+    utils.PublishProjects("./src/Foundation");
 });
 
 gulp.task("publish-feature", function () {
-    functions.cleanProjectFiles("Feature");
-    publishProjects("./src/Feature");
+    return utils.CleanProjectFiles("Feature"),
+    utils.PublishProjects("./src/Feature");
 });
 
 gulp.task("publish-project", function () {
-    functions.cleanProjectFiles("Project"),
-    publishProjects("./src/Project");
+    return utils.CleanProjectFiles("Project"),
+    utils.PublishProjects("./src/Project");
 });
