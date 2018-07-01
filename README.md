@@ -28,10 +28,12 @@ Coming Soon
 
 ## Testing
 
+Coming Soon
+
 ## Extending
 
 Building off of this Starter Kit, is meant to be extremely easy.  Pull down the source to start your project, and then use this as a starting point for your next project.  Coming soon will be the features to automatically scaffold projects for any specific layer or to create a new site definition.
 
 ## Contribution
 
-Refer to the Issues page for items that are un-assigned and are good starting projects for contributors.
+Refer to the [Issues page](/sitecoremaster/Helix-Starter-Kit/issues) for items that are un-assigned and are good starting projects for contributors.
