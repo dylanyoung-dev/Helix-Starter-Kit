@@ -10,7 +10,11 @@ This is a Helix Starter Kit.  It contains only the bare essentials in a solution
 
 ## Installation
 
-## Getting Started
+To get started with installing the Sitecore Starter Kit, get the latest from this repository by cloning. Then run the following steps:
+
+
+
+## Architecture
 
 ## Extending
 
