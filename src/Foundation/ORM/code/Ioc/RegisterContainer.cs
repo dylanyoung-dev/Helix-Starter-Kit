@@ -1,4 +1,5 @@
 ﻿using Glass.Mapper.Sc;
+using Glass.Mapper.Sc.Web.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Sitecore.DependencyInjection;
 using System;
@@ -12,7 +13,7 @@ namespace Helix.Foundation.ORM.Ioc
     {
         public void Configure(IServiceCollection serviceCollection)
         {
-            serviceCollection.AddTransient<ISitecoreContext>(provider => new SitecoreContext());
+            serviceCollection.AddSingleton<IMvcContext, MvcContext>();
         }
     }
 }
