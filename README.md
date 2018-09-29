@@ -5,10 +5,10 @@ This is a Helix Starter Kit.  This is the first true Starter Kit for building an
 The solution has the following 
 
     - Helix
-	- .Net MVC
+	- .Net MVC 5.2.3
 	- Sitecore 9.0.1
 	- Unicorn 4.0.3
-	- Glass Mapper 4.5.0.4
+	- Glass Mapper 5
 	- Leprechaun 
 	- Microsoft.Extensions.DependencyInjection 1.0
 
