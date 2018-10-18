@@ -11,3 +11,4 @@
 **/code/obj
 **/code/bin
 /tools/scripts/.vs
+/generators/node_modules
