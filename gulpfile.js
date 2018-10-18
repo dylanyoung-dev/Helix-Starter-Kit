@@ -16,7 +16,7 @@ var config = require('./gulp-config.js')();
 module.exports.config = config;
 
 // Default Task
-gulp.task('default', ['_CopySitecoreDlls', '_PublishProjects', '_CompileAssets'], function () { });
+gulp.task('default', ['_CopySitecoreDlls', '_PrepYeomanGenerator', '_PublishProjects', '_CompileAssets'], function () { });
 
 ////////////////////////////
 //    Generate Glass (Using Leprechaun)
@@ -41,6 +41,10 @@ gulp.task('_CopySitecoreDlls', function () {
     var libs = gulp.src(files).pipe(gulp.dest("./Libraries"));
 
     return merge(libs);
+
+});
+
+gulp.task('_PrepYeomanGenerator', function() {
 
 });
 
