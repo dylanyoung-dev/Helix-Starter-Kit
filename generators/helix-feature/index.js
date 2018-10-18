@@ -39,7 +39,6 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config'));
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include'));
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Feature'));
-        mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Feature/' + this.featureName));
 
         this.fs.copy(
             this.templatePath('Feature/**'),
@@ -51,7 +50,7 @@ module.exports = class extends Generator {
 
     unicorn()
     {
-        mkdirp.sync(path.join(this.targetPath, 'serialization'));
+        mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
             this.templatePath('Feature/code/App_Config/Include/Feature/.Feature.Sample.Serialization.config'),

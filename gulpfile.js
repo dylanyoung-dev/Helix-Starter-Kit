@@ -44,8 +44,9 @@ gulp.task('_CopySitecoreDlls', function () {
 
 });
 
-gulp.task('_PrepYeomanGenerator', function() {
-
+gulp.task('_PrepYeomanGenerator', function(done) {
+    spawn('npm', ['link'], { cwd: 'generators', stdio: 'inherit', shell: true })
+        .on('close', done);
 });
 
 ////////////////////////////
