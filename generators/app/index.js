@@ -3,9 +3,6 @@
 var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
-//var path = require('path');
-//var mkdirp = require('mkdirp');
-//var guid = require('node-uuid');
 
 const introPrompts = require('../global/prompts/intro.prompts.js');
 
@@ -24,7 +21,7 @@ module.exports = class extends Generator {
     _prompting() {
         return this.prompt(introPrompts).then((answers) => {
             if (answers.type === 'project') {
-
+                this.composeWith(require.resolve('../helix-project/'));
             }
 
             if (answers.type === 'feature')
@@ -34,7 +31,7 @@ module.exports = class extends Generator {
 
             if (answers.type === 'foundation') 
             {
-
+                this.composeWith(require.resolve('../helix-foundation/'));
             }
         });
     }
