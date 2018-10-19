@@ -8,6 +8,7 @@ var util = require("gulp-util");
 var exec = require("child_process").exec;
 var merge = require("merge-stream");
 var runSequence = require("run-sequence");
+var spawn = require('child_process').spawn;
 
 var $ = require('gulp-load-plugins')({ lazy: true });
 
@@ -16,7 +17,7 @@ var config = require('./gulp-config.js')();
 module.exports.config = config;
 
 // Default Task
-gulp.task('default', ['_CopySitecoreDlls', '_PublishProjects', '_CompileAssets'], function () { });
+gulp.task('default', ['_CopySitecoreDlls', '_PrepYeomanGenerator', '_PublishProjects', '_CompileAssets'], function () { });
 
 ////////////////////////////
 //    Generate Glass (Using Leprechaun)
@@ -42,6 +43,11 @@ gulp.task('_CopySitecoreDlls', function () {
 
     return merge(libs);
 
+});
+
+gulp.task('_PrepYeomanGenerator', function(done) {
+    spawn('npm', ['link'], { cwd: 'generators', stdio: 'inherit'})
+        .on('close', done).on('error', function (err) { throw err });
 });
 
 ////////////////////////////
