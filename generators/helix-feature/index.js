@@ -30,7 +30,7 @@ module.exports = class extends Generator {
     configure() {
         this.projectGuid = '{' + guid.v4() + '}';
 
-        this.targetPath = '../' + path.join('src', 'Feature', this.featureName);
+        this.targetPath = path.join('src', 'Feature', this.featureName);
         
         this.log('Feature Path: ' + this.targetPath);
     }

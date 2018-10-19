@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
-const prompts = require('../global/prompts/helix.projects.prompts.js');
+const prompts = require('../global/prompts/helix.project.prompts.js');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -30,7 +30,7 @@ module.exports = class extends Generator {
     configure() {
         this.projectGuid = '{' + guid.v4() + '}';
 
-        this.targetPath = '../' + path.join('src', 'Project', this.projectName);
+        this.targetPath = path.join('src', 'Project', this.projectName);
         
         this.log('Project Path: ' + this.targetPath);
     }
@@ -85,7 +85,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('Project/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                projectName: this.projectName
+                projectName: this.projectName,
+                solutionPrefix: this.solutionPrefix
             }
         );
     }
@@ -94,7 +95,9 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('Project/code/.CodeGen.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config'))
+            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
+                projectName: this.projectName
+            }
         );
 
     }

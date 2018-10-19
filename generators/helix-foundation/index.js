@@ -30,7 +30,7 @@ module.exports = class extends Generator {
     configure() {
         this.projectGuid = '{' + guid.v4() + '}';
 
-        this.targetPath = '../' + path.join('src', 'Foundation', this.foundationName);
+        this.targetPath = path.join('src', 'Foundation', this.foundationName);
         
         this.log('Foundation Path: ' + this.targetPath);
     }
@@ -62,7 +62,7 @@ module.exports = class extends Generator {
 
     project() {
         this.fs.copyTpl(
-            this.templatePath('Foundation/code/.Sitecore.Feature.csproj'),
+            this.templatePath('Foundation/code/.Sitecore.Foundation.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Foundation.' + this.foundationName + '.csproj')), {
                 projectGuid: this.projectGuid,
                 foundationName: this.foundationName,
@@ -85,7 +85,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('Foundation/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                foundationName: this.foundationName
+                foundationName: this.foundationName,
+                solutionPrefix: this.solutionPrefix
             }
         );
     }
@@ -94,7 +95,10 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('Foundation/code/.CodeGen.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config'))
+            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')),
+            {
+                foundationName: this.foundationName
+            }
         );
 
     }

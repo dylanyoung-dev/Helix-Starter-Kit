@@ -6,7 +6,7 @@ module.exports = [{
     message: 'Enter the name of your Project Module:'
 }, {
     type: 'input',
-    name: 'projectPrefix',
+    name: 'solutionPrefix',
     message: 'Enter the name of the Project Prefix (ie. Sitecore)',
     default: 'Helix'
 }];
