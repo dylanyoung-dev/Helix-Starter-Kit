@@ -18,7 +18,7 @@ In addition, it includes scaffolding and developer enhancements, to make develop
 
 To get started with this solution, you need to clone the repository and move to a folder where your new solution will live.  Once you've placed it there, you should run the following commands in the repository, using your favorite command line tool:
 
-    c:\> starter init
+    c:\> .\starter init
 
 This will install all the node, yeoman and other pre-requisites on your local machine to run the latest version of Sitecore 9.0.2.  You will need to install a local copy of Sitecore 9.0.2 locally.
 
@@ -34,7 +34,7 @@ If you need to add a new module (which is a standard procedure when using a star
 
 You can initialize the module creation process by either running the following command in your favorite command line tool:
 
-    c:\> starter create-module
+    c:\> .\starter create
 
 Or you can use the Yeoman command:
 
