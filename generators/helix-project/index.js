@@ -21,6 +21,7 @@ module.exports = class extends Generator {
 
         return this.prompt(prompts).then((answers) => {
             this.projectName = answers.projectName;
+            this.projectNameLower = this.projectName.toLowerCase();
             this.solutionPrefix = answers.solutionPrefix;
             this.log('Project Name: ' + this.projectName);
         });
@@ -33,6 +34,7 @@ module.exports = class extends Generator {
         this.targetPath = path.join('src', 'Project', this.projectName);
         
         this.log('Project Path: ' + this.targetPath);
+
     }
 
     initialFolders() {
@@ -60,6 +62,16 @@ module.exports = class extends Generator {
         );
     }
 
+    siteDefinition() {
+        this.fs.copyTpl(
+            this.templatePath('Project/code/App_Config/Include/Project/.Project.Sample.config'),
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + this.projectName + '.config')), {
+                projectName: this.projectName,
+                projectNameLower: this.projectNameLower
+            }
+        );
+    }
+
     project() {
         this.fs.copyTpl(
             this.templatePath('Project/code/.Sitecore.Project.csproj'),
@@ -68,6 +80,13 @@ module.exports = class extends Generator {
                 projectName: this.projectName,
                 sitecoreVersion: '9.0.180604'
             }
+        );
+    }
+
+    layoutDefinition() {
+        this.fs.copyTpl(
+            this.templatePath('Project/code/Views/Layout/.Main.cshtml'),
+            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + this.projectName, 'Layout.cshtml'))
         );
     }
 

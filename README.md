@@ -18,6 +18,10 @@ In addition, it includes scaffolding and developer enhancements, to make develop
 
 ## Getting Started
 
+## New Modules
+
+If you need to add a new module (which is a standard procedure when using a starter kit), this solution includes support for Yeoman, which is a Node JS package that allows you to create templated scaffolding for anything you need.  In the Module Creation part of the Wiki Documentation, I detail the specific steps to get Yeoman started and to start using it to create new modules (in any layer) so you can start to build out the functionality you need with this solution for Sitecore.
+
 Once you've got your local development environment running, the next step should include building your first modules using the starter kit.  It's actually extremely to do this, using a node tool known as Yeoman.  It's a scaffolding tool, that allows you to specify different options to scaffold out a new module (no matter which layer it'll reside in).
 
 >starter create-module
