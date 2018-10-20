@@ -91,6 +91,7 @@
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Debug.pubxml" />
     <None Include="Properties\PublishProfiles\Release.pubxml" />
+    <Content Include="README.md" />
     <None Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
