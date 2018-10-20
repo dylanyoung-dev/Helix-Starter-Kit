@@ -8,6 +8,7 @@ var gulpUtils = require("gulp-util");
 var exec = require("child_process").exec;
 var merge = require("merge-stream");
 var runSequence = require("run-sequence");
+var spawn = require('child_process').spawn;
 
 var config = require('./gulp-config.js')();
 var utils = require("./tools/scripts/utils.js");
@@ -28,14 +29,7 @@ starter.header("Helix Starter Kit","A starting point for any Sitecore Helix proj
 
 
 // Default Task
-gulp.task('default', ['__task:publish-projects', '__task:compile-assets'], function () { });
-
-////////////////////////////
-//    Machine Setup
-////////////////////////////
-gulp.task('__task:environment-setup', function (cb) {
-
-});
+gulp.task('default', ['_CopySitecoreDlls', '_PrepYeomanGenerator', '_PublishProjects', '_CompileAssets'], function () { });
 
 ////////////////////////////
 //    Generate Glass (Using Leprechaun)
@@ -68,6 +62,11 @@ gulp.task("__task:build-solution", function () {
             maxcpucount: 0,
             toolsVersion: config.MSBuildToolsVersion
         }));
+});
+
+gulp.task('_PrepYeomanGenerator', function(done) {
+    spawn('npm', ['link'], { cwd: 'generators', stdio: 'inherit'})
+        .on('close', done).on('error', function (err) { throw err });
 });
 
 ///////////////////////////////////////

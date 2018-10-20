@@ -142,6 +142,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Config\Include\Foundation\z.Glass.Mapper.Sc.ViewRender.config.exclude" />
+    <Content Include="App_Config\Include\Foundation\Glass.Mapper.Sc.Start.config" />
+    <Content Include="App_Config\Include\Foundation\Glass.Mapper.Sc.config" />
+    <Content Include="App_Config\Include\Foundation\Glass.Mapper.Sc.CodeFirst.config.exclude" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Debug.pubxml" />
     <None Include="Properties\PublishProfiles\Release.pubxml" />
