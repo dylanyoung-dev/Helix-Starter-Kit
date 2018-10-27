@@ -9,6 +9,7 @@ var exec = require("child_process").exec;
 var merge = require("merge-stream");
 var runSequence = require("run-sequence");
 var spawn = require('child_process').spawn;
+const argv = require('yargs').argv
 
 var config = require('./gulp-config.js')();
 var utils = require("./tools/scripts/utils.js");
@@ -29,7 +30,8 @@ starter.header("Helix Starter Kit","A starting point for any Sitecore Helix proj
 
 
 // Default Task
-gulp.task('default', ['_CopySitecoreDlls', '_PrepYeomanGenerator', '_PublishProjects', '_CompileAssets'], function () { });
+gulp.task('default', ['__task:PublishProjects', '__task:compile-assets'], function () { });
+gulp.task('init', ['__task:initialization'], function () { });
 
 ////////////////////////////
 //    Generate Glass (Using Leprechaun)
@@ -40,6 +42,14 @@ gulp.task('__task:code-generation', function (cb) {
         console.log(stderr);
         cb(err);
     });
+});
+
+gulp.task('__task:initialization', function (cb) {
+    if (argv.SitecoreRoot !== '' && argv.Url !== '') {
+        // Update yml file setting
+    } else {
+        console.log("Alert: You did not set any environment variables...");
+    }
 });
 
 ///////////////////////////////////////
@@ -62,11 +72,6 @@ gulp.task("__task:build-solution", function () {
             maxcpucount: 0,
             toolsVersion: config.MSBuildToolsVersion
         }));
-});
-
-gulp.task('_PrepYeomanGenerator', function(done) {
-    spawn('npm', ['link'], { cwd: 'generators', stdio: 'inherit'})
-        .on('close', done).on('error', function (err) { throw err });
 });
 
 ///////////////////////////////////////

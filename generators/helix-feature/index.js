@@ -94,7 +94,9 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('Feature/code/.CodeGen.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config'))
+            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
+                featureName: this.featureName
+            }
         );
 
     }

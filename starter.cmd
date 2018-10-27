@@ -13,14 +13,23 @@ echo Executing %1
 echo Running NPM Install...
 call npm install
 
-echo Changing Path...
+REM echo Changing Path...
 cd .\generators
 
 echo Configuring NPM Link (Yeoman)...
-call npm install
 call npm link
+
+REM Change Path back to Root
+cd ..\
+
+REM Run Gulp Initialize
+gulp init --Url [%2] --SitecoreRoot [%3]
+
+goto :eof
 
 :create
 
 echo Creating Module with Yeoman...
 call yo starter
+
+goto :eof

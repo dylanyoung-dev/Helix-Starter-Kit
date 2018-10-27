@@ -8,8 +8,8 @@
     "sitecore",
     "generator"
   ],
-  "scripts":{
-      "postinstall": "npm link"
+  "scripts": {
+    "postinstall": ""
   },
   "dependencies": {
     "chalk": "^1.1.3",
