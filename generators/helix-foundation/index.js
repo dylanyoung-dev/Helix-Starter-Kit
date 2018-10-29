@@ -7,6 +7,7 @@ var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
 const prompts = require('../global/prompts/helix.foundation.prompts.js');
+const common = require('../global/common.js');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -28,7 +29,7 @@ module.exports = class extends Generator {
     }
 
     configure() {
-        this.projectGuid = '{' + guid.v4() + '}';
+        this.projectGuid = guid.v4();
 
         this.targetPath = path.join('src', 'Foundation', this.foundationName);
         
@@ -64,7 +65,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('Foundation/code/.Sitecore.Foundation.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Foundation.' + this.foundationName + '.csproj')), {
-                projectGuid: this.projectGuid,
+                projectGuid: `{${this.projectGuid}}`,
                 foundationName: this.foundationName,
                 sitecoreVersion: '9.0.180604'
             }
@@ -100,6 +101,40 @@ module.exports = class extends Generator {
                 foundationName: this.foundationName
             }
         );
+    }
 
+    solutionAttach() {
+        let slnFilePath = common.getSolutionFilePath(this.destinationPath());
+
+        let slnText = this.fs.read(slnFilePath);
+        
+        slnText = common.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
+        slnText = common.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
+
+        let foundationFolderGuid = guid.v4();
+
+        let projectDefinition =
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${this.solutionPrefix}.Foundation.${this.foundationName}", "src\\Foundation\\${this.foundationName}\\code\\${this.solutionPrefix}.Foundation.${this.foundationName}.csproj", "{${this.projectGuid}}"\r\n` +
+            `EndProject\r\n` +
+            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${this.foundationName}", "${this.foundationName}", "{${foundationFolderGuid}}"\r\n` + `EndProject\r\n`;
+
+        let projectBuildConfig = 
+            `		{${this.projectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
+            `		{${this.projectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
+            `		{${this.projectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
+            `		{${this.projectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
+
+        slnText = common.ensureSolutionFolder(slnText, "Foundation");
+        let layerFolderGuid = common.getSolutionFolderGuid(slnText, "Foundation");
+
+        let projectNesting =
+            `		{${this.projectGuid}} = {${foundationFolderGuid}}\r\n` +
+            `		{${foundationFolderGuid}} = {${layerFolderGuid}}\r\n`;
+
+        slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&${projectDefinition}\r\n`);
+        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(ProjectConfigurationPlatforms\)[^\r\n]*\r\n/, `$&${projectBuildConfig}\r\n`);
+        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(NestedProjects\)[^\r\n]*\r\n/, `$&${projectNesting}\r\n`);
+
+        this.fs.write(slnFilePath, slnText);
     }
 }

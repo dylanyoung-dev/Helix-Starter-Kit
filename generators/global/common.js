@@ -6,7 +6,7 @@ var path = require('path');
 module.exports = {
 
     ensureSolutionSection(slnText, name, ordering) {
-        if(slnText.indexOf(`GlobalSection(${name})` == -1)) {
+        if(slnText.toString().includes(`GlobalSection(${name})`) == false) {
             let sectionText =
                 `	GlobalSection(${name}) = ${ordering}\r\n` +
                 `	EndGlobalSection`;
