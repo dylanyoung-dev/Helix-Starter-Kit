@@ -1,9 +1,9 @@
 module.exports = function () {
-    var sitecoreRoot = "C:\\inetpub\\wwwroot\\starterkit.sc";
+    var sitecoreRoot = "<%=sitecoreRoot%>";
     var config = {
         websiteRoot: sitecoreRoot,
         sitecoreLibraries: sitecoreRoot + "\\bin",
-        solutionName: "Helix",
+        solutionName: "<%=solutionName%>",
         licensePath: sitecoreRoot + "\\App_Data\\license.xml",
         runCleanBuilds: false,
         MSBuildToolsVersion: "auto",

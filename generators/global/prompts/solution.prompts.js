@@ -5,8 +5,18 @@ module.exports = [{
     name: 'solutionName',
     message: 'Enter the name for the Solution File (ie. HelixStarterKit.sln)'
 }, {
+    type: 'input',
+    name: 'prefix',
+    message: 'Enter the name of the Solution Prefix (ie. *Sitecore*.Project.Common or *Helix*.Foundation.Orm)',
+    defaultvalue: 'Helix'
+}, {
+    type: 'input',
+    name: 'root',
+    message: 'Path to your Sitecore Root on your file system:',
+    defaultvalue: 'c:\inetpub\wwwroot\starterkit.sc'
+}, {
     type: 'list',
-    name: 'type',
+    name: 'version',
     message: 'What version of Sitecore are you using?',
     choices: [{
         name: '9.1 ()',
