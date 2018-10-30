@@ -16,29 +16,29 @@ module.exports = class extends Generator {
 
     init() {
         this.log('Solution Initialization');
-
-        this._initializeBase;
     }
 
-    _initializeBase() {
-        this.prompt(prompts).then((answers) => {
+    prompting() {
+        return this.prompt(prompts).then((answers) => {
             this.solutionName = answers.solutionName;
             this.version = answers.version;
-            this.projectType = answers.projectType;
+            this.projectType = answers.type;
             this.solutionPrefix = answers.prefix;
             this.sitecoreRoot = answers.root;
         });
+    }
 
-        _initialFolders();
-        _solutionSetup();
-        _gulpConfiguration();
-        _publishTargetConfiguration();
+    initializeBase() {
+        this._initialFolders();
+        this._solutionSetup();
+        this._gulpConfiguration();
+        this._publishTargetConfiguration();
 
-        if (projectType == 'component') {
+        if (this.projectType == 'module') {
             this._buildComponent();
         }
 
-        if (projectType == 'website') {
+        if (this.projectType == 'website') {
             this._buildWebsite();
         }
     }
@@ -52,13 +52,15 @@ module.exports = class extends Generator {
     }
 
     _initialFolders() {
-        mkdir.sync(path.join(this.targetPath, 'src/Feature'));
-        mkdir.sync(path.join(this.targetPath, 'src/Foundation'));
-        mkdir.sync(path.join(this.targetPath, 'src/Project'));
+        mkdir.sync(path.join(this.templatePath(), 'src/Feature'));
+        mkdir.sync(path.join(this.templatePath(), 'src/Foundation'));
+        mkdir.sync(path.join(this.templatePath(), 'src/Project'));
+
+        console.log(this.destinationPath());
 
         this.fs.copy(
             this.templatePath('base/**'),
-            this.destinationPath(this.targetPath), {
+            this.destinationPath(), {
                 globOption: { dot: false }
             }
         );
@@ -67,7 +69,7 @@ module.exports = class extends Generator {
     _solutionSetup() {
         this.fs.copyTpl(
             this.templatePath('base/.HelixStarterKit.sln'),
-            this.destinationPath(path.join(this.targetPath,this.solutionName, ".sln")), {
+            this.destinationPath(path.join(this.solutionName, ".sln")), {
                 solutionPrefix: this.solutionPrefix
             }
         );

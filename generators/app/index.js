@@ -35,16 +35,16 @@ module.exports = class extends Generator {
 
                 // Create New Module Prompts
                 return this.prompt(modulePrompts).then((moduleanswers) => {
-                    if (answers.type === 'project') {
+                    if (moduleanswers.type === 'project') {
                         this.composeWith(require.resolve('../helix-project/'));
                     }
         
-                    if (answers.type === 'feature')
+                    if (moduleanswers.type === 'feature')
                     {
                         this.composeWith(require.resolve('../helix-feature/'));
                     }
         
-                    if (answers.type === 'foundation') 
+                    if (moduleanswers.type === 'foundation') 
                     {
                         this.composeWith(require.resolve('../helix-foundation/'));
                     }
