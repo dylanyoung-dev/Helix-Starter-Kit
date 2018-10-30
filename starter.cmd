@@ -22,14 +22,11 @@ call npm link
 REM Change Path back to Root
 cd ..\
 
-REM Run Gulp Initialize
-gulp init --Url [%2] --SitecoreRoot [%3]
-
 goto :eof
 
 :create
 
-echo Creating Module with Yeoman...
+echo Initializing Solution with Yeoman...
 call yo starter
 
 goto :eof
