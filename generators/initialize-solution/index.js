@@ -52,12 +52,6 @@ module.exports = class extends Generator {
     }
 
     _initialFolders() {
-        mkdir.sync(path.join(this.templatePath(), 'src/Feature'));
-        mkdir.sync(path.join(this.templatePath(), 'src/Foundation'));
-        mkdir.sync(path.join(this.templatePath(), 'src/Project'));
-
-        console.log(this.destinationPath());
-
         this.fs.copy(
             this.templatePath('base/**'),
             this.destinationPath(), {
@@ -69,17 +63,38 @@ module.exports = class extends Generator {
     _solutionSetup() {
         this.fs.copyTpl(
             this.templatePath('base/.HelixStarterKit.sln'),
-            this.destinationPath(path.join(this.solutionName, ".sln")), {
+            this.destinationPath(this.solutionName + ".sln"), {
                 solutionPrefix: this.solutionPrefix
             }
         );
     };
 
     _gulpConfiguration() {
-    
-    }
+        this.fs.copyTpl(
+            this.templatePath('base/.gulp-config.js'),
+            this.destinationPath('gulp-config.js'), {
+                sitecoreRoot: this.sitecoreRoot,
+                solutionName: this.solutionName
+            }
+        );
+    };
 
     _publishTargetConfiguration() {
-        
-    }
+
+        // Debug Targets
+        this.fs.copyTpl(
+            this.templatePath('base/.publishsettingsdebug.targets'),
+            this.destinationPath('publishsettingsdebug.targets'), {
+
+            }
+        );
+
+        // Release Targets
+        this.fs.copyTpl(
+            this.templatePath('base/.publishsettingsrelease.targets'),
+            this.destinationPath('publishsettingsrelease.targets'), {
+
+            }
+        );
+    };
 }
