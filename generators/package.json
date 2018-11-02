@@ -17,7 +17,8 @@
     "yeoman-generator": "^1.1.0",
     "yosay": "^1.2.1",
     "mkdirp": "0.5.1",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "foreach": "2.0.5"
   },
   "devDependencies": {},
   "repository": {

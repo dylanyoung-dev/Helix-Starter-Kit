@@ -5,9 +5,11 @@ var path = require('path');
 var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
+var foreach = require('foreach');
 
 const prompts = require('../global/prompts/solution.prompts.js');
 const common = require('../global/common.js');
+const config = require('./config');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -31,6 +33,8 @@ module.exports = class extends Generator {
     initializeBase() {
         this._initialFolders();
         this._solutionSetup();
+        this._projectSetup();
+        this._packageSetup();
         this._gulpConfiguration();
         this._publishTargetConfiguration();
 
@@ -67,6 +71,43 @@ module.exports = class extends Generator {
                 solutionPrefix: this.solutionPrefix
             }
         );
+    };
+
+    _projectSetup() {
+        var paths = config.projectLocations;
+
+        console.log(paths);
+
+        if (typeof(paths) == "undefined") {
+
+            paths.foreach(function(path) {
+                this.fs.copyTpl(
+                    this.templatePath(path.Template),
+                    this.destinationPath(path.Destination + solutionPrefix + path.FileName + '.csproj'), {
+                        solutionPrefix: this.solutionPrefix
+                    }
+                );
+            });
+
+        };
+    };
+
+    _packageSetup() {
+        let paths = config.packageLocations;
+
+        if (typeof(paths) == "undefined") {
+
+            paths.foreach(function(path) {
+                this.fs.copyTpl(
+                    this.templatePath(path),
+                    this.destinationPath().replace('/.', '/'), {
+                        version: this.version
+                    }
+                );
+            });
+
+        };
+
     };
 
     _gulpConfiguration() {
