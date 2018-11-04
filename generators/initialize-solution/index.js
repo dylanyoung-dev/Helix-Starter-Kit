@@ -9,7 +9,6 @@ var foreach = require('foreach');
 
 const prompts = require('../global/prompts/solution.prompts.js');
 const common = require('../global/common.js');
-const config = require('./config');
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -74,40 +73,47 @@ module.exports = class extends Generator {
     };
 
     _projectSetup() {
-        var paths = config.projectLocations;
 
-        console.log(paths);
+        let startPath = this.sourceRoot();
+        let destPath = this.destinationPath();
+        let paths = [
+            { Template: "/src/Foundation/Ioc/code/.Helix.Foundation.Ioc.csproj", Destination: "/src/Foundation/Ioc/code/", FileName: ".Foundation.Ioc" },
+            { Template: "/src/Foundation/ORM/code/.Helix.Foundation.ORM.csproj", Destination: "/src/Foundation/ORM/code/", FileName: ".Foundation.ORM" },
+            { Template: "/src/Foundation/Search/code/.Helix.Foundation.Search.csproj", Destination: "/src/Foundation/Search/code/", FileName: ".Foundation.Search" },
+            { Template: "/src/Foundation/Serialization/code/.Helix.Foundation.Serialization.csproj", Destination: "/src/Foundation/Serialization/code/", FileName: ".Foundation.Serialization" },
+            { Template: "/src/Project/Common/code/.Helix.Project.Common.csproj", Destination: "/src/Project/Common/code/", FileName: ".Project.Common" }
+        ];
 
-        if (typeof(paths) == "undefined") {
-
-            paths.foreach(function(path) {
-                this.fs.copyTpl(
-                    this.templatePath(path.Template),
-                    this.destinationPath(path.Destination + solutionPrefix + path.FileName + '.csproj'), {
-                        solutionPrefix: this.solutionPrefix
-                    }
-                );
-            });
-
-        };
+        paths.forEach(function(path) {
+            this.fs.copyTpl(
+                startPath + '/base' + path.Template,
+                destPath + path.Destination + this.solutionPrefix + path.FileName + '.csproj', {
+                    solutionPrefix: this.solutionPrefix
+                }
+            );
+        }, this);
     };
 
     _packageSetup() {
-        let paths = config.packageLocations;
 
-        if (typeof(paths) == "undefined") {
+        let startPath = this.sourceRoot();
+        let destPath = this.destinationPath();
+        let paths = [
+            "\\src\\Foundation\\Ioc\\code\\",
+            "\\src\\Foundation\\ORM\\code\\",
+            "\\src\\Foundation\\Search\\code\\",
+            "\\src\\Foundation\\Serialization\\code\\",
+            "\\src\\Project\\Common\\code\\"
+        ];
 
-            paths.foreach(function(path) {
-                this.fs.copyTpl(
-                    this.templatePath(path),
-                    this.destinationPath().replace('/.', '/'), {
-                        version: this.version
-                    }
-                );
-            });
-
-        };
-
+        paths.forEach(function(path) {
+            this.fs.copyTpl(
+                startPath + '\\base' + path + '.packages.config',
+                destPath + path + 'packages.config', {
+                    version: this.version
+                }
+            );
+        }, this);
     };
 
     _gulpConfiguration() {

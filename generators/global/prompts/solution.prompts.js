@@ -19,9 +19,9 @@ module.exports = [{
     name: 'version',
     message: 'What version of Sitecore are you using?',
     choices: [{
-        name: '9.1 ()',
-        value: '9.1.938'
-    }, {
+        name: '9.0.2 (180604)',
+        value: '9.0.180604'  
+    },{
         name: '9.0.1 (171219)',
         value: '9.0.171219'
     }]
