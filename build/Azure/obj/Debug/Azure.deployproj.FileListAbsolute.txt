@@ -1,0 +1,1 @@
+C:\Development\Helix-Starter-Kit\build\Azure\obj\Debug\Azure.deployproj.CoreCompileInputs.cache

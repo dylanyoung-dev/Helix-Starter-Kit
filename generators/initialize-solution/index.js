@@ -89,7 +89,8 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 startPath + '/base' + path.Template,
                 destPath + path.Destination + this.solutionPrefix + path.FileName + '.csproj', {
-                    solutionPrefix: this.solutionPrefix
+                    solutionPrefix: this.solutionPrefix,
+                    version: this.version
                 }
             );
         }, this);
