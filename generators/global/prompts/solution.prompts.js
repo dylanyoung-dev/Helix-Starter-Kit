@@ -3,12 +3,17 @@
 module.exports = [{
     type: 'input',
     name: 'solutionName',
-    message: 'Enter the name for the Solution File (ie. HelixStarterKit.sln)'
+    message: 'Enter the name for the Solution File (ie. HelixStarterKit.sln):'
 }, {
     type: 'input',
     name: 'prefix',
-    message: 'Enter the name of the Solution Prefix (ie. *Sitecore*.Project.Common or *Helix*.Foundation.Orm)',
+    message: 'Enter the name of the Solution Prefix (ie. *Sitecore*.Project.Common or *Helix*.Foundation.Orm):',
     defaultvalue: 'Helix'
+}, {
+    type: 'input',
+    name: 'environmentUrl',
+    message: 'What is the Url to your local Sitecore environment:',
+    defaultValue: 'https://starterkit.sc' 
 }, {
     type: 'input',
     name: 'root',

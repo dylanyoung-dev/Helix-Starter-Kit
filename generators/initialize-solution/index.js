@@ -26,6 +26,7 @@ module.exports = class extends Generator {
             this.projectType = answers.type;
             this.solutionPrefix = answers.prefix;
             this.sitecoreRoot = answers.root;
+            this.environmentUrl = answers.environmentUrl
         });
     }
 
@@ -132,7 +133,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('base/.publishsettingsdebug.targets'),
             this.destinationPath('publishsettingsdebug.targets'), {
-
+                environmentUrl: this.environmentUrl
             }
         );
 
@@ -140,7 +141,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('base/.publishsettingsrelease.targets'),
             this.destinationPath('publishsettingsrelease.targets'), {
-
+                environmentUrl: this.environmentUrl
             }
         );
     };
