@@ -13,14 +13,20 @@ echo Executing %1
 echo Running NPM Install...
 call npm install
 
-echo Changing Path...
+REM echo Changing Path...
 cd .\generators
 
 echo Configuring NPM Link (Yeoman)...
-call npm install
 call npm link
+
+REM Change Path back to Root
+cd ..\
+
+goto :eof
 
 :create
 
-echo Creating Module with Yeoman...
+echo Initializing Solution with Yeoman...
 call yo starter
+
+goto :eof

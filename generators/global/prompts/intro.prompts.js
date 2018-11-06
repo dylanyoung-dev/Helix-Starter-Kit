@@ -3,17 +3,13 @@
 module.exports = [{
     type: 'list',
     name: 'type',
-    message: 'What is the layer of the module you are adding?',
+    message: 'What action do you want to perform?',
     choices: [{
-        name: 'Project',
-        value: 'project'
+        name: 'Initialize Solution',
+        value: 'initialize'
     },
     {
-        name: 'Feature',
-        value: 'feature'
-    },
-    {
-        name: 'Foundation',
-        value: 'foundation'
+        name: 'Create Helix Module',
+        value: 'create-module'
     }]
 }];

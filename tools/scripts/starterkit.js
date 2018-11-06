@@ -9,7 +9,7 @@ starterkit.header = function header(productName, slogan, version) {
     util.log("                /                                                \                        ");
     util.log("               |    _________________________________________     |                       ");
     util.log("               |   |                                         |    |                       ");
-    util.log("               |   | C: \> sc starterkit                     |    |                       ");
+    util.log("               |   | C: \> starter init                      |    |                       ");
     util.log("               |   |                                         |    |                       ");
     util.log("               |   |                                         |    |                       ");
     util.log("               |   |                                         |    |                       ");
