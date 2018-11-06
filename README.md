@@ -16,29 +16,53 @@ In addition, it includes scaffolding and developer enhancements, to make develop
 
 ## Installation
 
+To get started using this solution as a starting point for your Sitecore project, download the latest release from the Github Release page.
+
+Then unzip the package with the name of the project that you plan to use.  The files that you now have on your file system contain the essential building blocks so that you can start setting up your Sitecore solution.
+
 To get started with this solution, you need to clone the repository and move to a folder where your new solution will live.  Once you've placed it there, you should run the following commands in the repository, using your favorite command line tool:
 
     c:\> .\starter init
 
 This will install all the node, yeoman and other pre-requisites on your local machine to run the latest version of Sitecore 9.0.2.  You will need to install a local copy of Sitecore 9.0.2 locally.
 
-> Coming Soon we will also setup Sitecore in your local environment.
-
 ## Getting Started
 
-The purpose to this repository, is to allow a trimmed down solution, that only includes development acceleration to increase productivity when creating a solution for either your website solution or component for the Sitecore marketplace.  If you are looking to contribute, just make sure you keep that simple fact in mind.
+Once you've go the core folder structure in place, you will need to initialize the npm install, plus any other pre-requisites.  To do this, just run the following bath command:
 
-### New Modules
+    c:\> .\starter init
 
-If you need to add a new module (which is a standard procedure when using a starter kit), this solution includes support for Yeoman, which is a Node JS package that allows you to create templated scaffolding for anything you need.  
-
-You can initialize the module creation process by either running the following command in your favorite command line tool:
+Once that completes, you should be ready to run the Yeoman solution initialization process, which will run and setup your Sitecore Visual Studio solution based on settings that you specify during the guided commands.  To start the guided commands using Yeoman, run the following batch command in your favorite command line tool in the root folder:
 
     c:\> .\starter create
 
-Or you can use the Yeoman command:
+This will initialize the Yeoman generator which will provide you with the simple option to either `Initialize Solution` or `Create Helix Module`.  If this is your first time running this command, make sure you select `Initialize Solution` before you start creating your own Helix Modules.
 
-    c:\> yo starter
+The Initialization of the Sitecore solution contains 3 different types of solutions:
+
+You can setup a `Base` install which will only contain the very bare essentials for a Sitecore Visual Studio solution with limited projects.
+
+There is a `Website` focused solution, which contains a little more projects in your solution focused towards getting you started building a website focused solution.
+
+And lastly, there is a `Module` focused solution, which is there to help those that are building a Sitecore module for the marketplace.
+
+In the future we will build additional solution types that include the pieces that make sense for those scenarios.
+
+Once you've selected your solution types, you will be presented with various other options to help setup your local Visual Studio solution, this will include gulp configurations, publish settings and more.  Once you are done, you should now see a bunch of new root items as well as a new `src` folder.  
+
+Once you get to this point, I would recommend committing your changes and then you can proceed with your Sitecore website setup and moving on to the next section on building custom Helix modules.
+
+### New Modules
+
+If you need to add a new module, it's now super simple to do this, just by running a simple batch command:
+
+    c:\> .\starter create
+
+Once you trigger that command, it will ask you a series of questions to determine the layer and naming of the module.  This command will also insert the project into your current solution that you previously created in the Getting Started section.
+
+## Video Training
+
+I am working on putting together a video training guide on how to use this Starter Kit to get up and running quickly on a Project.
 
 ## Contribution
 
