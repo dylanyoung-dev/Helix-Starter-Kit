@@ -27,6 +27,11 @@ module.exports = class extends Generator {
             this.solutionPrefix = answers.prefix;
             this.sitecoreRoot = answers.root;
             this.environmentUrl = answers.environmentUrl
+
+            // Store Option
+            this.config.set('solutionName', this.solutionName);
+
+            this.config.set('version', this.version);
         });
     }
 
