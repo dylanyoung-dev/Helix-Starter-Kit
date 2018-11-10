@@ -7,6 +7,7 @@ var yosay = require('yosay');
 const introPrompts = require('../global/prompts/intro.prompts.js');
 const modulePrompts = require('../global/prompts/module.prompts.js');
 const common = require('../global/common.js');
+const presets = common.GetConfig();
 
 module.exports = class extends Generator {
 
@@ -21,6 +22,12 @@ module.exports = class extends Generator {
     }
 
     _prompting() {
+
+        // Only Prompt for Questions that don't have a preset config option
+        var prompts = common.TrimPrompts(modulePrompts, presets.Generators);
+
+        console.log(prompts);
+
         return this.prompt(introPrompts).then((answers) => {
             if (answers.type === 'initialize') {
                 // Solution Initialization

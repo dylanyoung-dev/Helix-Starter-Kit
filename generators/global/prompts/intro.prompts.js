@@ -2,7 +2,7 @@
 
 module.exports = [{
     type: 'list',
-    name: 'type',
+    name: 'GeneratorType',
     message: 'What action do you want to perform?',
     choices: [{
         name: 'Initialize Solution',

@@ -2,12 +2,11 @@
 
 module.exports = [{
     type: 'input',
-    name: 'featureName',
-    message: 'Enter the name of your Feature:'
-},
-{
+    name: 'ModuleName',
+    message: 'Enter the name of your Foundation Module:'
+}, {
     type: 'input',
-    name: 'solutionPrefix',
+    name: 'SolutionName',
     message: 'Enter the name of the Solution Prefix (ie. Sitecore)',
     default: 'Helix'
 }];

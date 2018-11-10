@@ -18,7 +18,8 @@
     "yosay": "^1.2.1",
     "mkdirp": "0.5.1",
     "fs": "0.0.1-security",
-    "foreach": "2.0.5"
+    "foreach": "2.0.5",
+    "js-yaml": "3.12.0"
   },
   "devDependencies": {},
   "repository": {

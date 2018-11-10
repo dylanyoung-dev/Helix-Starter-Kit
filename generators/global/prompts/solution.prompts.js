@@ -2,26 +2,26 @@
 
 module.exports = [{
     type: 'input',
-    name: 'solutionName',
+    name: 'SolutionName',
     message: 'Enter the name for the Solution File (ie. HelixStarterKit.sln):'
 }, {
     type: 'input',
-    name: 'prefix',
+    name: 'SolutionPrefix',
     message: 'Enter the name of the Solution Prefix (ie. *Sitecore*.Project.Common or *Helix*.Foundation.Orm):',
     defaultvalue: 'Helix'
 }, {
     type: 'input',
-    name: 'environmentUrl',
+    name: 'EnvironmentUrl',
     message: 'What is the Url to your local Sitecore environment:',
     defaultValue: 'https://starterkit.sc' 
 }, {
     type: 'input',
-    name: 'root',
+    name: 'EnvironmentRoot',
     message: 'Path to your Sitecore Root on your file system:',
     defaultvalue: 'c:\inetpub\wwwroot\starterkit.sc'
 }, {
     type: 'list',
-    name: 'version',
+    name: 'SitecoreVersion',
     message: 'What version of Sitecore are you using?',
     choices: [{
         name: '9.0.2 (180604)',
@@ -32,7 +32,7 @@ module.exports = [{
     }]
 }, {
     type: 'list',
-    name: 'type',
+    name: 'SolutionType',
     message: 'What type of project are you going to build?',
     choices: [{
         name: 'Base',
@@ -44,4 +44,9 @@ module.exports = [{
         name: 'Website',
         value: 'website'
     }]
-}];
+}]
+
+/*, {    when: function (response) {
+        return response.movie;
+      },
+}]; */

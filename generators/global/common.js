@@ -2,9 +2,37 @@
 
 var fs = require('fs');
 var path = require('path');
+var yaml = require('js-yaml');
 
 module.exports = {
 
+    GetConfig() {
+        // TODO: Add Support for Local Configuration
+        var object = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'))
+
+        return object;
+    },
+
+    /**
+     * @param  {Array} prompts
+     * @param  {Array} presets
+     */
+    TrimPrompts(prompts, presets) {
+
+        var filtered = prompts.filter(function(x) {
+            return !presets.find(function(y) {
+                return y.name == x.name && y.exclude == false;
+            });
+        });
+
+        return filtered;
+    },
+    
+    /**
+     * @param  {} slnText
+     * @param  {} name
+     * @param  {} ordering
+     */
     ensureSolutionSection(slnText, name, ordering) {
         if(slnText.toString().includes(`GlobalSection(${name})`) == false) {
             let sectionText =
