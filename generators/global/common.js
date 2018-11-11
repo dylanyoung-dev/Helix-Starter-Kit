@@ -14,6 +14,27 @@ module.exports = {
     },
 
     /**
+     * @param  {String} promptAnswer
+     * @param  {Array} presets
+     * @param  {String} presetName
+     */
+    ProcessParameter(promptAnswer, presets, presetName) {
+        if (presets === undefined) {
+            return promptAnswer;
+        }
+
+        var preset = presets.find(function (x) {
+            x.name == presetName
+        });
+
+        if (preset === undefined) {
+            return promptAnswer;
+        }
+
+        return preset.value;
+    },
+
+    /**
      * @param  {Array} prompts
      * @param  {Array} presets
      */

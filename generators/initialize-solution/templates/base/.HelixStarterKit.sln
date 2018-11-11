@@ -25,11 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Serialization", "Serializat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{181B34F6-97EB-4318-9CC7-3C35CD290BDD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{A355FAB3-4300-4A5A-B385-65DDF48F5596}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORM", "ORM", "{8EBC29D4-B0A6-44BF-8A57-466AE266FFDE}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{4044620C-5382-4158-B192-9168488E15A3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=solutionPrefix%>.Foundation.Ioc", "src\Foundation\Ioc\code\<%=solutionPrefix%>.Foundation.Ioc.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
 EndProject

@@ -45,8 +45,3 @@ module.exports = [{
         value: 'website'
     }]
 }]
-
-/*, {    when: function (response) {
-        return response.movie;
-      },
-}]; */

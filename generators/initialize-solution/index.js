@@ -7,8 +7,9 @@ var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 var foreach = require('foreach');
 
-const prompts = require('../global/prompts/solution.prompts.js');
+const solutionPrompts = require('../global/prompts/solution.prompts.js');
 const common = require('../global/common.js');
+const presets = common.GetConfig();
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -20,18 +21,20 @@ module.exports = class extends Generator {
     }
 
     prompting() {
+
+        // Only Prompt for Questions that don't have a preset config option
+        var prompts = common.TrimPrompts(solutionPrompts, presets.Generators);
+
         return this.prompt(prompts).then((answers) => {
-            this.solutionName = answers.solutionName;
-            this.version = answers.version;
-            this.projectType = answers.type;
-            this.solutionPrefix = answers.prefix;
-            this.sitecoreRoot = answers.root;
-            this.environmentUrl = answers.environmentUrl
 
-            // Store Option
-            this.config.set('solutionName', this.solutionName);
+            // Define Parameters to Use Throughout File
+            this.solutionName = ProcessParameter(answers.SolutionName, presets, "SolutionName");
+            this.sitecoreVersion = ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
+            this.solutionType = ProcessParameter(answers.SolutionType, presets, "SolutionType");
+            this.solutionPrefix = ProcessParameter(answers.SolutionPrefix, "SolutionPrefix");
+            this.environmentRoot = ProcessParameter(answers.EnvironmentRoot, "EnvironmentRoot");
+            this.environmentUrl = ProcessParameter(answers.EnvironmentUrl, "EnvironmentUrl");
 
-            this.config.set('version', this.version);
         });
     }
 
@@ -43,11 +46,11 @@ module.exports = class extends Generator {
         this._gulpConfiguration();
         this._publishTargetConfiguration();
 
-        if (this.projectType == 'module') {
+        if (this.solutionType == 'module') {
             this._buildComponent();
         }
 
-        if (this.projectType == 'website') {
+        if (this.solutionType == 'website') {
             this._buildWebsite();
         }
     }
@@ -93,7 +96,7 @@ module.exports = class extends Generator {
                 startPath + '/base' + path.Template,
                 destPath + path.Destination + this.solutionPrefix + path.FileName + '.csproj', {
                     solutionPrefix: this.solutionPrefix,
-                    version: this.version
+                    version: this.sitecoreVersion
                 }
             );
         }, this);
@@ -113,7 +116,7 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 startPath + '\\base' + path + '.packages.config',
                 destPath + path + 'packages.config', {
-                    version: this.version
+                    version: this.sitecoreVersion
                 }
             );
         }, this);
@@ -123,7 +126,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('base/.gulp-config.js'),
             this.destinationPath('gulp-config.js'), {
-                sitecoreRoot: this.sitecoreRoot,
+                sitecoreRoot: this.environmentRoot,
                 solutionName: this.solutionName
             }
         );
@@ -148,3 +151,12 @@ module.exports = class extends Generator {
         );
     };
 }
+
+module.exports = generators.Base({
+    end: function () {
+        var done = this.async();
+
+        console.log('Just Testing');
+        //this.spawnCommand('createdb.cmd').on('close', done);
+    }
+});
