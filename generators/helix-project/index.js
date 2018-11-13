@@ -6,8 +6,9 @@ var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
-const prompts = require('../global/prompts/helix.project.prompts.js');
+const projectPrompts = require('../global/prompts/helix.project.prompts.js');
 const common = require('../global/common.js');
+const presets = common.GetConfig();
 
 module.exports = class extends Generator {
     constructor(args, opts) {
@@ -20,11 +21,13 @@ module.exports = class extends Generator {
 
     prompting() {
 
+        // Only Prompt for Questions that don't have a preset config option set
+        var prompts = common.TrimPrompts(projectPrompts, presets.Generators);
+
         return this.prompt(prompts).then((answers) => {
-            this.projectName = answers.projectName;
-            this.projectNameLower = this.projectName.toLowerCase();
-            this.solutionPrefix = answers.solutionPrefix;
-            this.log('Project Name: ' + this.projectName);
+            this.ModuleName = common.ProcessParameter(answers.ModuleName, presets, "ModuleName");
+            this.ModuleNameLower = this.ModuleName.toLowerCase();
+            this.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
         });
 
     }
@@ -32,7 +35,7 @@ module.exports = class extends Generator {
     configure() {
         this.projectGuid = guid.v4();
 
-        this.targetPath = path.join('src', 'Project', this.projectName);
+        this.targetPath = path.join('src', 'Project', this.ModuleName);
         
         this.log('Project Path: ' + this.targetPath);
 
@@ -57,8 +60,8 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('Project/code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + this.projectName + '.Serialization.config')), {
-                projectName: this.projectName
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + this.ModuleName + '.Serialization.config')), {
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -66,9 +69,9 @@ module.exports = class extends Generator {
     siteDefinition() {
         this.fs.copyTpl(
             this.templatePath('Project/code/App_Config/Include/Project/.Project.Sample.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + this.projectName + '.config')), {
-                projectName: this.projectName,
-                projectNameLower: this.projectNameLower
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + this.ModuleName + '.config')), {
+                ModuleName: this.ModuleName,
+                ModuleNameLower: this.ModuleNameLower
             }
         );
     }

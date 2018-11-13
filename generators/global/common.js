@@ -28,7 +28,7 @@ module.exports = {
             return x.name == presetName;
         });
 
-        if (typeof(preset[0]) == 'undefined') {
+        if (typeof(preset[0]) == 'undefined' | typeof(preset[0].value) == 'undefined') {
             return promptAnswer;
         }
 
