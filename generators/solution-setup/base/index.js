@@ -1,6 +1,7 @@
 'use strict';
 
 var Generator = require('yeoman-generator');
+var chalk = require('chalk');
 
 const basePrompts = require('../global/prompts/solution/base.prompts.js');
 const common = require('../global/common.js');
@@ -12,13 +13,13 @@ module.exports = class extends Generator {
     }
 
     init() {
-
+        this.log(chalk.blue('Running Base Sub-Generator'));
     }
 
     prompting() {
 
         // Run Generator Specific Prompts (if any)
-        
+
     }
 
     runGenerator() {
