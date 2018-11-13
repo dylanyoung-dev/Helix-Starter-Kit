@@ -28,12 +28,12 @@ module.exports = class extends Generator {
         return this.prompt(prompts).then((answers) => {
 
             // Define Parameters to Use Throughout File
-            this.solutionName = common.ProcessParameter(answers.SolutionName, presets, "SolutionName");
-            this.sitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
-            this.solutionType = common.ProcessParameter(answers.SolutionType, presets, "SolutionType");
-            this.solutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
-            this.environmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, "EnvironmentRoot");
-            this.environmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, "EnvironmentUrl");
+            this.SolutionName = common.ProcessParameter(answers.SolutionName, presets, "SolutionName");
+            this.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
+            this.SolutionType = common.ProcessParameter(answers.SolutionType, presets, "SolutionType");
+            this.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
+            this.EnvironmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, "EnvironmentRoot");
+            this.EnvironmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, "EnvironmentUrl");
 
         });
     }
@@ -75,8 +75,8 @@ module.exports = class extends Generator {
     _solutionSetup() {
         this.fs.copyTpl(
             this.templatePath('base/.HelixStarterKit.sln'),
-            this.destinationPath(this.solutionName + ".sln"), {
-                solutionPrefix: this.solutionPrefix
+            this.destinationPath(this.SolutionName + ".sln"), {
+                SolutionPrefix: this.SolutionPrefix
             }
         );
     };
@@ -94,9 +94,9 @@ module.exports = class extends Generator {
         paths.forEach(function(path) {
             this.fs.copyTpl(
                 startPath + '/base' + path.Template,
-                destPath + path.Destination + this.solutionPrefix + path.FileName + '.csproj', {
-                    solutionPrefix: this.solutionPrefix,
-                    version: this.sitecoreVersion
+                destPath + path.Destination + this.SolutionPrefix + path.FileName + '.csproj', {
+                    SolutionPrefix: this.SolutionPrefix,
+                    SitecoreVersion: this.SitecoreVersion
                 }
             );
         }, this);
@@ -116,7 +116,7 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 startPath + '\\base' + path + '.packages.config',
                 destPath + path + 'packages.config', {
-                    version: this.sitecoreVersion
+                    SitecoreVersion: this.SitecoreVersion
                 }
             );
         }, this);
@@ -126,8 +126,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('base/.gulp-config.js'),
             this.destinationPath('gulp-config.js'), {
-                sitecoreRoot: this.environmentRoot,
-                solutionName: this.solutionName
+                SitecoreRoot: this.EnvironmentRoot,
+                SolutionName: this.SolutionName
             }
         );
     };
@@ -138,7 +138,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('base/.publishsettingsdebug.targets'),
             this.destinationPath('publishsettingsdebug.targets'), {
-                environmentUrl: this.environmentUrl
+                EnvironmentUrl: this.EnvironmentUrl
             }
         );
 
@@ -146,7 +146,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('base/.publishsettingsrelease.targets'),
             this.destinationPath('publishsettingsrelease.targets'), {
-                environmentUrl: this.environmentUrl
+                EnvironmentUrl: this.EnvironmentUrl
             }
         );
     };
