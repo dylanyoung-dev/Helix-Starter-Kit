@@ -38,118 +38,14 @@ module.exports = class extends Generator {
         });
     }
 
-    initializeBase() {
-        this._initialFolders();
-        this._solutionSetup();
-        this._projectSetup();
-        this._packageSetup();
-        this._gulpConfiguration();
-        this._publishTargetConfiguration();
+    runGenerator() {
 
-        if (this.solutionType == 'module') {
-            this._buildComponent();
-        }
+        // Run Base Sub Generator
+        this.composeWith(require.resolve('/base/'));
 
-        if (this.solutionType == 'website') {
-            this._buildWebsite();
-        }
+        // Run Sub Generator Based on Solution Type Selected
+        this.composeWith(require.resolve(`/${this.SolutionType}`));
     }
-
-    _buildComponent() {
-        console.log("Building a Component Setup");
-    }
-
-    _buildWebsite() {
-        console.log("Building a Website Setup");
-    }
-
-    _initialFolders() {
-        this.fs.copy(
-            this.templatePath('base/**'),
-            this.destinationPath(), {
-                globOption: { dot: false }
-            }
-        );
-    };
-
-    _solutionSetup() {
-        this.fs.copyTpl(
-            this.templatePath('base/.HelixStarterKit.sln'),
-            this.destinationPath(this.SolutionName + ".sln"), {
-                SolutionPrefix: this.SolutionPrefix
-            }
-        );
-    };
-
-    _projectSetup() {
-
-        let startPath = this.sourceRoot();
-        let destPath = this.destinationPath();
-        let paths = [
-            { Template: "/src/Foundation/Ioc/code/.Helix.Foundation.Ioc.csproj", Destination: "/src/Foundation/Ioc/code/", FileName: ".Foundation.Ioc" },
-            { Template: "/src/Foundation/ORM/code/.Helix.Foundation.ORM.csproj", Destination: "/src/Foundation/ORM/code/", FileName: ".Foundation.ORM" },
-            { Template: "/src/Foundation/Serialization/code/.Helix.Foundation.Serialization.csproj", Destination: "/src/Foundation/Serialization/code/", FileName: ".Foundation.Serialization" }
-        ];
-
-        paths.forEach(function(path) {
-            this.fs.copyTpl(
-                startPath + '/base' + path.Template,
-                destPath + path.Destination + this.SolutionPrefix + path.FileName + '.csproj', {
-                    SolutionPrefix: this.SolutionPrefix,
-                    SitecoreVersion: this.SitecoreVersion
-                }
-            );
-        }, this);
-    };
-
-    _packageSetup() {
-
-        let startPath = this.sourceRoot();
-        let destPath = this.destinationPath();
-        let paths = [
-            "\\src\\Foundation\\Ioc\\code\\",
-            "\\src\\Foundation\\ORM\\code\\",
-            "\\src\\Foundation\\Serialization\\code\\",
-        ];
-
-        paths.forEach(function(path) {
-            this.fs.copyTpl(
-                startPath + '\\base' + path + '.packages.config',
-                destPath + path + 'packages.config', {
-                    SitecoreVersion: this.SitecoreVersion
-                }
-            );
-        }, this);
-    };
-
-    _gulpConfiguration() {
-        this.fs.copyTpl(
-            this.templatePath('base/.gulp-config.js'),
-            this.destinationPath('gulp-config.js'), {
-                SitecoreRoot: this.EnvironmentRoot,
-                SolutionName: this.SolutionName
-            }
-        );
-    };
-
-    _publishTargetConfiguration() {
-
-        // Debug Targets
-        this.fs.copyTpl(
-            this.templatePath('base/.publishsettingsdebug.targets'),
-            this.destinationPath('publishsettingsdebug.targets'), {
-                EnvironmentUrl: this.EnvironmentUrl
-            }
-        );
-
-        // Release Targets
-        this.fs.copyTpl(
-            this.templatePath('base/.publishsettingsrelease.targets'),
-            this.destinationPath('publishsettingsrelease.targets'), {
-                EnvironmentUrl: this.EnvironmentUrl
-            }
-        );
-    };
 }
 
 /* module.exports = generators.Base({
