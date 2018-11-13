@@ -28,12 +28,12 @@ module.exports = class extends Generator {
         return this.prompt(prompts).then((answers) => {
 
             // Define Parameters to Use Throughout File
-            this.solutionName = ProcessParameter(answers.SolutionName, presets, "SolutionName");
-            this.sitecoreVersion = ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
-            this.solutionType = ProcessParameter(answers.SolutionType, presets, "SolutionType");
-            this.solutionPrefix = ProcessParameter(answers.SolutionPrefix, "SolutionPrefix");
-            this.environmentRoot = ProcessParameter(answers.EnvironmentRoot, "EnvironmentRoot");
-            this.environmentUrl = ProcessParameter(answers.EnvironmentUrl, "EnvironmentUrl");
+            this.solutionName = common.ProcessParameter(answers.SolutionName, presets, "SolutionName");
+            this.sitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
+            this.solutionType = common.ProcessParameter(answers.SolutionType, presets, "SolutionType");
+            this.solutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
+            this.environmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, "EnvironmentRoot");
+            this.environmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, "EnvironmentUrl");
 
         });
     }
@@ -152,11 +152,11 @@ module.exports = class extends Generator {
     };
 }
 
-module.exports = generators.Base({
+/* module.exports = generators.Base({
     end: function () {
         var done = this.async();
 
         console.log('Just Testing');
         //this.spawnCommand('createdb.cmd').on('close', done);
     }
-});
+}); */

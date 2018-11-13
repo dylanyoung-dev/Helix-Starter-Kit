@@ -19,19 +19,20 @@ module.exports = {
      * @param  {String} presetName
      */
     ProcessParameter(promptAnswer, presets, presetName) {
-        if (presets === undefined) {
+        if (typeof(presets) == 'undefined' | typeof(presets.Generators) == 'undefined') {
             return promptAnswer;
         }
 
-        var preset = presets.find(function (x) {
-            x.name == presetName
+        //let preset = this.FindObjectByName(presets, presetName);
+        let preset = presets.Generators.filter(function (x) {
+            return x.name == presetName;
         });
 
-        if (preset === undefined) {
+        if (typeof(preset[0]) == 'undefined') {
             return promptAnswer;
         }
 
-        return preset.value;
+        return preset[0].value;
     },
 
     /**
