@@ -30,11 +30,11 @@ This will install all the node, yeoman and other pre-requisites on your local ma
 
 Once you've go the core folder structure in place, you will need to initialize the npm install, plus any other pre-requisites.  To do this, just run the following bath command:
 
-    c:\> .\starter init
+    c:\> .\starter setup
 
 Once that completes, you should be ready to run the Yeoman solution initialization process, which will run and setup your Sitecore Visual Studio solution based on settings that you specify during the guided commands.  To start the guided commands using Yeoman, run the following batch command in your favorite command line tool in the root folder:
 
-    c:\> .\starter create
+    c:\> .\starter run
 
 This will initialize the Yeoman generator which will provide you with the simple option to either `Initialize Solution` or `Create Helix Module`.  If this is your first time running this command, make sure you select `Initialize Solution` before you start creating your own Helix Modules.
 
@@ -56,7 +56,7 @@ Once you get to this point, I would recommend committing your changes and then y
 
 If you need to add a new module, it's now super simple to do this, just by running a simple batch command:
 
-    c:\> .\starter create
+    c:\> .\starter run
 
 Once you trigger that command, it will ask you a series of questions to determine the layer and naming of the module.  This command will also insert the project into your current solution that you previously created in the Getting Started section.
 

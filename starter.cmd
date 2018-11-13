@@ -1,14 +1,14 @@
 @ECHO off
 
-if [%1]==[init] goto init
-if [%1]==[create] goto create
+if [%1]==[setup] goto setup
+if [%1]==[run] goto run
 
 COLOR 07
 CLS
 
 echo Executing %1
 
-:init
+:setup
 
 echo Running NPM Install...
 call npm install
@@ -24,7 +24,7 @@ cd ..\
 
 goto :eof
 
-:create
+:run
 
 echo Initializing Solution with Yeoman...
 call yo starter
