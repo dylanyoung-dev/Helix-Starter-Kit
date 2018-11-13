@@ -28,6 +28,7 @@ module.exports = class extends Generator {
             this.ModuleName = common.ProcessParameter(answers.ModuleName, presets, "ModuleName");
             this.ModuleNameLower = this.ModuleName.toLowerCase();
             this.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
+            this.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
         });
 
     }
@@ -38,37 +39,49 @@ module.exports = class extends Generator {
         this.targetPath = path.join('src', 'Project', this.ModuleName);
         
         this.log('Project Path: ' + this.targetPath);
-
     }
 
-    initialFolders() {
+    runGenerator() {
+
+        this._initializeFolders();
+        this._configureUnicorn();
+        this._configureSiteDefinition();
+        this._configureProject();
+        this._configureLayoutDefinition();
+        this._configurePackages();
+        this._configureAssembly();
+        this._configureCodeGeneration();
+        this._solutionAttach();
+    }
+
+    _initialFolders() {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config'));
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include'));
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Project'));
 
         this.fs.copy(
-            this.templatePath('Project/**'),
+            this.templatePath('templates/**'),
             this.destinationPath(this.targetPath), {
                 globOptions: { dot: false }
             }
         );
     }
 
-    unicorn()
+    _configureUnicorn()
     {
         mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
-            this.templatePath('Project/code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
+            this.templatePath('templates/code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + this.ModuleName + '.Serialization.config')), {
                 ModuleName: this.ModuleName
             }
         );
     }
 
-    siteDefinition() {
+    _configureSiteDefinition() {
         this.fs.copyTpl(
-            this.templatePath('Project/code/App_Config/Include/Project/.Project.Sample.config'),
+            this.templatePath('templates/code/App_Config/Include/Project/.Project.Sample.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + this.ModuleName + '.config')), {
                 ModuleName: this.ModuleName,
                 ModuleNameLower: this.ModuleNameLower
@@ -76,25 +89,25 @@ module.exports = class extends Generator {
         );
     }
 
-    project() {
+    _configureProject() {
         this.fs.copyTpl(
-            this.templatePath('Project/code/.Sitecore.Project.csproj'),
+            this.templatePath('templates/code/.Sitecore.Project.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Project.' + this.projectName + '.csproj')), {
-                projectGuid: `{${this.projectGuid}}`,
-                projectName: this.projectName,
-                sitecoreVersion: '9.0.180604'
+                ProjectGuid: `{${this.projectGuid}}`,
+                ProjectName: this.ProjectName,
+                SitecoreVersion: this.SitecoreVersion
             }
         );
     }
 
-    layoutDefinition() {
+    _configureLayoutDefinition() {
         this.fs.copyTpl(
             this.templatePath('Project/code/Views/Layout/.Main.cshtml'),
             this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + this.projectName, 'Layout.cshtml'))
         );
     }
 
-    packages() {
+    _configurePackages() {
         this.fs.copyTpl(
             this.templatePath('Project/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
@@ -103,7 +116,7 @@ module.exports = class extends Generator {
         );
     }
 
-    assembly() {
+    _configureAssembly() {
 
         this.fs.copyTpl(
             this.templatePath('Project/code/Properties/.AssemblyInfo.cs'),
@@ -114,7 +127,7 @@ module.exports = class extends Generator {
         );
     }
 
-    codeGeneration() {
+    _configureCodeGeneration() {
 
         this.fs.copyTpl(
             this.templatePath('Project/code/.CodeGen.config'),
@@ -124,7 +137,7 @@ module.exports = class extends Generator {
         );
     }
 
-    solutionAttach() {
+    _solutionAttach() {
         let slnFilePath = common.getSolutionFilePath(this.destinationPath());
 
         let slnText = this.fs.read(slnFilePath);

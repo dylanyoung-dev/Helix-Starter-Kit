@@ -36,7 +36,7 @@ module.exports = class extends Generator {
 
     _initialFolders() {
         this.fs.copy(
-            this.templatePath('base/**'),
+            this.templatePath('base/templates/**'),
             this.destinationPath(), {
                 globOption: { dot: false }
             }
@@ -45,7 +45,7 @@ module.exports = class extends Generator {
 
     _solutionSetup() {
         this.fs.copyTpl(
-            this.templatePath('base/.HelixStarterKit.sln'),
+            this.templatePath('base/templates/.HelixStarterKit.sln'),
             this.destinationPath(this.SolutionName + ".sln"), {
                 SolutionPrefix: this.SolutionPrefix
             }
@@ -64,7 +64,7 @@ module.exports = class extends Generator {
 
         paths.forEach(function(path) {
             this.fs.copyTpl(
-                startPath + '/base' + path.Template,
+                startPath + '/base/templates' + path.Template,
                 destPath + path.Destination + this.SolutionPrefix + path.FileName + '.csproj', {
                     SolutionPrefix: this.SolutionPrefix,
                     SitecoreVersion: this.SitecoreVersion
@@ -85,7 +85,7 @@ module.exports = class extends Generator {
 
         paths.forEach(function(path) {
             this.fs.copyTpl(
-                startPath + '\\base' + path + '.packages.config',
+                startPath + '\\base\\templates' + path + '.packages.config',
                 destPath + path + 'packages.config', {
                     SitecoreVersion: this.SitecoreVersion
                 }
@@ -95,7 +95,7 @@ module.exports = class extends Generator {
 
     _gulpConfiguration() {
         this.fs.copyTpl(
-            this.templatePath('base/.gulp-config.js'),
+            this.templatePath('base/templates/.gulp-config.js'),
             this.destinationPath('gulp-config.js'), {
                 SitecoreRoot: this.EnvironmentRoot,
                 SolutionName: this.SolutionName
@@ -107,7 +107,7 @@ module.exports = class extends Generator {
 
         // Debug Targets
         this.fs.copyTpl(
-            this.templatePath('base/.publishsettingsdebug.targets'),
+            this.templatePath('base/templates/.publishsettingsdebug.targets'),
             this.destinationPath('publishsettingsdebug.targets'), {
                 EnvironmentUrl: this.EnvironmentUrl
             }
@@ -115,7 +115,7 @@ module.exports = class extends Generator {
 
         // Release Targets
         this.fs.copyTpl(
-            this.templatePath('base/.publishsettingsrelease.targets'),
+            this.templatePath('base/templates/.publishsettingsrelease.targets'),
             this.destinationPath('publishsettingsrelease.targets'), {
                 EnvironmentUrl: this.EnvironmentUrl
             }

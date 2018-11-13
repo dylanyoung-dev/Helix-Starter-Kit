@@ -44,7 +44,7 @@ module.exports = class extends Generator {
         this.composeWith(require.resolve('/base/'));
 
         // Run Sub Generator Based on Solution Type Selected
-        this.composeWith(require.resolve(`/${this.SolutionType}`));
+        this.composeWith(require.resolve(`/${this.SolutionType}/`));
     }
 }
 
