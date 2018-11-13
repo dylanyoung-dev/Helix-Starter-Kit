@@ -42,7 +42,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Feature'));
 
         this.fs.copy(
-            this.templatePath('Feature/**'),
+            this.templatePath('templates/**'),
             this.destinationPath(this.targetPath), {
                 globOptions: { dot: false }
             }
@@ -54,7 +54,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
-            this.templatePath('Feature/code/App_Config/Include/Feature/.Feature.Sample.Serialization.config'),
+            this.templatePath('templates/code/App_Config/Include/Feature/.Feature.Sample.Serialization.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Feature.' + this.featureName + '.Serialization.config')), {
                 featureName: this.featureName
             }
@@ -62,8 +62,9 @@ module.exports = class extends Generator {
     }
 
     project() {
+        // TODO: Pass Sitecore Version from presets
         this.fs.copyTpl(
-            this.templatePath('Feature/code/.Sitecore.Feature.csproj'),
+            this.templatePath('templates/code/.Sitecore.Feature.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Feature.' + this.featureName + '.csproj')), {
                 projectGuid: `{${this.projectGuid}}`,
                 featureName: this.featureName,
@@ -73,8 +74,9 @@ module.exports = class extends Generator {
     }
 
     packages() {
+        // TODO: Pass Sitecore Version from presets
         this.fs.copyTpl(
-            this.templatePath('Feature/code/.packages.config'),
+            this.templatePath('templates/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
                 sitecoreVersion: '9.0.180604'
             }
@@ -84,7 +86,7 @@ module.exports = class extends Generator {
     assembly() {
 
         this.fs.copyTpl(
-            this.templatePath('Feature/code/Properties/.AssemblyInfo.cs'),
+            this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
                 featureName: this.featureName
             }
@@ -94,7 +96,7 @@ module.exports = class extends Generator {
     codeGeneration() {
 
         this.fs.copyTpl(
-            this.templatePath('Feature/code/.CodeGen.config'),
+            this.templatePath('templates/code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
                 featureName: this.featureName
             }

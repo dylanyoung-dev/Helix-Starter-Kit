@@ -90,11 +90,12 @@ module.exports = class extends Generator {
     }
 
     _configureProject() {
+        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
             this.templatePath('templates/code/.Sitecore.Project.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Project.' + this.projectName + '.csproj')), {
                 ProjectGuid: `{${this.projectGuid}}`,
-                ProjectName: this.ProjectName,
+                ModuleName: this.ModuleName,
                 SitecoreVersion: this.SitecoreVersion
             }
         );
@@ -102,16 +103,17 @@ module.exports = class extends Generator {
 
     _configureLayoutDefinition() {
         this.fs.copyTpl(
-            this.templatePath('Project/code/Views/Layout/.Main.cshtml'),
-            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + this.projectName, 'Layout.cshtml'))
+            this.templatePath('templates/code/Views/Layout/.Main.cshtml'),
+            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + this.ModuleName, 'Layout.cshtml'))
         );
     }
 
     _configurePackages() {
+        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('Project/code/.packages.config'),
+            this.templatePath('templates/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                sitecoreVersion: '9.0.180604'
+                SitecoreVersion: '9.0.180604'
             }
         );
     }
@@ -119,10 +121,10 @@ module.exports = class extends Generator {
     _configureAssembly() {
 
         this.fs.copyTpl(
-            this.templatePath('Project/code/Properties/.AssemblyInfo.cs'),
+            this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                projectName: this.projectName,
-                solutionPrefix: this.solutionPrefix
+                ModuleName: this.ModuleName,
+                SolutionPrefix: this.SolutionPrefix
             }
         );
     }
@@ -130,9 +132,9 @@ module.exports = class extends Generator {
     _configureCodeGeneration() {
 
         this.fs.copyTpl(
-            this.templatePath('Project/code/.CodeGen.config'),
+            this.templatePath('templates/code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
-                projectName: this.projectName
+                ModuleName: this.ModuleName
             }
         );
     }

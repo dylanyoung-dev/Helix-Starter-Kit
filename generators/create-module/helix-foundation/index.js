@@ -54,7 +54,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
-            this.templatePath('Foundation/code/App_Config/Include/Foundation/.Foundation.Sample.Serialization.config'),
+            this.templatePath('templates/code/App_Config/Include/Foundation/.Foundation.Sample.Serialization.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Foundation.' + this.foundationName + '.Serialization.config')), {
                 foundationName: this.foundationName
             }
@@ -62,8 +62,9 @@ module.exports = class extends Generator {
     }
 
     project() {
+        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('Foundation/code/.Sitecore.Foundation.csproj'),
+            this.templatePath('templates/code/.Sitecore.Foundation.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Foundation.' + this.foundationName + '.csproj')), {
                 projectGuid: `{${this.projectGuid}}`,
                 foundationName: this.foundationName,
@@ -73,8 +74,9 @@ module.exports = class extends Generator {
     }
 
     packages() {
+        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('Foundation/code/.packages.config'),
+            this.templatePath('templates/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
                 sitecoreVersion: '9.0.180604'
             }
@@ -84,7 +86,7 @@ module.exports = class extends Generator {
     assembly() {
 
         this.fs.copyTpl(
-            this.templatePath('Foundation/code/Properties/.AssemblyInfo.cs'),
+            this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
                 foundationName: this.foundationName,
                 solutionPrefix: this.solutionPrefix
@@ -95,7 +97,7 @@ module.exports = class extends Generator {
     codeGeneration() {
 
         this.fs.copyTpl(
-            this.templatePath('Foundation/code/.CodeGen.config'),
+            this.templatePath('templates/code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')),
             {
                 foundationName: this.foundationName
