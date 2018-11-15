@@ -21,9 +21,8 @@ module.exports = class extends Generator {
     prompting() {
 
         return this.prompt(prompts).then((answers) => {
-            this.foundationName = answers.foundationName;
-            this.solutionPrefix = answers.solutionPrefix;
-            this.log('Foundation Name: ' + this.foundationName);
+            this.ModuleName = answers.ModuleName;
+            this.SolutionPrefix = answers.SolutionPrefix;
         });
 
     }
@@ -31,7 +30,7 @@ module.exports = class extends Generator {
     configure() {
         this.projectGuid = guid.v4();
 
-        this.targetPath = path.join('src', 'Foundation', this.foundationName);
+        this.targetPath = path.join('src', 'Foundation', this.ModuleName);
         
         this.log('Foundation Path: ' + this.targetPath);
     }
@@ -42,7 +41,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Foundation'));
 
         this.fs.copy(
-            this.templatePath('Foundation/**'),
+            this.templatePath('templates/**'),
             this.destinationPath(this.targetPath), {
                 globOptions: { dot: false }
             }
@@ -55,8 +54,8 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('templates/code/App_Config/Include/Foundation/.Foundation.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Foundation.' + this.foundationName + '.Serialization.config')), {
-                foundationName: this.foundationName
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Foundation.' + this.ModuleName + '.Serialization.config')), {
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -65,10 +64,10 @@ module.exports = class extends Generator {
         // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
             this.templatePath('templates/code/.Sitecore.Foundation.csproj'),
-            this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Foundation.' + this.foundationName + '.csproj')), {
-                projectGuid: `{${this.projectGuid}}`,
-                foundationName: this.foundationName,
-                sitecoreVersion: '9.0.180604'
+            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Foundation.' + this.ModuleName + '.csproj')), {
+                ProjectGuid: `{${this.ProjectGuid}}`,
+                ModuleName: this.ModuleName,
+                SitecoreVersion: this.SitecoreVersion
             }
         );
     }
@@ -78,7 +77,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                sitecoreVersion: '9.0.180604'
+                SitecoreVersion: this.SitecoreVersion
             }
         );
     }
@@ -88,8 +87,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                foundationName: this.foundationName,
-                solutionPrefix: this.solutionPrefix
+                ModuleName: this.ModuleName,
+                SolutionPrefix: this.SolutionPrefix
             }
         );
     }
@@ -100,7 +99,7 @@ module.exports = class extends Generator {
             this.templatePath('templates/code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')),
             {
-                foundationName: this.foundationName
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -116,21 +115,21 @@ module.exports = class extends Generator {
         let foundationFolderGuid = guid.v4();
 
         let projectDefinition =
-            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${this.solutionPrefix}.Foundation.${this.foundationName}", "src\\Foundation\\${this.foundationName}\\code\\${this.solutionPrefix}.Foundation.${this.foundationName}.csproj", "{${this.projectGuid}}"\r\n` +
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${this.SolutionPrefix}.Foundation.${this.ModuleName}", "src\\Foundation\\${this.ModuleName}\\code\\${this.SolutionPrefix}.Foundation.${this.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
             `EndProject\r\n` +
-            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${this.foundationName}", "${this.foundationName}", "{${foundationFolderGuid}}"\r\n` + `EndProject\r\n`;
+            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${this.ModuleName}", "${this.ModuleName}", "{${foundationFolderGuid}}"\r\n` + `EndProject\r\n`;
 
         let projectBuildConfig = 
-            `		{${this.projectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
-            `		{${this.projectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
-            `		{${this.projectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
-            `		{${this.projectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
+            `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
 
         slnText = common.ensureSolutionFolder(slnText, "Foundation");
         let layerFolderGuid = common.getSolutionFolderGuid(slnText, "Foundation");
 
         let projectNesting =
-            `		{${this.projectGuid}} = {${foundationFolderGuid}}\r\n` +
+            `		{${this.ProjectGuid}} = {${foundationFolderGuid}}\r\n` +
             `		{${foundationFolderGuid}} = {${layerFolderGuid}}\r\n`;
 
         slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&${projectDefinition}\r\n`);

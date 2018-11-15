@@ -21,17 +21,16 @@ module.exports = class extends Generator {
     prompting() {
 
         return this.prompt(prompts).then((answers) => {
-            this.featureName = answers.featureName;
-            this.solutionPrefix = answers.solutionPrefix;
-            this.log('Feature Name: ' + this.featureName);
+            this.ModuleName = answers.ModuleName;
+            this.SolutionPrefix = answers.SolutionPrefix;
         });
 
     }
 
     configure() {
-        this.projectGuid = guid.v4();
+        this.ProjectGuid = guid.v4();
 
-        this.targetPath = path.join('src', 'Feature', this.featureName);
+        this.targetPath = path.join('src', 'Feature', this.ModuleName);
         
         this.log('Feature Path: ' + this.targetPath);
     }
@@ -55,8 +54,8 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('templates/code/App_Config/Include/Feature/.Feature.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Feature.' + this.featureName + '.Serialization.config')), {
-                featureName: this.featureName
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Feature.' + this.ModuleName + '.Serialization.config')), {
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -65,10 +64,10 @@ module.exports = class extends Generator {
         // TODO: Pass Sitecore Version from presets
         this.fs.copyTpl(
             this.templatePath('templates/code/.Sitecore.Feature.csproj'),
-            this.destinationPath(path.join(this.targetPath, 'code', this.solutionPrefix + '.Feature.' + this.featureName + '.csproj')), {
-                projectGuid: `{${this.projectGuid}}`,
-                featureName: this.featureName,
-                sitecoreVersion: '9.0.180604'
+            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Feature.' + this.ModuleName + '.csproj')), {
+                ProjectGuid: `{${this.ProjectGuid}}`,
+                ModuleName: this.ModuleName,
+                SitecoreVersion: this.SitecoreVersion
             }
         );
     }
@@ -78,7 +77,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                sitecoreVersion: '9.0.180604'
+                SitecoreVersion: this.SitecoreVersion
             }
         );
     }
@@ -88,7 +87,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                featureName: this.featureName
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -98,7 +97,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
-                featureName: this.featureName
+                ModuleName: this.ModuleName
             }
         );
 

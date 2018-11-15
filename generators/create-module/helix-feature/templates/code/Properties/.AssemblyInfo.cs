@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("Sitecore.Feature.<%= featureName %>")]
+[assembly: AssemblyTitle("<%= SolutionPrefix %>.Feature.<%= ModuleName %>")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Sitecore.Feature.<%= featureName %>")]
+[assembly: AssemblyProduct("<%= SolutionPrefix %>.Feature.<%= ModuleName %>")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
