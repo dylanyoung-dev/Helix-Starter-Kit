@@ -9,5 +9,6 @@ module.exports = {
     ENVIRONMENT_URL: "EnvironmentUrl",
     ENVIRONMENT_ROOT: "EnvironmentRoot",
     SITECORE_VERSION: "SitecoreVersion",
-    SOLUTION_TYPE: "SolutionType"
+    SOLUTION_TYPE: "SolutionType",
+    WEBSITE_NAME: "WebsiteName"
 }

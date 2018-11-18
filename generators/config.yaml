@@ -25,3 +25,5 @@ Generators:
     exclude: true
   - name: 'GeneratorModuleType'
     exclude: true
+  - name: 'WebsiteName'
+    exclude: true

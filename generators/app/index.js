@@ -17,26 +17,30 @@ module.exports = class extends Generator {
 
     init() {
         this.log(yosay('welcome to ' + chalk.magenta('Helix Starter Kit') + ' Yeoman generator!'));
-
-        this._prompting();
     }
 
-    _prompting() {
+    prompting() {
 
         // Only Prompt for Questions that don't have a preset config option
         var prompts = common.TrimPrompts(introPrompts, presets.Generators);
 
+        // if (!common.getSolutionFilePath(this.destinationPath())) {
+        //     prompts = prompts.filter(function (x) {
+        //         return x.choices.value == 'create-module';
+        //     });
+        // }
+
+        // console.log(prompts);
+
         return this.prompt(prompts).then((answers) => {
             if (answers.GeneratorType === 'initialize') {
+
                 // Solution Initialization
                 this.composeWith(require.resolve('../solution-setup/'));
+
             }
 
             if (answers.GeneratorType === 'create-module') {
-                // Confirm Solution has been initialized first
-                if (!common.getSolutionFilePath(this.destinationPath())) {
-                    this.env.error(chalk.bold.red("Error: cannot find a .sln file in the current directory."));
-                }
 
                 // Create New Module Prompts
                 return this.prompt(common.TrimPrompts(modulePrompts, presets.Generators)).then((moduleanswers) => {

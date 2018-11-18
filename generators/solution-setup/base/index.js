@@ -10,6 +10,7 @@ const presets = common.GetConfig();
 let parameters = {};
 
 module.exports = class extends Generator {
+    
     constructor(args, opts) {
         super(args, opts);
 
