@@ -9,32 +9,41 @@ var foreach = require('foreach');
 
 const solutionPrompts = require('../global/prompts/solution.prompts.js');
 const common = require('../global/common.js');
+const constants = require('../global/constants.js');
 const presets = common.GetConfig();
+
+let parameters = {};
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
+
+        parameters = opts.options;
     }
 
     init() {
-        this.log('Solution Initialization');
+        this.log(chalk.magenta('Initializing Your Sitecore Solution...'));
     }
 
     prompting() {
 
         // Only Prompt for Questions that don't have a preset config option
         var prompts = common.TrimPrompts(solutionPrompts, presets.Generators);
-        this.variables = {};
 
         return this.prompt(prompts).then((answers) => {
 
             // Define Parameters to Use Throughout File
-            this.variables.SolutionName = common.ProcessParameter(answers.SolutionName, presets, "SolutionName");
-            this.variables.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
-            this.variables.SolutionType = common.ProcessParameter(answers.SolutionType, presets, "SolutionType");
-            this.variables.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
-            this.variables.EnvironmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, "EnvironmentRoot");
-            this.variables.EnvironmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, "EnvironmentUrl");
+            parameters.SolutionName = common.ProcessParameter(answers.SolutionName, presets, constants.SOLUTION_NAME);
+
+            parameters.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, constants.SITECORE_VERSION);
+
+            parameters.SolutionType = common.ProcessParameter(answers.SolutionType, presets, constants.SOLUTION_TYPE);
+
+            parameters.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, constants.SOLUTION_PREFIX);
+
+            parameters.EnvironmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, constants.ENVIRONMENT_ROOT);
+
+            parameters.EnvironmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, constants.ENVIRONMENT_URL);
 
         });
     }
@@ -42,11 +51,12 @@ module.exports = class extends Generator {
     runGenerator() {
 
         // Run Base Sub Generator
-        this.composeWith(require.resolve('../solution-setup/base/'), { options: this.variables });
+        this.composeWith(require.resolve('../solution-setup/base/'), { options: parameters });
 
         // Run Sub Generator Based on Solution Type Selected
         if (this.variables.SolutionType != "Base") {
-            this.composeWith(require.resolve(`/${this.variables.SolutionType.ToLower()}/`), { options: this.variables });
+            this.composeWith(require.resolve(`/${this.variables.SolutionType.ToLower()}/`), { options: parameters });
         }
+
     }
 }
