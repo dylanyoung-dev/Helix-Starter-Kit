@@ -7,7 +7,7 @@ var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 var foreach = require('foreach');
 
-const solutionPrompts = require('../global/prompts/solution.prompts.js');
+const solutionPrompts = require('../global/prompts/solution/base.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
 const presets = common.GetConfig();
@@ -54,8 +54,8 @@ module.exports = class extends Generator {
         this.composeWith(require.resolve('../solution-setup/base/'), { options: parameters });
 
         // Run Sub Generator Based on Solution Type Selected
-        if (this.variables.SolutionType != "Base") {
-            this.composeWith(require.resolve(`/${this.variables.SolutionType.ToLower()}/`), { options: parameters });
+        if (parameters.SolutionType.toLowerCase() != "base") {
+            this.composeWith(require.resolve(`/${parameters.SolutionType.toLowerCase()}/`), { options: parameters });
         }
 
     }

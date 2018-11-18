@@ -19,7 +19,7 @@ module.exports = class extends Generator {
     }
 
     init() {
-        this.log(chalk.blue('Running Website Sub-Generator'));
+        this.log(chalk.magenta('Running Website Sub-Generator'));
     }
 
     prompting() {

@@ -10,7 +10,7 @@ const presets = common.GetConfig();
 let parameters = {};
 
 module.exports = class extends Generator {
-    
+
     constructor(args, opts) {
         super(args, opts);
 
@@ -18,7 +18,7 @@ module.exports = class extends Generator {
     }
 
     init() {
-        this.log(chalk.blue('Running Base Sub-Generator'));
+        this.log(chalk.magenta('Running Base Sub-Generator'));
     }
 
 /*     prompting() {
