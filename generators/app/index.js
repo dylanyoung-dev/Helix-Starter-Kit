@@ -29,7 +29,7 @@ module.exports = class extends Generator {
         return this.prompt(prompts).then((answers) => {
             if (answers.GeneratorType === 'initialize') {
                 // Solution Initialization
-                this.composeWith(require.resolve('../initialize-solution/'));
+                this.composeWith(require.resolve('../solution-setup/'));
             }
 
             if (answers.GeneratorType === 'create-module') {
@@ -41,17 +41,17 @@ module.exports = class extends Generator {
                 // Create New Module Prompts
                 return this.prompt(common.TrimPrompts(modulePrompts, presets.Generators)).then((moduleanswers) => {
                     if (moduleanswers.GeneratorModuleType === 'project') {
-                        this.composeWith(require.resolve('../helix-project/'));
+                        this.composeWith(require.resolve('../create-module/helix-project/'));
                     }
         
                     if (moduleanswers.GeneratorModuleType === 'feature')
                     {
-                        this.composeWith(require.resolve('../helix-feature/'));
+                        this.composeWith(require.resolve('../create-module/helix-feature/'));
                     }
         
                     if (moduleanswers.GeneratorModuleType === 'foundation') 
                     {
-                        this.composeWith(require.resolve('../helix-foundation/'));
+                        this.composeWith(require.resolve('../create-module/helix-foundation/'));
                     }
                 });
             }

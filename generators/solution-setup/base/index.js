@@ -3,24 +3,33 @@
 var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 
-const basePrompts = require('../global/prompts/solution/base.prompts.js');
-const common = require('../global/common.js');
+const basePrompts = require('../../global/prompts/solution/base.prompts.js');
+const common = require('../../global/common.js');
 const presets = common.GetConfig();
+
+let parameters = {};
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
+
+        parameters = opts.options;
     }
 
     init() {
         this.log(chalk.blue('Running Base Sub-Generator'));
     }
 
-    prompting() {
+/*     prompting() {
 
         // Run Generator Specific Prompts (if any)
+        return this.prompt(basePrompts).then((answers) => {
 
-    }
+            // Define Parameters to Use Throughout File
+
+
+        });
+    } */
 
     runGenerator() {
 
@@ -36,7 +45,7 @@ module.exports = class extends Generator {
 
     _initialFolders() {
         this.fs.copy(
-            this.templatePath('base/templates/**'),
+            this.templatePath('./**'),
             this.destinationPath(), {
                 globOption: { dot: false }
             }
@@ -45,9 +54,9 @@ module.exports = class extends Generator {
 
     _solutionSetup() {
         this.fs.copyTpl(
-            this.templatePath('base/templates/.HelixStarterKit.sln'),
-            this.destinationPath(this.SolutionName + ".sln"), {
-                SolutionPrefix: this.SolutionPrefix
+            this.templatePath('.HelixStarterKit.sln'),
+            this.destinationPath(parameters.SolutionName + ".sln"), {
+                SolutionPrefix: parameters.SolutionPrefix
             }
         );
     };
@@ -64,10 +73,10 @@ module.exports = class extends Generator {
 
         paths.forEach(function(path) {
             this.fs.copyTpl(
-                startPath + '/base/templates' + path.Template,
-                destPath + path.Destination + this.SolutionPrefix + path.FileName + '.csproj', {
-                    SolutionPrefix: this.SolutionPrefix,
-                    SitecoreVersion: this.SitecoreVersion
+                startPath + path.Template,
+                destPath + path.Destination + parameters.SolutionPrefix + path.FileName + '.csproj', {
+                    SolutionPrefix: parameters.SolutionPrefix,
+                    SitecoreVersion: parameters.SitecoreVersion
                 }
             );
         }, this);
@@ -85,9 +94,9 @@ module.exports = class extends Generator {
 
         paths.forEach(function(path) {
             this.fs.copyTpl(
-                startPath + '\\base\\templates' + path + '.packages.config',
+                startPath + path + '.packages.config',
                 destPath + path + 'packages.config', {
-                    SitecoreVersion: this.SitecoreVersion
+                    SitecoreVersion: parameters.SitecoreVersion
                 }
             );
         }, this);
@@ -95,10 +104,10 @@ module.exports = class extends Generator {
 
     _gulpConfiguration() {
         this.fs.copyTpl(
-            this.templatePath('base/templates/.gulp-config.js'),
+            this.templatePath('.gulp-config.js'),
             this.destinationPath('gulp-config.js'), {
-                SitecoreRoot: this.EnvironmentRoot,
-                SolutionName: this.SolutionName
+                EnvironmentRoot: parameters.EnvironmentRoot,
+                SolutionName: parameters.SolutionName
             }
         );
     };
@@ -107,17 +116,17 @@ module.exports = class extends Generator {
 
         // Debug Targets
         this.fs.copyTpl(
-            this.templatePath('base/templates/.publishsettingsdebug.targets'),
+            this.templatePath('.publishsettingsdebug.targets'),
             this.destinationPath('publishsettingsdebug.targets'), {
-                EnvironmentUrl: this.EnvironmentUrl
+                EnvironmentUrl: parameters.EnvironmentUrl
             }
         );
 
         // Release Targets
         this.fs.copyTpl(
-            this.templatePath('base/templates/.publishsettingsrelease.targets'),
+            this.templatePath('.publishsettingsrelease.targets'),
             this.destinationPath('publishsettingsrelease.targets'), {
-                EnvironmentUrl: this.EnvironmentUrl
+                EnvironmentUrl: parameters.EnvironmentUrl
             }
         );
     };

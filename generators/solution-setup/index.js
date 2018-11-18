@@ -24,16 +24,17 @@ module.exports = class extends Generator {
 
         // Only Prompt for Questions that don't have a preset config option
         var prompts = common.TrimPrompts(solutionPrompts, presets.Generators);
+        this.variables = {};
 
         return this.prompt(prompts).then((answers) => {
 
             // Define Parameters to Use Throughout File
-            this.SolutionName = common.ProcessParameter(answers.SolutionName, presets, "SolutionName");
-            this.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
-            this.SolutionType = common.ProcessParameter(answers.SolutionType, presets, "SolutionType");
-            this.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
-            this.EnvironmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, "EnvironmentRoot");
-            this.EnvironmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, "EnvironmentUrl");
+            this.variables.SolutionName = common.ProcessParameter(answers.SolutionName, presets, "SolutionName");
+            this.variables.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
+            this.variables.SolutionType = common.ProcessParameter(answers.SolutionType, presets, "SolutionType");
+            this.variables.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
+            this.variables.EnvironmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, "EnvironmentRoot");
+            this.variables.EnvironmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, "EnvironmentUrl");
 
         });
     }
@@ -41,18 +42,11 @@ module.exports = class extends Generator {
     runGenerator() {
 
         // Run Base Sub Generator
-        this.composeWith(require.resolve('/base/'));
+        this.composeWith(require.resolve('../solution-setup/base/'), { options: this.variables });
 
         // Run Sub Generator Based on Solution Type Selected
-        this.composeWith(require.resolve(`/${this.SolutionType}/`));
+        if (this.variables.SolutionType != "Base") {
+            this.composeWith(require.resolve(`/${this.variables.SolutionType.ToLower()}/`), { options: this.variables });
+        }
     }
 }
-
-/* module.exports = generators.Base({
-    end: function () {
-        var done = this.async();
-
-        console.log('Just Testing');
-        //this.spawnCommand('createdb.cmd').on('close', done);
-    }
-}); */

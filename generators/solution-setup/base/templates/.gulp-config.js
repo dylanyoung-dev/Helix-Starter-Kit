@@ -1,5 +1,5 @@
 module.exports = function () {
-    var sitecoreRoot = "<%=SitecoreRoot%>";
+    var sitecoreRoot = "<%=EnvironmentRoot%>";
     var config = {
         websiteRoot: sitecoreRoot,
         sitecoreLibraries: sitecoreRoot + "\\bin",
