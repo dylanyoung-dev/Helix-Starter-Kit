@@ -6,22 +6,17 @@ var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
-const projectPrompts = require('../../global/prompts/modules/project.prompts.js');
-const common = require('../../global/common.js');
-const constants = require('../../global/constants.js');
+const projectPrompts = require('../global/prompts/helix.project.prompts.js');
+const common = require('../global/common.js');
 const presets = common.GetConfig();
-
-let parameters = {};
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
-
-        parameters = opts.options;
     }
 
     init() {
-        this.log(chalk.green('Creating a Project Module'));
+        this.log('helix project');
     }
 
     prompting() {
@@ -30,23 +25,20 @@ module.exports = class extends Generator {
         var prompts = common.TrimPrompts(projectPrompts, presets.Generators);
 
         return this.prompt(prompts).then((answers) => {
-
-            // Add to Parameters to Use Throughout File
-            parameters.ModuleName = common.ProcessParameter(answers.ModuleName, presets, constants.MODULE_NAME);
-
-            this.ModuleNameLower = parameters.ModuleName.toLowerCase();
-
-            parameters.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, constants.SOLUTION_PREFIX);
-
-            parameters.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, constants.SITECORE_VERSION);
-
+            this.ModuleName = common.ProcessParameter(answers.ModuleName, presets, "ModuleName");
+            this.ModuleNameLower = this.ModuleName.toLowerCase();
+            this.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, "SolutionPrefix");
+            this.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, "SitecoreVersion");
         });
 
     }
 
     configure() {
-        this.ProjectGuid = guid.v4();
+        this.projectGuid = guid.v4();
+
         this.targetPath = path.join('src', 'Project', this.ModuleName);
+        
+        this.log('Project Path: ' + this.targetPath);
     }
 
     runGenerator() {
@@ -60,7 +52,6 @@ module.exports = class extends Generator {
         this._configureAssembly();
         this._configureCodeGeneration();
         this._solutionAttach();
-
     }
 
     _initialFolders() {
@@ -82,8 +73,8 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('templates/code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + parameters.ModuleName + '.Serialization.config')), {
-                ModuleName: parameters.ModuleName
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + this.ModuleName + '.Serialization.config')), {
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -91,8 +82,8 @@ module.exports = class extends Generator {
     _configureSiteDefinition() {
         this.fs.copyTpl(
             this.templatePath('templates/code/App_Config/Include/Project/.Project.Sample.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + parameters.ModuleName + '.config')), {
-                ModuleName: parameters.ModuleName,
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + this.ModuleName + '.config')), {
+                ModuleName: this.ModuleName,
                 ModuleNameLower: this.ModuleNameLower
             }
         );
@@ -102,11 +93,11 @@ module.exports = class extends Generator {
         // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
             this.templatePath('templates/code/.Sitecore.Project.csproj'),
-            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Project.' + parameters.ModuleName + '.csproj')), {
-                ProjectGuid: `{${this.ProjectGuid}}`,
-                ModuleName: parameters.ModuleName,
-                SitecoreVersion: parameters.SitecoreVersion,
-                SolutionPrefix: parameters.SolutionPrefix
+            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Project.' + this.ModuleName + '.csproj')), {
+                ProjectGuid: `{${this.projectGuid}}`,
+                ModuleName: this.ModuleName,
+                SitecoreVersion: this.SitecoreVersion,
+                SolutionPrefix: this.SolutionPrefix
             }
         );
     }
@@ -114,7 +105,7 @@ module.exports = class extends Generator {
     _configureLayoutDefinition() {
         this.fs.copyTpl(
             this.templatePath('templates/code/Views/Layout/.Main.cshtml'),
-            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + parameters.ModuleName, 'Layout.cshtml'))
+            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + this.ModuleName, 'Layout.cshtml'))
         );
     }
 
@@ -123,7 +114,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                SitecoreVersion: parameters.SitecoreVersion
+                SitecoreVersion: '9.0.180604'
             }
         );
     }
@@ -133,8 +124,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                ModuleName: parameters.ModuleName,
-                SolutionPrefix: parameters.SolutionPrefix
+                ModuleName: this.ModuleName,
+                SolutionPrefix: this.SolutionPrefix
             }
         );
     }
@@ -144,7 +135,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('templates/code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
-                ModuleName: parameters.ModuleName
+                ModuleName: this.ModuleName
             }
         );
     }
@@ -160,9 +151,9 @@ module.exports = class extends Generator {
         let projectFolderGuid = guid.v4();
 
         let projectDefinition =
-            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${parameters.SolutionPrefix}.Project.${parameters.ModuleName}", "src\\Project\\${parameters.ModuleName}\\code\\${parameters.SolutionPrefix}.Project.${parameters.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${this.SolutionPrefix}.Project.${this.ModuleName}", "src\\Project\\${this.ModuleName}\\code\\${this.SolutionPrefix}.Project.${this.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
             `EndProject\r\n` +
-            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${parameters.ModuleName}", "${parameters.ModuleName}", "{${projectFolderGuid}}"\r\n` + `EndProject\r\n`;
+            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${this.ModuleName}", "${this.ModuleName}", "{${projectFolderGuid}}"\r\n` + `EndProject\r\n`;
 
         let projectBuildConfig = 
             `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
