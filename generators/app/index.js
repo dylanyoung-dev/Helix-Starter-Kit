@@ -46,6 +46,13 @@ module.exports = class extends Generator {
 
         if (parameters.GeneratorType === 'create-module') {
 
+            let slnPath = common.getSolutionFilePath(this.destinationPath());
+            if (slnPath == '' | typeof(slnPath) == 'undefined')
+            {
+                this.log(chalk.red('You must initialize your Solution before creating a module.'));
+                return;
+            }
+
             // Create New Module Prompts
             this.composeWith(require.resolve('../create-module/'), { options: parameters });
 
