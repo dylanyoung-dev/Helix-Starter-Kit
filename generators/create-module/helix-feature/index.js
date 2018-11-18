@@ -74,7 +74,8 @@ module.exports = class extends Generator {
             this.destinationPath(path.join(this.targetPath, 'code', parameters.SolutionPrefix + '.Feature.' + parameters.ModuleName + '.csproj')), {
                 ProjectGuid: `{${this.ProjectGuid}}`,
                 ModuleName: parameters.ModuleName,
-                SitecoreVersion: parameters.SitecoreVersion
+                SitecoreVersion: parameters.SitecoreVersion,
+                SolutionPrefix: parameters.SolutionPrefix
             }
         );
     }
@@ -94,7 +95,8 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('./code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                ModuleName: parameters.ModuleName
+                ModuleName: parameters.ModuleName,
+                SolutionPrefix: parameters.SolutionPrefix
             }
         );
     }
@@ -126,7 +128,7 @@ module.exports = class extends Generator {
         let featureFolderGuid = guid.v4();
 
         let projectDefinition =
-            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${parameters.solutionPrefix}.Feature.${parameters.ModuleName}", "src\\Feature\\${parameters.ModuleName}\\code\\${parameters.solutionPrefix}.Feature.${parameters.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${parameters.SolutionPrefix}.Feature.${parameters.ModuleName}", "src\\Feature\\${parameters.ModuleName}\\code\\${parameters.SolutionPrefix}.Feature.${parameters.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
             `EndProject\r\n` +
             `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${parameters.ModuleName}", "${parameters.ModuleName}", "{${featureFolderGuid}}"\r\n` + `EndProject\r\n`;
 

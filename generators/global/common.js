@@ -1,16 +1,25 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var yaml = require('js-yaml');
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
+const merge = require('merge-config');
 
 module.exports = {
 
     GetConfig() {
-        // TODO: Add Support for Local Configuration
-        var object = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'))
 
-        return object;
+        let mergeConfig = new merge();
+
+        // Load Primary Configuration
+        mergeConfig.file(path.join(__dirname, '../config.yaml'));
+
+        // TODO: Figure out why it won't overwrite main config correctly
+        // if (fs.exists(path.join(__dirname, '../config.local.yaml'), function(exists) {
+        //     mergeConfig.file(path.join(__dirname, '../config.local.yaml'));
+        // }));
+
+        return mergeConfig.get();
     },
 
     /**
@@ -43,7 +52,7 @@ module.exports = {
 
         var filtered = prompts.filter(function(x) {
             return !presets.find(function(y) {
-                return y.name == x.name && y.exclude == false;
+                return y.name == x.name && y.exclude == false && (typeof(y.value) != 'undefined');
             });
         });
 

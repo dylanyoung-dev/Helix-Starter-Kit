@@ -30,6 +30,8 @@ module.exports = class extends Generator {
         // Only Prompt for Questions that don't have a preset config option
         var prompts = common.TrimPrompts(solutionPrompts, presets.Generators);
 
+        this.log(presets.SolutionName);
+
         return this.prompt(prompts).then((answers) => {
 
             // Define Parameters to Use Throughout File

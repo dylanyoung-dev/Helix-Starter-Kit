@@ -19,7 +19,8 @@
     "mkdirp": "0.5.1",
     "fs": "0.0.1-security",
     "foreach": "2.0.5",
-    "js-yaml": "3.12.0"
+    "js-yaml": "3.12.0",
+    "merge-config": "2.0.0"
   },
   "devDependencies": {},
   "repository": {

@@ -13,3 +13,4 @@
 /tools/scripts/.vs
 /generators/node_modules
 
+/generators/config.local.yaml

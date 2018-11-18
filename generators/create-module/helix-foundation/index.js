@@ -6,7 +6,7 @@ var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
-const prompts = require('../../global/prompts/modules/foundation.prompts.js');
+const foundationPrompts = require('../../global/prompts/modules/foundation.prompts.js');
 const common = require('../../global/common.js');
 const constants = require('../../global/constants.js');
 const presets = common.GetConfig();
@@ -27,7 +27,7 @@ module.exports = class extends Generator {
     prompting() {
 
         // Only Prompt for Questions that don't have a preset config option set
-        let prompts = common.TrimPrompts(projectPrompts, presets.Generators);
+        let prompts = common.TrimPrompts(foundationPrompts, presets.Generators);
 
         return this.prompt(prompts).then((answers) => {
 
@@ -74,7 +74,8 @@ module.exports = class extends Generator {
             this.destinationPath(path.join(this.targetPath, 'code', parameters.SolutionPrefix + '.Foundation.' + parameters.ModuleName + '.csproj')), {
                 ProjectGuid: `{${this.ProjectGuid}}`,
                 ModuleName: parameters.ModuleName,
-                SitecoreVersion: parameters.SitecoreVersion
+                SitecoreVersion: parameters.SitecoreVersion,
+                SolutionPrefix: parameters.SolutionPrefix
             }
         );
     }
