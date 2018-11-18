@@ -5,7 +5,6 @@ var chalk = require('chalk');
 var yosay = require('yosay');
 
 const introPrompts = require('../global/prompts/intro.prompts.js');
-const modulePrompts = require('../global/prompts/module.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
 const presets = common.GetConfig();
@@ -34,31 +33,18 @@ module.exports = class extends Generator {
 
     runGenerator() {
 
-        if (answers.GeneratorType === 'initialize') {
+        if (parameters.GeneratorType === 'initialize') {
 
             // Solution Initialization
             this.composeWith(require.resolve('../solution-setup/'), { options: parameters });
 
         }
 
-        if (answers.GeneratorType === 'create-module') {
+        if (parameters.GeneratorType === 'create-module') {
 
             // Create New Module Prompts
-            return this.prompt(common.TrimPrompts(modulePrompts, presets.Generators)).then((moduleanswers) => {
-                if (moduleanswers.GeneratorModuleType === 'project') {
-                    this.composeWith(require.resolve('../create-module/helix-project/'), { options: parameters });
-                }
-    
-                if (moduleanswers.GeneratorModuleType === 'feature')
-                {
-                    this.composeWith(require.resolve('../create-module/helix-feature/'), { options: parameters });
-                }
-    
-                if (moduleanswers.GeneratorModuleType === 'foundation') 
-                {
-                    this.composeWith(require.resolve('../create-module/helix-foundation/'), { options: parameters });
-                }
-            });
+            this.composeWith(require.resolve('../create-module/'), { options: parameters });
+
         }
 
     }

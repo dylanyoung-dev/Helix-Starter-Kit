@@ -12,7 +12,7 @@ module.exports = class extends Generator {
     }
 
     init() {
-        this.log(chalk.blue('Running Module Sub-Generator'));
+        this.log(chalk.magenta('Running Module Sub-Generator'));
     }
 
     prompting() {
