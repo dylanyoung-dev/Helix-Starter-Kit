@@ -18,16 +18,18 @@ module.exports = class extends Generator {
         super(args, opts);
 
         parameters = opts.options;
+
+        this.log(parameters.SolutionPrefix);
     }
 
     init() {
-        this.log(chalk.green('Creating a Project Module'));
+        this.log(chalk.blue('Creating a Project Module...'));
     }
 
     prompting() {
 
         // Only Prompt for Questions that don't have a preset config option set
-        var prompts = common.TrimPrompts(projectPrompts, presets.Generators);
+        let prompts = common.TrimPrompts(projectPrompts, presets.Generators);
 
         return this.prompt(prompts).then((answers) => {
 
@@ -36,17 +38,13 @@ module.exports = class extends Generator {
 
             this.ModuleNameLower = parameters.ModuleName.toLowerCase();
 
-            parameters.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, constants.SOLUTION_PREFIX);
-
-            parameters.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, constants.SITECORE_VERSION);
-
         });
 
     }
 
     configure() {
         this.ProjectGuid = guid.v4();
-        this.targetPath = path.join('src', 'Project', this.ModuleName);
+        this.targetPath = path.join('src', 'Project', parameters.ModuleName);
     }
 
     runGenerator() {
@@ -63,13 +61,13 @@ module.exports = class extends Generator {
 
     }
 
-    _initialFolders() {
+    _initializeFolders() {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config'));
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include'));
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Project'));
 
         this.fs.copy(
-            this.templatePath('templates/**'),
+            this.templatePath('./**'),
             this.destinationPath(this.targetPath), {
                 globOptions: { dot: false }
             }
@@ -81,7 +79,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
+            this.templatePath('./code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + parameters.ModuleName + '.Serialization.config')), {
                 ModuleName: parameters.ModuleName
             }
@@ -90,7 +88,7 @@ module.exports = class extends Generator {
 
     _configureSiteDefinition() {
         this.fs.copyTpl(
-            this.templatePath('templates/code/App_Config/Include/Project/.Project.Sample.config'),
+            this.templatePath('./code/App_Config/Include/Project/.Project.Sample.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + parameters.ModuleName + '.config')), {
                 ModuleName: parameters.ModuleName,
                 ModuleNameLower: this.ModuleNameLower
@@ -99,10 +97,9 @@ module.exports = class extends Generator {
     }
 
     _configureProject() {
-        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('templates/code/.Sitecore.Project.csproj'),
-            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Project.' + parameters.ModuleName + '.csproj')), {
+            this.templatePath('./code/.Sitecore.Project.csproj'),
+            this.destinationPath(path.join(this.targetPath, 'code', parameters.SolutionPrefix + '.Project.' + parameters.ModuleName + '.csproj')), {
                 ProjectGuid: `{${this.ProjectGuid}}`,
                 ModuleName: parameters.ModuleName,
                 SitecoreVersion: parameters.SitecoreVersion,
@@ -113,15 +110,14 @@ module.exports = class extends Generator {
 
     _configureLayoutDefinition() {
         this.fs.copyTpl(
-            this.templatePath('templates/code/Views/Layout/.Main.cshtml'),
+            this.templatePath('./code/Views/Layout/.Main.cshtml'),
             this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + parameters.ModuleName, 'Layout.cshtml'))
         );
     }
 
     _configurePackages() {
-        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('templates/code/.packages.config'),
+            this.templatePath('./code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
                 SitecoreVersion: parameters.SitecoreVersion
             }
@@ -131,7 +127,7 @@ module.exports = class extends Generator {
     _configureAssembly() {
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
+            this.templatePath('./code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
                 ModuleName: parameters.ModuleName,
                 SolutionPrefix: parameters.SolutionPrefix
@@ -142,7 +138,7 @@ module.exports = class extends Generator {
     _configureCodeGeneration() {
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/.CodeGen.config'),
+            this.templatePath('./code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
                 ModuleName: parameters.ModuleName
             }
@@ -153,6 +149,11 @@ module.exports = class extends Generator {
         let slnFilePath = common.getSolutionFilePath(this.destinationPath());
 
         let slnText = this.fs.read(slnFilePath);
+
+        // Stop Process if Project Already Exists in the Solution (for any reason)
+        if (slnText.indexOf(`${parameters.SolutionPrefix}.Project.${parameters.ModuleName}.csproj`) > -1) {
+            return;
+        }
         
         slnText = common.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
         slnText = common.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');

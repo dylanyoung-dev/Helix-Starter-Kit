@@ -6,33 +6,41 @@ var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
-const prompts = require('../global/prompts/helix.feature.prompts.js');
-const common = require('../global/common.js');
+const featurePrompts = require('../../global/prompts/modules/feature.prompts.js');
+const common = require('../../global/common.js');
+const constants = require('../../global/constants.js');
+const presets = common.GetConfig();
+
+let parameters = {};
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
+
+        parameters = opts.options;
     }
 
     init() {
-        this.log('helix feature');
+        this.log(chalk.blue('Create a Feature Module...'));
     }
 
     prompting() {
 
+        // Only Prompt for Questions that don't have a preset config option set
+        let prompts = common.TrimPrompts(featurePrompts, presets.Generators);
+
         return this.prompt(prompts).then((answers) => {
-            this.ModuleName = answers.ModuleName;
-            this.SolutionPrefix = answers.SolutionPrefix;
+
+            // Add to Parameters to Use Throughout File
+            parameters.ModuleName = common.ProcessParameter(answers.ModuleName, presets, constants.MODULE_NAME);
+
         });
 
     }
 
     configure() {
         this.ProjectGuid = guid.v4();
-
-        this.targetPath = path.join('src', 'Feature', this.ModuleName);
-        
-        this.log('Feature Path: ' + this.targetPath);
+        this.targetPath = path.join('src', 'Feature', parameters.ModuleName);
     }
 
     initialFolders() {
@@ -41,7 +49,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Feature'));
 
         this.fs.copy(
-            this.templatePath('templates/**'),
+            this.templatePath('./**'),
             this.destinationPath(this.targetPath), {
                 globOptions: { dot: false }
             }
@@ -53,21 +61,20 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/App_Config/Include/Feature/.Feature.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Feature.' + this.ModuleName + '.Serialization.config')), {
-                ModuleName: this.ModuleName
+            this.templatePath('./code/App_Config/Include/Feature/.Feature.Sample.Serialization.config'),
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Feature.' + parameters.ModuleName + '.Serialization.config')), {
+                ModuleName: parameters.ModuleName
             }
         );
     }
 
     project() {
-        // TODO: Pass Sitecore Version from presets
         this.fs.copyTpl(
-            this.templatePath('templates/code/.Sitecore.Feature.csproj'),
-            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Feature.' + this.ModuleName + '.csproj')), {
+            this.templatePath('./code/.Sitecore.Feature.csproj'),
+            this.destinationPath(path.join(this.targetPath, 'code', parameters.SolutionPrefix + '.Feature.' + parameters.ModuleName + '.csproj')), {
                 ProjectGuid: `{${this.ProjectGuid}}`,
-                ModuleName: this.ModuleName,
-                SitecoreVersion: this.SitecoreVersion
+                ModuleName: parameters.ModuleName,
+                SitecoreVersion: parameters.SitecoreVersion
             }
         );
     }
@@ -75,9 +82,9 @@ module.exports = class extends Generator {
     packages() {
         // TODO: Pass Sitecore Version from presets
         this.fs.copyTpl(
-            this.templatePath('templates/code/.packages.config'),
+            this.templatePath('./code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                SitecoreVersion: this.SitecoreVersion
+                SitecoreVersion: parameters.SitecoreVersion
             }
         );
     }
@@ -85,9 +92,9 @@ module.exports = class extends Generator {
     assembly() {
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
+            this.templatePath('./code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                ModuleName: this.ModuleName
+                ModuleName: parameters.ModuleName
             }
         );
     }
@@ -95,9 +102,9 @@ module.exports = class extends Generator {
     codeGeneration() {
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/.CodeGen.config'),
+            this.templatePath('./code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
-                ModuleName: this.ModuleName
+                ModuleName: parameters.ModuleName
             }
         );
 
@@ -107,6 +114,11 @@ module.exports = class extends Generator {
         let slnFilePath = common.getSolutionFilePath(this.destinationPath());
 
         let slnText = this.fs.read(slnFilePath);
+
+        // Stop Process if Project Already Exists in the Solution (for any reason)
+        if (slnText.indexOf(`${parameters.SolutionPrefix}.Feature.${parameters.ModuleName}.csproj`) > -1) {
+            return;
+        }
         
         slnText = common.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
         slnText = common.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
@@ -114,21 +126,21 @@ module.exports = class extends Generator {
         let featureFolderGuid = guid.v4();
 
         let projectDefinition =
-            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${this.solutionPrefix}.Feature.${this.featureName}", "src\\Feature\\${this.featureName}\\code\\${this.solutionPrefix}.Feature.${this.featureName}.csproj", "{${this.projectGuid}}"\r\n` +
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${parameters.solutionPrefix}.Feature.${parameters.ModuleName}", "src\\Feature\\${parameters.ModuleName}\\code\\${parameters.solutionPrefix}.Feature.${parameters.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
             `EndProject\r\n` +
-            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${this.featureName}", "${this.featureName}", "{${featureFolderGuid}}"\r\n` + `EndProject\r\n`;
+            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${parameters.ModuleName}", "${parameters.ModuleName}", "{${featureFolderGuid}}"\r\n` + `EndProject\r\n`;
 
         let projectBuildConfig = 
-            `		{${this.projectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
-            `		{${this.projectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
-            `		{${this.projectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
-            `		{${this.projectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
+            `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
 
         slnText = common.ensureSolutionFolder(slnText, "Feature");
         let layerFolderGuid = common.getSolutionFolderGuid(slnText, "Feature");
 
         let projectNesting =
-            `		{${this.projectGuid}} = {${featureFolderGuid}}\r\n` +
+            `		{${this.ProjectGuid}} = {${featureFolderGuid}}\r\n` +
             `		{${featureFolderGuid}} = {${layerFolderGuid}}\r\n`;
 
         slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&${projectDefinition}\r\n`);

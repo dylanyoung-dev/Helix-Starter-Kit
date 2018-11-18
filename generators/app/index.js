@@ -27,7 +27,11 @@ module.exports = class extends Generator {
         var prompts = common.TrimPrompts(introPrompts, presets.Generators);
 
         return this.prompt(prompts).then((answers) => {
+
             parameters.GeneratorType = common.ProcessParameter(answers.GeneratorType, presets, constants.GENERATOR_TYPE);
+            parameters.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, constants.SOLUTION_PREFIX);
+            parameters.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, constants.SITECORE_VERSION);
+
         });
     }
 

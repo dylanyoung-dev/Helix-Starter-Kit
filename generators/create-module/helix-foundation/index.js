@@ -6,33 +6,41 @@ var chalk = require('chalk');
 var mkdir = require('mkdirp');
 var guid = require('node-uuid');
 
-const prompts = require('../global/prompts/helix.foundation.prompts.js');
-const common = require('../global/common.js');
+const prompts = require('../../global/prompts/modules/foundation.prompts.js');
+const common = require('../../global/common.js');
+const constants = require('../../global/constants.js');
+const presets = common.GetConfig();
+
+let parameters = {};
 
 module.exports = class extends Generator {
     constructor(args, opts) {
         super(args, opts);
+
+        parameters = opts.options;
     }
 
     init() {
-        this.log('helix foundation');
+        this.log(chalk.blue('Creating a Foundation Module...'));
     }
 
     prompting() {
 
+        // Only Prompt for Questions that don't have a preset config option set
+        let prompts = common.TrimPrompts(projectPrompts, presets.Generators);
+
         return this.prompt(prompts).then((answers) => {
-            this.ModuleName = answers.ModuleName;
-            this.SolutionPrefix = answers.SolutionPrefix;
+
+            // Add to Parameters to Use Throughout File
+            parameters.ModuleName = common.ProcessParameter(answers.ModuleName, presets, constants.MODULE_NAME);
+
         });
 
     }
 
     configure() {
-        this.projectGuid = guid.v4();
-
-        this.targetPath = path.join('src', 'Foundation', this.ModuleName);
-        
-        this.log('Foundation Path: ' + this.targetPath);
+        this.ProjectGuid = guid.v4();
+        this.targetPath = path.join('src', 'Foundation', parameters.ModuleName);
     }
 
     initialFolders() {
@@ -41,7 +49,7 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'code/App_Config/Include/Foundation'));
 
         this.fs.copy(
-            this.templatePath('templates/**'),
+            this.templatePath('./**'),
             this.destinationPath(this.targetPath), {
                 globOptions: { dot: false }
             }
@@ -53,31 +61,29 @@ module.exports = class extends Generator {
         mkdir.sync(path.join(this.targetPath, 'serialization'));
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/App_Config/Include/Foundation/.Foundation.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Foundation.' + this.ModuleName + '.Serialization.config')), {
-                ModuleName: this.ModuleName
+            this.templatePath('./code/App_Config/Include/Foundation/.Foundation.Sample.Serialization.config'),
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Foundation.' + parameters.ModuleName + '.Serialization.config')), {
+                ModuleName: parameters.ModuleName
             }
         );
     }
 
     project() {
-        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('templates/code/.Sitecore.Foundation.csproj'),
-            this.destinationPath(path.join(this.targetPath, 'code', this.SolutionPrefix + '.Foundation.' + this.ModuleName + '.csproj')), {
+            this.templatePath('./code/.Sitecore.Foundation.csproj'),
+            this.destinationPath(path.join(this.targetPath, 'code', parameters.SolutionPrefix + '.Foundation.' + parameters.ModuleName + '.csproj')), {
                 ProjectGuid: `{${this.ProjectGuid}}`,
-                ModuleName: this.ModuleName,
-                SitecoreVersion: this.SitecoreVersion
+                ModuleName: parameters.ModuleName,
+                SitecoreVersion: parameters.SitecoreVersion
             }
         );
     }
 
     packages() {
-        // TODO: Update Sitecore Version from Presets
         this.fs.copyTpl(
-            this.templatePath('templates/code/.packages.config'),
+            this.templatePath('./code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                SitecoreVersion: this.SitecoreVersion
+                SitecoreVersion: parameters.SitecoreVersion
             }
         );
     }
@@ -85,10 +91,10 @@ module.exports = class extends Generator {
     assembly() {
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/Properties/.AssemblyInfo.cs'),
+            this.templatePath('./code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                ModuleName: this.ModuleName,
-                SolutionPrefix: this.SolutionPrefix
+                ModuleName: parameters.ModuleName,
+                SolutionPrefix: parameters.SolutionPrefix
             }
         );
     }
@@ -96,10 +102,10 @@ module.exports = class extends Generator {
     codeGeneration() {
 
         this.fs.copyTpl(
-            this.templatePath('templates/code/.CodeGen.config'),
+            this.templatePath('./code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')),
             {
-                ModuleName: this.ModuleName
+                ModuleName: parameters.ModuleName
             }
         );
     }
@@ -108,6 +114,11 @@ module.exports = class extends Generator {
         let slnFilePath = common.getSolutionFilePath(this.destinationPath());
 
         let slnText = this.fs.read(slnFilePath);
+
+        // Stop Process if Project Already Exists in the Solution (for any reason)
+        if (slnText.indexOf(`${parameters.SolutionPrefix}.Foundation.${parameters.ModuleName}.csproj`) > -1) {
+            return;
+        }
         
         slnText = common.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
         slnText = common.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
@@ -115,9 +126,9 @@ module.exports = class extends Generator {
         let foundationFolderGuid = guid.v4();
 
         let projectDefinition =
-            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${this.SolutionPrefix}.Foundation.${this.ModuleName}", "src\\Foundation\\${this.ModuleName}\\code\\${this.SolutionPrefix}.Foundation.${this.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${parameters.SolutionPrefix}.Foundation.${parameters.ModuleName}", "src\\Foundation\\${parameters.ModuleName}\\code\\${parameters.SolutionPrefix}.Foundation.${parameters.ModuleName}.csproj", "{${this.ProjectGuid}}"\r\n` +
             `EndProject\r\n` +
-            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${this.ModuleName}", "${this.ModuleName}", "{${foundationFolderGuid}}"\r\n` + `EndProject\r\n`;
+            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${parameters.ModuleName}", "${parameters.ModuleName}", "{${foundationFolderGuid}}"\r\n` + `EndProject\r\n`;
 
         let projectBuildConfig = 
             `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +

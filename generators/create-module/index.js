@@ -3,7 +3,7 @@
 var Generator = require('yeoman-generator');
 var chalk = require('chalk');
 
-const modulePrompts = require('../global/prompts/');
+const modulePrompts = require('../global/prompts/modules/base.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
 const presets = common.GetConfig();
@@ -18,7 +18,7 @@ module.exports = class extends Generator {
     }
 
     init() {
-        this.log(chalk.green('Creating a Module...'));
+        this.log(chalk.blue('Creating a Module...'));
     }
 
     prompting() {
