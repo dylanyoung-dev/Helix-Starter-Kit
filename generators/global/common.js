@@ -76,6 +76,48 @@ module.exports = {
         return slnText;
     },
 
+    addProjectToSolution(layer, destinationPath, projectId, solutionPrefix, moduleName) {
+
+        let slnFilePath = common.getSolutionFilePath(destinationPath);
+
+        let slnText = this.fs.read(slnFilePath);
+
+        // Stop Process if Project Already Exists in the Solution (for any reason)
+        if (slnText.indexOf(`${solutionPrefix}.${layer}.${moduleName}.csproj`) > -1) {
+            this.log('Module already exists in the solution.')
+            return;
+        }
+        
+        slnText = common.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
+        slnText = common.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
+
+        let projectFolderGuid = guid.v4();
+
+        let projectDefinition =
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${solutionPrefix}.${layer}.${moduleName}", "src\\${layer}\\${moduleName}\\code\\${solutionPrefix}.${layer}.${moduleName}.csproj", "{${projectId}}"\r\n` +
+            `EndProject\r\n` +
+            `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${moduleName}", "${moduleName}", "{${projectFolderGuid}}"\r\n` + `EndProject\r\n`;
+
+        let projectBuildConfig = 
+            `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
+            `		{${this.ProjectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
+
+        slnText = common.ensureSolutionFolder(slnText, "Project");
+        let layerFolderGuid = common.getSolutionFolderGuid(slnText, "Project");
+
+        let projectNesting =
+            `		{${projectId}} = {${projectFolderGuid}}\r\n` +
+            `		{${projectFolderGuid}} = {${layerFolderGuid}}\r\n`;
+
+        slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&${projectDefinition}\r\n`);
+        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(ProjectConfigurationPlatforms\)[^\r\n]*\r\n/, `$&${projectBuildConfig}\r\n`);
+        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(NestedProjects\)[^\r\n]*\r\n/, `$&${projectNesting}\r\n`);
+
+        this.fs.write(slnFilePath, slnText);
+    },
+
     ensureSolutionFolder(slnText, folderName) {
         let folderGuid = this.getSolutionFolderGuid(slnText, folderName);
         
