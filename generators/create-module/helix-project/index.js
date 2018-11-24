@@ -18,8 +18,6 @@ module.exports = class extends Generator {
         super(args, opts);
 
         parameters = opts.options;
-
-        this.log(parameters.SolutionPrefix);
     }
 
     init() {
