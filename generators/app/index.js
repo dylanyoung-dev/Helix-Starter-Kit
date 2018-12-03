@@ -40,7 +40,7 @@ module.exports = class extends Generator {
         if (parameters.GeneratorType === 'initialize') {
 
             // Solution Initialization
-            this.composeWith(require.resolve('../solution-setup/'), { options: parameters });
+            this.composeWith("app:starter.solution", { options: parameters }, require.resolve('../solution-setup/'));
 
         }
 

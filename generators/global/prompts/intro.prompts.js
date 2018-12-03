@@ -22,6 +22,9 @@ module.exports = [{
     },{
         name: '9.0.1 (171219)',
         value: '9.0.171219'
+    },{
+        name: '9.1.0 (001564)',
+        value: '12.0.0'
     }]
 }, {
     type: 'input',

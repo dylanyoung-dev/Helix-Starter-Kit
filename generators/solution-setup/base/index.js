@@ -32,6 +32,19 @@ module.exports = class extends Generator {
         });
     } */
 
+    configuration() {
+        this.FrameworkVersion = "";
+        this.FrameworkVersionNumber = "";
+
+        if (parameters.SitecoreVersion == "12.0.0") {
+            this.FrameworkVersion = "v471";
+            this.FrameworkVersionNumber = "4.7.1";
+        } else {
+            this.FrameworkVersion = "v462";
+            this.FrameworkVersionNumber = "4.6.2";
+        }
+    }
+
     runGenerator() {
 
         // Run Generator Methods
@@ -57,7 +70,9 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('.HelixStarterKit.sln'),
             this.destinationPath(parameters.SolutionName + ".sln"), {
-                SolutionPrefix: parameters.SolutionPrefix
+                SolutionPrefix: parameters.SolutionPrefix,
+                FrameworkVersion: this.FrameworkVersion,
+                FrameworkVersionNumber: this.FrameworkVersionNumber
             }
         );
     };
@@ -77,7 +92,9 @@ module.exports = class extends Generator {
                 startPath + path.Template,
                 destPath + path.Destination + parameters.SolutionPrefix + path.FileName + '.csproj', {
                     SolutionPrefix: parameters.SolutionPrefix,
-                    SitecoreVersion: parameters.SitecoreVersion
+                    SitecoreVersion: parameters.SitecoreVersion,
+                    FrameworkVersion: this.FrameworkVersion,
+                    FrameworkVersionNumber: this.FrameworkVersionNumber
                 }
             );
         }, this);
@@ -97,7 +114,9 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 startPath + path + '.packages.config',
                 destPath + path + 'packages.config', {
-                    SitecoreVersion: parameters.SitecoreVersion
+                    SitecoreVersion: parameters.SitecoreVersion,
+                    FrameworkVersion: this.FrameworkVersion,
+                    FrameworkVersionNumber: this.FrameworkVersionNumber
                 }
             );
         }, this);

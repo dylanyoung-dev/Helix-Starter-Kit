@@ -14,3 +14,4 @@
 /generators/node_modules
 
 /generators/config.local.yaml
+/coverage
