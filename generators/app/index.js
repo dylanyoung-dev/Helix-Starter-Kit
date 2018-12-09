@@ -7,6 +7,7 @@ var yosay = require('yosay');
 const introPrompts = require('../global/prompts/intro.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
+const versionDetails = require('../global/versions.js');
 const presets = common.GetConfig();
 
 let parameters = {};
@@ -35,12 +36,26 @@ module.exports = class extends Generator {
         });
     }
 
+    configure() {
+        // Sitecore 9, 9.1 Run on 4.7.1
+        parameters.FrameworkVersion = "4.7.1";
+
+        // Determine Sitecore Version and Set Extra Parameters from Array[Obj]
+        let selectedVersion = versionDetails.find(obj => {
+            return obj.Version == parameters.SitecoreVersion;
+        });
+
+        if (typeof(selectedVersion) != 'undefined') {
+            parameters.VersionOptions = selectedVersion;
+        }
+    }
+
     runGenerator() {
 
         if (parameters.GeneratorType === 'initialize') {
 
             // Solution Initialization
-            this.composeWith("app:starter.solution", { options: parameters }, require.resolve('../solution-setup/'));
+            this.composeWith(require.resolve('../solution-setup/'), { options: parameters });
 
         }
 

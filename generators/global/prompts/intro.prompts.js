@@ -17,14 +17,14 @@ module.exports = [{
     name: 'SitecoreVersion',
     message: 'What version of Sitecore are you using?',
     choices: [{
+        name: '9.1.0 (001564)',
+        value: '9.1.0'
+    },{
         name: '9.0.2 (180604)',
-        value: '9.0.180604'  
+        value: '9.0.2'  
     },{
         name: '9.0.1 (171219)',
-        value: '9.0.171219'
-    },{
-        name: '9.1.0 (001564)',
-        value: '12.0.0'
+        value: '9.0.1'
     }]
 }, {
     type: 'input',
