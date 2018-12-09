@@ -79,7 +79,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('./code/App_Config/Include/Project/.Project.Sample.Serialization.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project/', 'Project.' + parameters.ModuleName + '.Serialization.config')), {
-                ModuleName: parameters.ModuleName
+                Parameters: parameters
             }
         );
     }
@@ -88,8 +88,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('./code/App_Config/Include/Project/.Project.Sample.config'),
             this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Project', 'Project.' + parameters.ModuleName + '.config')), {
-                ModuleName: parameters.ModuleName,
-                ModuleNameLower: this.ModuleNameLower
+                Parameters: parameters
             }
         );
     }
@@ -99,9 +98,7 @@ module.exports = class extends Generator {
             this.templatePath('./code/.Sitecore.Project.csproj'),
             this.destinationPath(path.join(this.targetPath, 'code', parameters.SolutionPrefix + '.Project.' + parameters.ModuleName + '.csproj')), {
                 ProjectGuid: `{${this.ProjectGuid}}`,
-                ModuleName: parameters.ModuleName,
-                SitecoreVersion: parameters.SitecoreVersion,
-                SolutionPrefix: parameters.SolutionPrefix
+                Parameters: parameters
             }
         );
     }
@@ -117,7 +114,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('./code/.packages.config'),
             this.destinationPath(path.join(this.targetPath, 'code', 'packages.config')), {
-                SitecoreVersion: parameters.SitecoreVersion
+                Parameters: parameters
             }
         );
     }
@@ -127,8 +124,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('./code/Properties/.AssemblyInfo.cs'),
             this.destinationPath(path.join(this.targetPath, 'code/Properties', 'AssemblyInfo.cs')), {
-                ModuleName: parameters.ModuleName,
-                SolutionPrefix: parameters.SolutionPrefix
+                Parameters: parameters
             }
         );
     }
@@ -138,7 +134,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('./code/.CodeGen.config'),
             this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
-                ModuleName: parameters.ModuleName
+                Parameters: parameters
             }
         );
     }
