@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 
-[assembly: AssemblyTitle("<%= SolutionPrefix %>.Foundation.<%= ModuleName %>")]
+[assembly: AssemblyTitle("<%= Parameters.SolutionPrefix %>.Foundation.<%= Parameters.ModuleName %>")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("<%= SolutionPrefix %>.Foundation.<%= ModuleName %>")]
+[assembly: AssemblyProduct("<%= Parameters.SolutionPrefix %>.Foundation.<%= Parameters.ModuleName %>")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
