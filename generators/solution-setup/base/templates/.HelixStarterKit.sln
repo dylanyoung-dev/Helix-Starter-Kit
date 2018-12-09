@@ -27,11 +27,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ioc", "Ioc", "{181B34F6-97E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ORM", "ORM", "{8EBC29D4-B0A6-44BF-8A57-466AE266FFDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=SolutionPrefix%>.Foundation.Ioc", "src\Foundation\Ioc\code\<%=SolutionPrefix%>.Foundation.Ioc.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=Parameters.SolutionPrefix%>.Foundation.Ioc", "src\Foundation\Ioc\code\<%=Parameters.SolutionPrefix%>.Foundation.Ioc.csproj", "{4ADAF54C-6EDD-487C-9F97-D044F375D954}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=SolutionPrefix%>.Foundation.Serialization", "src\Foundation\Serialization\code\<%=SolutionPrefix%>.Foundation.Serialization.csproj", "{758D66AA-010B-42BC-A034-79063EED827A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=Parameters.SolutionPrefix%>.Foundation.Serialization", "src\Foundation\Serialization\code\<%=Parameters.SolutionPrefix%>.Foundation.Serialization.csproj", "{758D66AA-010B-42BC-A034-79063EED827A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=SolutionPrefix%>.Foundation.ORM", "src\Foundation\ORM\code\<%=SolutionPrefix%>.Foundation.ORM.csproj", "{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "<%=Parameters.SolutionPrefix%>.Foundation.ORM", "src\Foundation\ORM\code\<%=Parameters.SolutionPrefix%>.Foundation.ORM.csproj", "{BFCFE76E-49BA-439D-AC87-92AEB9AE8321}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeGen", "CodeGen", "{79B07CE5-F2B9-4490-8E3D-9DADBACFA9BB}"
 	ProjectSection(SolutionItems) = preProject

@@ -1,9 +1,9 @@
 module.exports = function () {
-    var sitecoreRoot = "<%=EnvironmentRoot%>";
+    var sitecoreRoot = "<%=Parameters.EnvironmentRoot%>";
     var config = {
         websiteRoot: sitecoreRoot,
         sitecoreLibraries: sitecoreRoot + "\\bin",
-        solutionName: "<%=SolutionName%>",
+        solutionName: "<%=Parameters.SolutionName%>",
         licensePath: sitecoreRoot + "\\App_Data\\license.xml",
         runCleanBuilds: false,
         MSBuildToolsVersion: "auto",

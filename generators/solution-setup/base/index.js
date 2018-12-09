@@ -32,25 +32,14 @@ module.exports = class extends Generator {
         });
     } */
 
-    configuration() {
-        this.FrameworkVersion = "";
-        this.FrameworkVersionNumber = "";
-
-        if (parameters.SitecoreVersion == "12.0.0") {
-            this.FrameworkVersion = "v471";
-            this.FrameworkVersionNumber = "4.7.1";
-        } else {
-            this.FrameworkVersion = "v462";
-            this.FrameworkVersionNumber = "4.6.2";
-        }
-    }
-
     runGenerator() {
 
         // Run Generator Methods
         this._initialFolders();
         this._solutionSetup();
+        this._nugetSetup();
         this._projectSetup();
+        this._webConfigSetup();
         this._packageSetup();
         this._gulpConfiguration();
         this._publishTargetConfiguration();
@@ -70,12 +59,19 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('.HelixStarterKit.sln'),
             this.destinationPath(parameters.SolutionName + ".sln"), {
-                SolutionPrefix: parameters.SolutionPrefix,
-                FrameworkVersion: this.FrameworkVersion,
-                FrameworkVersionNumber: this.FrameworkVersionNumber
+                Parameters: parameters
             }
         );
     };
+
+    _nugetSetup() {
+        this.fs.copyTpl(
+            this.templatePath('.Nuget.config'),
+            this.destinationPath("Nuget.config"), {
+                Parameters: parameters
+            }
+        );
+    }
 
     _projectSetup() {
 
@@ -91,10 +87,26 @@ module.exports = class extends Generator {
             this.fs.copyTpl(
                 startPath + path.Template,
                 destPath + path.Destination + parameters.SolutionPrefix + path.FileName + '.csproj', {
-                    SolutionPrefix: parameters.SolutionPrefix,
-                    SitecoreVersion: parameters.SitecoreVersion,
-                    FrameworkVersion: this.FrameworkVersion,
-                    FrameworkVersionNumber: this.FrameworkVersionNumber
+                    Parameters: parameters
+                }
+            );
+        }, this);
+    };
+
+    _webConfigSetup() {
+        let startPath = this.sourceRoot();
+        let destPath = this.destinationPath();
+        let paths = [
+            "\\src\\Foundation\\Ioc\\code\\",
+            "\\src\\Foundation\\ORM\\code\\",
+            "\\src\\Foundation\\Serialization\\code\\"
+        ];
+
+        paths.forEach(function(path) {
+            this.fs.copyTpl(
+                startPath + path + '.Web.config',
+                destPath + path + 'Web.config', {
+                    Parameters: parameters
                 }
             );
         }, this);
@@ -107,16 +119,14 @@ module.exports = class extends Generator {
         let paths = [
             "\\src\\Foundation\\Ioc\\code\\",
             "\\src\\Foundation\\ORM\\code\\",
-            "\\src\\Foundation\\Serialization\\code\\",
+            "\\src\\Foundation\\Serialization\\code\\"
         ];
 
         paths.forEach(function(path) {
             this.fs.copyTpl(
                 startPath + path + '.packages.config',
                 destPath + path + 'packages.config', {
-                    SitecoreVersion: parameters.SitecoreVersion,
-                    FrameworkVersion: this.FrameworkVersion,
-                    FrameworkVersionNumber: this.FrameworkVersionNumber
+                    Parameters: parameters
                 }
             );
         }, this);
@@ -126,8 +136,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('.gulp-config.js'),
             this.destinationPath('gulp-config.js'), {
-                EnvironmentRoot: parameters.EnvironmentRoot,
-                SolutionName: parameters.SolutionName
+                Parameters: parameters
             }
         );
     };
@@ -138,7 +147,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('.publishsettingsdebug.targets'),
             this.destinationPath('publishsettingsdebug.targets'), {
-                EnvironmentUrl: parameters.EnvironmentUrl
+                Parameters: parameters
             }
         );
 
@@ -146,7 +155,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(
             this.templatePath('.publishsettingsrelease.targets'),
             this.destinationPath('publishsettingsrelease.targets'), {
-                EnvironmentUrl: parameters.EnvironmentUrl
+                Parameters: parameters
             }
         );
     };

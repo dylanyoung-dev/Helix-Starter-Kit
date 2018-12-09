@@ -51,11 +51,11 @@ module.exports = class extends Generator {
     runGenerator() {
 
         // Run Base Sub Generator
-        this.composeWith("app:starter.solution.base", { options: parameters }, require.resolve('../solution-setup/base/'));
+        this.composeWith(require.resolve('../solution-setup/base/'), { options: parameters });
 
         // Run Sub Generator Based on Solution Type Selected
         if (parameters.SolutionType.toLowerCase() != "base") {
-            this.composeWith(`app:starter.${parameters.SolutionType.toLowerCase()}`, { options: parameters }, require.resolve(`/${parameters.SolutionType.toLowerCase()}/`));
+            this.composeWith(require.resolve(`/${parameters.SolutionType.toLowerCase()}/`), { options: parameters });
         }
 
     }
