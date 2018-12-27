@@ -46,6 +46,8 @@ module.exports = class extends Generator {
         if (typeof(versionOptions) != 'undefined') {
             parameters.VersionOptions = versionOptions;
         }
+
+        parameters.SourceRoot = this.destinationPath();
     }
 
     runGenerator() {
