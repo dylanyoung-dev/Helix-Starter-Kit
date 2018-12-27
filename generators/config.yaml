@@ -17,8 +17,6 @@ Generators:
   - name: 'SolutionType'
     value: 'Base'
     exclude: false
-  - name: 'ModuleType'
-    exclude: true
   - name: 'ModuleName'
     exclude: true
   - name: 'GeneratorType'

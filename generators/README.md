@@ -12,6 +12,7 @@ Variable Name | Object Type | Example | Description
 --- | --- | --- | ---
 SitecoreVersion | String | 9.0.2
 SolutionPrefix | String | `Helix`.Foundation.Serialization | Prefix in all project names.
+GeneratorType | String | initialize | You can choose from: `Initialize` or `Create Module`
 
 ### Solution Initialization
 
@@ -20,13 +21,13 @@ Variable Name | Object Type | Example | Description
 SolutionName | String | `HelixStarter`.sln | The name of your sln solution file.
 EnvironmentUrl | String | https://starterkit.sc
 EnvironmentRoot | String | c:\inetpub\wwwroot\starterkit.sc
-SolutionType | String | Base | Can be one of three types: `Base`, `Module`, `Website`
+ | String | Base | Can be one of three types: `Base`, `Module`, `Website`
 
 ### Module
 
 Variable Name | Object Type | Example | Description
 --- | --- | --- | ---
-ModuleType | String | Project | Can be one of three types: `Foundation`, `Feature`, `Project`
+GeneratorModuleType | String | Project | Can be one of three types: `Foundation`, `Feature`, `Project`
 ModuleName | String | Blog | The name of your module
 
 
