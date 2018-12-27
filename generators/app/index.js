@@ -7,7 +7,6 @@ var yosay = require('yosay');
 const introPrompts = require('../global/prompts/intro.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
-const versionDetails = require('../global/versions.js');
 const presets = common.GetConfig();
 
 let parameters = {};

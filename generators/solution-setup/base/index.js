@@ -37,6 +37,7 @@ module.exports = class extends Generator {
         // Run Generator Methods
         this._initialFolders();
         this._solutionSetup();
+        this._environmentConfig();
         this._nugetSetup();
         this._projectSetup();
         this._webConfigSetup();
