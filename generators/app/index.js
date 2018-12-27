@@ -41,12 +41,10 @@ module.exports = class extends Generator {
         parameters.FrameworkVersion = "4.7.1";
 
         // Determine Sitecore Version and Set Extra Parameters from Array[Obj]
-        let selectedVersion = versionDetails.find(obj => {
-            return obj.Version == parameters.SitecoreVersion;
-        });
+        let versionOptions = require(`../global/${parameters.SitecoreVersion}/options.js`);
 
-        if (typeof(selectedVersion) != 'undefined') {
-            parameters.VersionOptions = selectedVersion;
+        if (typeof(versionOptions) != 'undefined') {
+            parameters.VersionOptions = versionOptions;
         }
     }
 
