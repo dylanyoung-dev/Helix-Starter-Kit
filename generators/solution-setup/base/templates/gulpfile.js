@@ -44,14 +44,6 @@ gulp.task('__task:code-generation', function (cb) {
     });
 });
 
-gulp.task('__task:initialization', function (cb) {
-    if (argv.SitecoreRoot !== '' && argv.Url !== '') {
-        // Update yml file setting
-    } else {
-        console.log("Alert: You did not set any environment variables...");
-    }
-});
-
 ///////////////////////////////////////
 //    Build the Solution
 ///////////////////////////////////////
@@ -77,7 +69,7 @@ gulp.task("__task:build-solution", function () {
 ///////////////////////////////////////
 //    Publish All Projects
 ///////////////////////////////////////
-gulp.task("__task:publish-projects", function (callback) {
+gulp.task("__task:PublishProjects", function (callback) {
     return runSequence(
         "__task:build-solution",
         "publish-foundation",
@@ -88,11 +80,11 @@ gulp.task("__task:publish-projects", function (callback) {
 ///////////////////////////////////////
 //     Compile Assets
 ///////////////////////////////////////
-gulp.task('__task:compile-assets', function () {
+gulp.task('__task:compile-assets', function (callback) {
     return runSequence("__task:compile-styles", callback);
 });
 
-gulp.task('__task:compile-styles', function () {
+gulp.task('__task:compile-styles', function (callback) {
 
     return gulp
         .src(config.styles.source)
