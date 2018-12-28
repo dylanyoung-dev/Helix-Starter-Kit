@@ -6,6 +6,9 @@ const yaml = require('js-yaml');
 const merge = require('merge-config');
 var guid = require('node-uuid');
 
+var exec = require('child_process').exec,
+    child;
+
 module.exports = {
 
     GetConfig() {
@@ -154,5 +157,15 @@ module.exports = {
                 .find(_ => _.endsWith('.sln'));
 
         return slnFile && path.join(destPath, slnFile);
+    },
+
+    installDependencies() {
+        child = exec('npm install', function (error, stdout, stderr) {
+            console.log('stdout: ' + stdout);
+            console.log('stderr: ' + stderr);
+            if (error !== null) {
+                 console.log('exec error: ' + error);
+            }
+        });
     }
 };

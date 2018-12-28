@@ -58,5 +58,7 @@ module.exports = class extends Generator {
             this.composeWith(require.resolve(`/${parameters.SolutionType.toLowerCase()}/`), { options: parameters });
         }
 
+        // Run NPM Install + Gulp Initialize Task (TODO)
+        common.installDependencies();
     }
 }
