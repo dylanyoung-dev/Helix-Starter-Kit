@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = [{
+module.exports = {
     "OriginalVersion": "001564",
     "Sitecore_Kernel": {
         "Package": "<package id=\"Sitecore.Kernel\" version=\"12.0.0\" targetFramework=\"net471\" />",
@@ -234,4 +234,4 @@ module.exports = [{
         "Package": "<package id=\"Sitecore.Zip\" version=\"12.0.0\" targetFramework=\"net471\" />",
         "Project": "<Reference Include=\"Sitecore.Zip, Version=12.0.0.0, Culture=neutral, processorArchitecture=MSIL\">\n \t<HintPath>..\\..\\..\\..\\packages\\Sitecore.Zip.12.0.0\\lib\\net471\\Sitecore.Zip.dll</HintPath>\n</Reference>"
     }
-}];
+};

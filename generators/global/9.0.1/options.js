@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = [{
+module.exports = {
     "OriginalVersion": "171219",
     "Sitecore_Kernel": {
         "Package": "<package id=\"Sitecore.Kernel\" version=\"9.0.171219\" targetFramework=\"net471\" developmentDependency=\"true\" />",
@@ -14,4 +14,4 @@ module.exports = [{
         "Package": "<package id=\"Sitecore.Mvc\" version=\"9.0.171219\" targetFramework=\"net471\" developmentDependency=\"true\" />",
         "Project": ""
     }
-}];
+};

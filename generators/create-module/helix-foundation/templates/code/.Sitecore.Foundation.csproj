@@ -54,8 +54,8 @@
       <HintPath>..\..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <%- Parameters.VersionOptions.Options.Sitecore_Kernel.Project %>
-    <%- Parameters.VersionOptions.Options.Sitecore_Mvc.Project %>
+    <%- Parameters.VersionOptions.Sitecore_Kernel.Project %>
+    <%- Parameters.VersionOptions.Sitecore_Mvc.Project %>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -97,7 +97,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Config\Include\Foundation\Foundation.<%= ModuleName %>.Serialization.config" />
+    <Content Include="App_Config\Include\Foundation\Foundation.<%= Parameters.ModuleName %>.Serialization.config" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

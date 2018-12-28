@@ -110,7 +110,7 @@
     <Reference Include="Microsoft.Web.Infrastructure">
       <HintPath>..\..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <%- Parameters.VersionOptions.Options.System_Web_Mvc.Project %>
+    <%- Parameters.VersionOptions.System_Web_Mvc.Project %>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\Debug.pubxml" />

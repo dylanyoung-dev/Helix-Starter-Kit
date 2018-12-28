@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 const merge = require('merge-config');
+var guid = require('node-uuid');
 
 module.exports = {
 
@@ -76,25 +77,31 @@ module.exports = {
         return slnText;
     },
 
+    titleCase(str) {
+        return str.toLowerCase().split(' ').map(function(word) {
+            return (word.charAt(0).toUpperCase() + word.slice(1));
+        }).join(' ');
+    },
+
     addProjectToSolution(layer, destinationPath, projectId, solutionPrefix, moduleName) {
 
-        let slnFilePath = common.getSolutionFilePath(destinationPath);
+        let slnFilePath = this.getSolutionFilePath(destinationPath);
 
-        let slnText = this.fs.read(slnFilePath);
+        let slnText = fs.readFileSync(slnFilePath, 'utf8');
 
         // Stop Process if Project Already Exists in the Solution (for any reason)
-        if (slnText.indexOf(`${solutionPrefix}.${layer}.${moduleName}.csproj`) > -1) {
+        if (slnText.indexOf(`${solutionPrefix}.${this.titleCase(layer)}.${moduleName}.csproj`) > -1) {
             this.log('Module already exists in the solution.')
             return;
         }
         
-        slnText = common.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
-        slnText = common.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
+        slnText = this.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
+        slnText = this.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
 
         let projectFolderGuid = guid.v4();
 
         let projectDefinition =
-            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${solutionPrefix}.${layer}.${moduleName}", "src\\${layer}\\${moduleName}\\code\\${solutionPrefix}.${layer}.${moduleName}.csproj", "{${projectId}}"\r\n` +
+            `Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${solutionPrefix}.${this.titleCase(layer)}.${moduleName}", "src\\${this.titleCase(layer)}\\${moduleName}\\code\\${solutionPrefix}.${this.titleCase(layer)}.${moduleName}.csproj", "{${projectId}}"\r\n` +
             `EndProject\r\n` +
             `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${moduleName}", "${moduleName}", "{${projectFolderGuid}}"\r\n` + `EndProject\r\n`;
 
@@ -104,8 +111,8 @@ module.exports = {
             `		{${this.ProjectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
             `		{${this.ProjectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
 
-        slnText = common.ensureSolutionFolder(slnText, "Project");
-        let layerFolderGuid = common.getSolutionFolderGuid(slnText, "Project");
+        slnText = this.ensureSolutionFolder(slnText, this.titleCase(layer));
+        let layerFolderGuid = this.getSolutionFolderGuid(slnText, this.titleCase(layer));
 
         let projectNesting =
             `		{${projectId}} = {${projectFolderGuid}}\r\n` +
@@ -115,7 +122,7 @@ module.exports = {
         slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(ProjectConfigurationPlatforms\)[^\r\n]*\r\n/, `$&${projectBuildConfig}\r\n`);
         slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(NestedProjects\)[^\r\n]*\r\n/, `$&${projectNesting}\r\n`);
 
-        this.fs.write(slnFilePath, slnText);
+        fs.writeFileSync(slnFilePath, slnText, 'utf-8');
     },
 
     ensureSolutionFolder(slnText, folderName) {

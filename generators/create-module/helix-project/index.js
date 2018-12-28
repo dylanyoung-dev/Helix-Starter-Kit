@@ -106,7 +106,10 @@ module.exports = class extends Generator {
     _configureLayoutDefinition() {
         this.fs.copyTpl(
             this.templatePath('./code/Views/Layout/.Main.cshtml'),
-            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + parameters.ModuleName, 'Layout.cshtml'))
+            this.destinationPath(path.join(this.targetPath, 'code', 'Views', 'Project.' + parameters.ModuleName, 'Layout.cshtml')),
+            {
+                Parameters: parameters
+            }
         );
     }
 

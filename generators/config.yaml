@@ -3,7 +3,7 @@ Generators:
     value: 'Helix'
     exclude: false
   - name: 'SitecoreVersion'
-    value: '9.1.0'
+    value: '9.0.2'
     exclude: false
   - name: 'SolutionName'
     value: 'Helix'

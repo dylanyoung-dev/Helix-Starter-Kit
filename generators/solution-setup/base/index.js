@@ -76,8 +76,8 @@ module.exports = class extends Generator {
 
     _environmentConfig() {
         this.fs.copyTpl(
-            this.templatePath('/src/Foundation/Serialization/code/App_Config/Include/.Environment.config'),
-            this.destinationPath('/src/Foundation/Serialization/code/App_Config/Include/Environment.config'),
+            this.templatePath('src/Foundation/Serialization/code/App_Config/Include/.Environment.config'),
+            this.destinationPath('src/Foundation/Serialization/code/App_Config/Include/Environment.config'),
                 { Parameters: parameters }
         );
     }
