@@ -15,3 +15,6 @@
 
 /generators/config.local.yaml
 /coverage
+.nyc_output
+/generators/tests/tmp
+/build/Azure/obj
