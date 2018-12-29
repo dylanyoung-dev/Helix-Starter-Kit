@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "postinstall": "",
-    "test": "mocha tests/*.tests.js --reporter spec --timeout 3000"
+    "test": "mocha tests/*.tests.js --reporter spec --timeout 10000"
   },
   "dependencies": {
     "chalk": "^1.1.3",

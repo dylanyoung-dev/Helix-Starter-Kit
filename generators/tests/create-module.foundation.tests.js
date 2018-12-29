@@ -5,45 +5,51 @@ const rimraf = require('rimraf');
 
 const deps = [
     [helpers.createDummyGenerator(), 'starter:app'],
+    path.join(__dirname, '../create-module'),
     path.join(__dirname, '../solution-setup'),
     path.join(__dirname, '../solution-setup/base'),
     path.join(__dirname, '../solution-setup/website'),
     path.join(__dirname, '../solution-setup/module'),
-    path.join(__dirname, '../create-module')
+    path.join(__dirname, '../create-module/helix-foundation')
 ];
 
 var MyGenerator = require(path.join(__dirname, '../app'));
 
-describe('Solution Initialization Tests', () => {
+describe('Create Foundation Module Tests', (done) => {
 
-    const solutionPrefix = 'Helix';
-    const solutionName = 'HelixBase';
+    // Constants
+    const moduleName = "Tests";
+    const solutionPrefix = "Helix";
+    const solutionName = "HelixBase";
 
-    beforeEach(() => {
-        return helpers.run(MyGenerator, {
+    beforeEach((done) => {
+        return Promise.resolve(helpers.run(MyGenerator, {
             namespace: 'starter:app'
         })
             .inDir(path.join(__dirname, 'tmp'))
             .withPrompts({
                 SolutionPrefix: solutionPrefix,
                 SitecoreVersion: '9.0.2',
-                GeneratorType: 'initialize',
+                GeneratorType: 'create-module',
                 SolutionName: solutionName,
                 EnvironmentUrl: 'https://starterkit.sc',
-                EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc'
+                EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc',
+                ModuleName: moduleName,
+                GeneratorModuleType: 'foundation'
             })
-            .withGenerators(deps);
+            .withGenerators(deps)).then(function () {
+                done();
+            });
     });
     afterEach(() => {
         //rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
-    it('Generate Solution Files', (done) => {
-        // The object returned acts like a promise, so return it to wait until the process is done
-        assert.file(path.join(__dirname, `tmp/gulpfile.js`));
-        assert.file(path.join(__dirname, `tmp/${solutionName}.sln`));
+    it('Generate Foundation Files', (done) => {
+
+        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/${solutionPrefix}.Foundation.${moduleName}.csproj`));
 
         done();
-    });
 
+    });
 });

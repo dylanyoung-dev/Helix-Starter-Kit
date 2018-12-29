@@ -4,4 +4,4 @@ For the Yeoman Scaffolding, we have a form of integration testing using Mocha Te
 
     c:> .\starter test
 
-You should run this command from the root on your Sitecore implementation.
+You should run this command from the root on your Sitecore implementation. 
