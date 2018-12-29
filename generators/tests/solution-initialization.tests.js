@@ -3,41 +3,47 @@ const assert = require('yeoman-assert');
 const path = require('path');
 const rimraf = require('rimraf');
 
-describe('Solution Initialization Tests', function () {
+const deps = [
+    [helpers.createDummyGenerator(), 'starter:app'],
+    path.join(__dirname, '../solution-setup'),
+    path.join(__dirname, '../solution-setup/base'),
+    path.join(__dirname, '../solution-setup/website'),
+    path.join(__dirname, '../solution-setup/module'),
+    path.join(__dirname, '../create-module')
+];
 
-    beforeEach(function (done) {
-        helpers.testDirectory(path.join(__dirname, 'temp'), function (err) {
+var MyGenerator = require(path.join(__dirname, '../app'));
 
-            console.log(path.join(__dirname, 'temp'));
+describe('Solution Initialization Tests', () => {
 
-            if (err) {
-                return done(err);
-            }
+    const solutionPrefix = 'Helix';
+    const solutionName = 'HelixBase';
 
-            this.app = helpers.createGenerator('app:starter.solution', [
-                '../../app', [
-                    helpers.createDummyGenerator(),
-                    'app:starter.solution'
-                ]
-            ]);
-            done();
-        }.bind(this));
+    beforeEach(() => {
+        return helpers.run(MyGenerator, {
+            namespace: 'starter:app'
+        })
+          .inDir(path.join(__dirname, 'tmp'))
+          .withPrompts({
+            SolutionPrefix: solutionPrefix,
+            SitecoreVersion: '9.0.2',
+            GeneratorType: 'initialize',
+            SolutionName: solutionName,
+            EnvironmentUrl: 'https://starterkit.sc',
+            EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc'
+          })
+          .withGenerators(deps);
+      });
+      afterEach(() => {
+        //rimraf.sync(path.join(__dirname, 'tmp'));
+      });
+
+    it('Generate Solution Files', (done) => {
+        // The object returned acts like a promise, so return it to wait until the process is done
+        assert.file(path.join(__dirname, `tmp/gulpfile.js`));
+        assert.file(path.join(__dirname, `tmp/${solutionName}.sln`));
+
+        done();
     });
 
-    it('Solution Exists', function () {
-
-        return helpers.run(this.app).withPrompts({
-            SolutionPrefix: 'Helix',
-            SitecoreVersion: '9.0.180604',
-            SolutionName: 'HelixBase',
-            SolutionType: 'base'
-        }).withOptions({ skipInstall: true }).then(function() {
-            assert.file('s.sln');
-        });
-        //this.app.options['skip-install'] = true;
-        // this.app.run({}, function () {
-        //     helpers.assertFile('s.sln');
-        //     done();
-        // });
-    });
 });
