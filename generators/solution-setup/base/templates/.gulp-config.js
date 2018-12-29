@@ -1,5 +1,5 @@
 module.exports = function () {
-    var sitecoreRoot = "<%=Parameters.EnvironmentRoot%>";
+    var sitecoreRoot = "<%=Parameters.EnvironmentRoot.replace(/\\/g, '\\\\') %>";
     var config = {
         websiteRoot: sitecoreRoot,
         sitecoreLibraries: sitecoreRoot + "\\bin",
