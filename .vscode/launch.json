@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Yeoman generator - Starter Kit",
+            "program": "${workspaceFolder}/generators/node_modules/yo/lib/cli.js",
+            "args": [
+                "starter"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        },
+        // {
+        //     "type": "node",
+        //     "request": "launch",
+        //     "name": "Yeoman generator",
+        //     "program": "c:\\Users\\tempe\\AppData\\Roaming\\npm\\yo.cmd",
+        //     "args": [
+        //         "generator"
+        //     ]
+        // },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "program": "${workspaceFolder}\\gulpfile.js"
+        }
+    ]
+}

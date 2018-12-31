@@ -29,15 +29,18 @@ module.exports = class extends Generator {
         // Only Prompt for Questions that don't have a preset config option set
         let prompts = common.TrimPrompts(projectPrompts, presets.Generators);
 
-        return this.prompt(prompts).then((answers) => {
+        if (typeof(prompts) != 'undefined') {
+            return this.prompt(prompts).then((answers) => {
+                // Add to Parameters to Use Throughout File
+                _processParameters(answers, presets.Generators);
+            });
+        } else {
+            _processParameters(null, presets.Generators);
+        }
+    }
 
-            // Add to Parameters to Use Throughout File
-            parameters.ModuleName = common.ProcessParameter(answers.ModuleName, presets, constants.MODULE_NAME);
-
-            this.ModuleNameLower = parameters.ModuleName.toLowerCase();
-
-        });
-
+    _processParameters(answers, presets) {
+        parameters.ModuleName = common.ProcessParameter(answers, presets, constants.MODULE_NAME);
     }
 
     configure() {

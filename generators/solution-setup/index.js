@@ -30,22 +30,23 @@ module.exports = class extends Generator {
         // Only Prompt for Questions that don't have a preset config option
         var prompts = common.TrimPrompts(solutionPrompts, presets.Generators);
 
-        return this.prompt(prompts).then((answers) => {
+        if (typeof(prompts) != 'undefined') {
+            return this.prompt(prompts).then((answers) => {
+                this._processParameters(answers, presets.Generators);
+            });
+        } else {
+            this._processParameters(null, presets.Generators);
+        }
+    }
 
-            // Define Parameters to Use Throughout File
-            parameters.SolutionName = common.ProcessParameter(answers.SolutionName, presets, constants.SOLUTION_NAME);
-
-            parameters.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, constants.SITECORE_VERSION);
-
-            parameters.SolutionType = common.ProcessParameter(answers.SolutionType, presets, constants.SOLUTION_TYPE);
-
-            parameters.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, constants.SOLUTION_PREFIX);
-
-            parameters.EnvironmentRoot = common.ProcessParameter(answers.EnvironmentRoot, presets, constants.ENVIRONMENT_ROOT);
-
-            parameters.EnvironmentUrl = common.ProcessParameter(answers.EnvironmentUrl, presets, constants.ENVIRONMENT_URL);
-
-        });
+    /// Process Parameters from Prompts & Presets
+    _processParameters(answers, presets) {
+        parameters.SolutionName = common.ProcessParameter(answers, presets, constants.SOLUTION_NAME);
+        parameters.SitecoreVersion = common.ProcessParameter(answers, presets, constants.SITECORE_VERSION);
+        parameters.SolutionType = common.ProcessParameter(answers, presets, constants.SOLUTION_TYPE);
+        parameters.SolutionPrefix = common.ProcessParameter(answers, presets, constants.SOLUTION_PREFIX);
+        parameters.EnvironmentRoot = common.ProcessParameter(answers, presets, constants.ENVIRONMENT_ROOT);
+        parameters.EnvironmentUrl = common.ProcessParameter(answers, presets, constants.ENVIRONMENT_URL);
     }
 
     runGenerator() {

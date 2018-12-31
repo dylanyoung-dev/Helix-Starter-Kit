@@ -26,16 +26,26 @@ module.exports = class extends Generator {
         // Only Prompt for Questions that don't have a preset config option
         var prompts = common.TrimPrompts(introPrompts, presets.Generators);
 
-        return this.prompt(prompts).then((answers) => {
+        // If Prompts are undefined
+        if (typeof(prompts) != 'undefined') {
+            return this.prompt(prompts).then((answers) => {
+                this._processParameters(answers, presets.Generators);
+            });
+        } else {
+            _processParameters(null, presets.Generators);
+        }
+    }
 
-            parameters.GeneratorType = common.ProcessParameter(answers.GeneratorType, presets, constants.GENERATOR_TYPE);
-            parameters.SolutionPrefix = common.ProcessParameter(answers.SolutionPrefix, presets, constants.SOLUTION_PREFIX);
-            parameters.SitecoreVersion = common.ProcessParameter(answers.SitecoreVersion, presets, constants.SITECORE_VERSION);
+    _processParameters(answers, presets) {
 
-        });
+        parameters.GeneratorType = common.ProcessParameter(answers, presets, constants.GENERATOR_TYPE);
+        parameters.SolutionPrefix = common.ProcessParameter(answers, presets, constants.SOLUTION_PREFIX);
+        parameters.SitecoreVersion = common.ProcessParameter(answers, presets, constants.SITECORE_VERSION);
+
     }
 
     configure() {
+
         // Sitecore 9, 9.1 Run on 4.7.1
         parameters.FrameworkVersion = "4.7.1";
 

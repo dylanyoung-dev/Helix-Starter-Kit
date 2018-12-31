@@ -19,11 +19,14 @@ module.exports = {
         mergeConfig.file(path.join(__dirname, '../config.yaml'));
 
         // TODO: Figure out why it won't overwrite main config correctly
-        // if (fs.exists(path.join(__dirname, '../config.local.yaml'), function(exists) {
-        //     mergeConfig.file(path.join(__dirname, '../config.local.yaml'));
-        // }));
+        if (fs.existsSync(path.join(__dirname, '../config.local.yaml'))) 
+        {
+            mergeConfig.file(path.join(__dirname, '../config.local.yaml'));
+        }
 
-        return mergeConfig.get();
+        let config = mergeConfig.get();
+
+        return config;
     },
 
     /**
@@ -31,21 +34,21 @@ module.exports = {
      * @param  {Array} presets
      * @param  {String} presetName
      */
-    ProcessParameter(promptAnswer, presets, presetName) {
-        if (typeof(presets) == 'undefined' | typeof(presets.Generators) == 'undefined') {
-            return promptAnswer;
+    ProcessParameter(answers, presets, presetName) {
+        if (typeof (presets) == 'undefined') {
+            return answers[presetName];
         }
 
         //let preset = this.FindObjectByName(presets, presetName);
-        let preset = presets.Generators.filter(function (x) {
+        let preset = presets.find(function (x) {
             return x.name == presetName;
         });
 
-        if (typeof(preset[0]) == 'undefined' || typeof(preset[0].value) == 'undefined') {
-            return promptAnswer;
+        if ((typeof (preset) == 'undefined') || (typeof (preset.value) == 'undefined')) {
+            return answers[presetName];
         }
 
-        return preset[0].value;
+        return preset.value;
     },
 
     /**
@@ -54,22 +57,32 @@ module.exports = {
      */
     TrimPrompts(prompts, presets) {
 
-        var filtered = prompts.filter(function(x) {
-            return !presets.find(function(y) {
-                return y.name == x.name && y.exclude == false && (typeof(y.value) != 'undefined');
+        // Prompts for Step is Null, return Null
+        if (typeof (prompts) == 'undefined') {
+            return null;
+        }
+
+        // Presets are empty, returns the prompts
+        if (typeof (presets) == 'undefined') {
+            return prompts;
+        }
+
+        var filtered = prompts.find(function (x) {
+            return !presets.find(function (y) {
+                return y.name == x.name && (typeof (y.value) != 'undefined');
             });
         });
 
         return filtered;
     },
-    
+
     /**
      * @param  {} slnText
      * @param  {} name
      * @param  {} ordering
      */
     ensureSolutionSection(slnText, name, ordering) {
-        if(slnText.toString().includes(`GlobalSection(${name})`) == false) {
+        if (slnText.toString().includes(`GlobalSection(${name})`) == false) {
             let sectionText =
                 `	GlobalSection(${name}) = ${ordering}\r\n` +
                 `	EndGlobalSection`;
@@ -81,7 +94,7 @@ module.exports = {
     },
 
     titleCase(str) {
-        return str.toLowerCase().split(' ').map(function(word) {
+        return str.toLowerCase().split(' ').map(function (word) {
             return (word.charAt(0).toUpperCase() + word.slice(1));
         }).join(' ');
     },
@@ -97,7 +110,7 @@ module.exports = {
             this.log('Module already exists in the solution.')
             return;
         }
-        
+
         slnText = this.ensureSolutionSection(slnText, 'ProjectConfigurationPlatforms', 'postSolution');
         slnText = this.ensureSolutionSection(slnText, 'NestedProjects', 'preSolution');
 
@@ -108,7 +121,7 @@ module.exports = {
             `EndProject\r\n` +
             `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${moduleName}", "${moduleName}", "{${projectFolderGuid}}"\r\n` + `EndProject\r\n`;
 
-        let projectBuildConfig = 
+        let projectBuildConfig =
             `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
             `		{${this.ProjectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
             `		{${this.ProjectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
@@ -130,14 +143,14 @@ module.exports = {
 
     ensureSolutionFolder(slnText, folderName) {
         let folderGuid = this.getSolutionFolderGuid(slnText, folderName);
-        
+
         if (!folderGuid) {
             folderGuid = UUID();
-            
-            let folderDefinition = 
+
+            let folderDefinition =
                 `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${folderName}", "${folderName}", "{${folderGuid}}"\r\n` +
                 `EndProject`
-            
+
             slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&${folderDefinition}\r\n`);
         }
 
@@ -164,7 +177,7 @@ module.exports = {
             console.log('stdout: ' + stdout);
             console.log('stderr: ' + stderr);
             if (error !== null) {
-                 console.log('exec error: ' + error);
+                console.log('exec error: ' + error);
             }
         });
     }
