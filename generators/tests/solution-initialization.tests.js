@@ -52,8 +52,9 @@ describe('Solution Initialization Tests', () => {
 
     it('Correct Version Nuget File - 9.1', (done) => {
         assert.file(path.join(__dirname, `tmp/Nuget.config`));
+        //assert.fileContent(path.join(__dirname, `tmp/NuGet.config`), '');
 
-        assert.fileContent(path.join(__dirname, `tmp/NuGet.config`), '');
+        done();
     });
 
 });

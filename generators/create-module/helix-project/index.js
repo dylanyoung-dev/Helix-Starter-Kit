@@ -37,10 +37,10 @@ module.exports = class extends Generator {
 
         if (typeof(prompts) != 'undefined') {
             return this.prompt(prompts).then((answers) => {
-                _processParameters(answers, presets);
+                this._processParameters(answers, presets);
             });
         } else {
-            _processParameters(null, presets);
+            this._processParameters(null, presets);
         }
     }
 
