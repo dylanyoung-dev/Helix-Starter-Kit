@@ -29,13 +29,14 @@ describe('Solution Initialization Tests', () => {
                 SitecoreVersion: '9.0.2',
                 GeneratorType: 'initialize',
                 SolutionName: solutionName,
+                SolutionType: 'base',
                 EnvironmentUrl: 'https://starterkit.sc',
                 EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc'
             })
             .withGenerators(deps);
     });
     afterEach(() => {
-        //rimraf.sync(path.join(__dirname, 'tmp'));
+        rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
     it('Generate Solution Files', (done) => {

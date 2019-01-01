@@ -42,12 +42,12 @@ describe('Create Foundation Module Tests', (done) => {
             });
     });
     afterEach(() => {
-        //rimraf.sync(path.join(__dirname, 'tmp'));
+        rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
     it('Generate Foundation Files', (done) => {
 
-        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/${solutionPrefix}.Foundation.${moduleName}.csproj`));
+        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/${solutionPrefix}.Foundation.${moduleName}.csproj`));
 
         done();
 

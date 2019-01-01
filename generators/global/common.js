@@ -107,6 +107,10 @@ module.exports = {
 
         let slnFilePath = this.getSolutionFilePath(destinationPath);
 
+        if (typeof(slnFilePath) == 'undefined') {
+            return;
+        }
+
         let slnText = fs.readFileSync(slnFilePath, 'utf8');
 
         // Stop Process if Project Already Exists in the Solution (for any reason)
