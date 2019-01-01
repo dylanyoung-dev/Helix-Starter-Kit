@@ -1,0 +1,17 @@
+### Basic Configuration for Local Development Below
+# Generators:
+#   - name: 'SolutionPrefix'
+#     value: 'Helix'
+#     exclude: false
+#   - name: 'SitecoreVersion'
+#     value: '9.0.2'
+#     exclude: false
+#   - name: 'SolutionName'
+#     value: 'Generic'
+#     exclude: false
+#   - name: 'EnvironmentUrl'
+#     value: 'http://generic.sc/'
+#     exclude: false
+#   - name: 'EnvironmentRoot'
+#     value: 'c:\inetpub\wwwroot\generic.sc'
+#     exclude: false
