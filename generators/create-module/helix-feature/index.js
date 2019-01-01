@@ -9,8 +9,8 @@ var guid = require('node-uuid');
 const featurePrompts = require('../../global/prompts/modules/feature.prompts.js');
 const common = require('../../global/common.js');
 const constants = require('../../global/constants.js');
-const presets = common.GetConfig();
 
+let presets;
 let parameters = {};
 
 module.exports = class extends Generator {
@@ -18,6 +18,14 @@ module.exports = class extends Generator {
         super(args, opts);
 
         parameters = opts.options;
+
+        let isTesting = true;
+
+        var presetOptions = common.GetConfig(isTesting);
+
+        if (typeof(presetOptions) != 'undefined' && presetOptions != null) {
+            presets = presetOptions.Generators;
+        }
     }
 
     init() {
@@ -27,15 +35,19 @@ module.exports = class extends Generator {
     prompting() {
 
         // Only Prompt for Questions that don't have a preset config option set
-        let prompts = common.TrimPrompts(featurePrompts, presets.Generators);
+        let prompts = common.TrimPrompts(featurePrompts, presets);
 
-        return this.prompt(prompts).then((answers) => {
+        if (typeof(prompts) != 'undefined') {
+            return this.prompt(prompts).then((answers) => {
+                this._processParameters(answers, presets);
+            });
+        } else {
+            this._processParameters(null, presets);
+        }
+    }
 
-            // Add to Parameters to Use Throughout File
-            parameters.ModuleName = common.ProcessParameter(answers.ModuleName, presets, constants.MODULE_NAME);
-
-        });
-
+    _processParameters(answers, presets) {
+        parameters.ModuleName = common.ProcessParameter(answers, presets, constants.MODULE_NAME);
     }
 
     configure() {

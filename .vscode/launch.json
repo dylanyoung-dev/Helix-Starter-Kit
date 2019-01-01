@@ -10,7 +10,8 @@
             "name": "Yeoman generator - Starter Kit",
             "program": "${workspaceFolder}/generators/node_modules/yo/lib/cli.js",
             "args": [
-                "starter"
+                "starter",
+                "--testing true"
             ],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen"

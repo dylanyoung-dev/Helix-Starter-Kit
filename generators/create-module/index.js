@@ -6,8 +6,8 @@ var chalk = require('chalk');
 const modulePrompts = require('../global/prompts/modules/base.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
-const presets = common.GetConfig();
 
+let presets;
 let parameters = {};
 
 module.exports = class extends Generator {
@@ -15,6 +15,14 @@ module.exports = class extends Generator {
         super(args, opts);
 
         parameters = opts.options;
+
+        let isTesting = true;
+
+        var presetOptions = common.GetConfig(isTesting);
+
+        if (typeof(presetOptions) != 'undefined' && presetOptions != null) {
+            presets = presetOptions.Generators;
+        }
     }
 
     init() {
@@ -24,13 +32,19 @@ module.exports = class extends Generator {
     prompting() {
         
         // Only Prompt for Questions that don't have a preset config option
-        let prompts = common.TrimPrompts(modulePrompts, presets.Generators);
+        let prompts = common.TrimPrompts(modulePrompts, presets);
 
-        return this.prompt(prompts).then((answers) => {
+        if (typeof(prompts) != 'undefined') {
+            return this.prompt(prompts).then((answers) => {
+                this._processParameters(answers, presets);
+            });
+        } else {
+            this._processParameters(null, presets);
+        }
+    }
 
-            parameters.GeneratorModuleType = common.ProcessParameter(answers.GeneratorModuleType, presets, constants.GENERATOR_MODULE_TYPE);
-
-        });
+    _processParameters(answers, presets) {
+        parameters.GeneratorModuleType = common.ProcessParameter(answers, presets, constants.GENERATOR_MODULE_TYPE);
     }
 
     runGenerator() {

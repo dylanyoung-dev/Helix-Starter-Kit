@@ -7,14 +7,24 @@ var yosay = require('yosay');
 const introPrompts = require('../global/prompts/intro.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
-const presets = common.GetConfig();
 
+let presets;
 let parameters = {};
 
 module.exports = class extends Generator {
 
     constructor(args, opts) { 
         super(args, opts); 
+
+        this.argument('testing', { type: Boolean, required: false });
+
+        let isTesting = true;
+
+        var presetOptions = common.GetConfig(isTesting);
+
+        if (typeof(presetOptions) != 'undefined' && presetOptions != null) {
+            presets = presetOptions.Generators;
+        }
     }
 
     init() {
@@ -23,16 +33,15 @@ module.exports = class extends Generator {
 
     prompting() {
 
-        // Only Prompt for Questions that don't have a preset config option
-        var prompts = common.TrimPrompts(introPrompts, presets.Generators);
+        var prompts = common.TrimPrompts(introPrompts, presets);
 
         // If Prompts are undefined
         if (typeof(prompts) != 'undefined') {
             return this.prompt(prompts).then((answers) => {
-                this._processParameters(answers, presets.Generators);
+                this._processParameters(answers, presets);
             });
         } else {
-            _processParameters(null, presets.Generators);
+            _processParameters(null, presets);
         }
     }
 
@@ -70,12 +79,12 @@ module.exports = class extends Generator {
 
         if (parameters.GeneratorType === 'create-module') {
 
-            let slnPath = common.getSolutionFilePath(this.destinationPath());
-            if (slnPath == '' | typeof(slnPath) == 'undefined')
-            {
-                this.log(chalk.red('You must initialize your Solution before creating a module.'));
-                return;
-            }
+            // let slnPath = common.getSolutionFilePath(this.destinationPath());
+            // if (slnPath == '' | typeof(slnPath) == 'undefined')
+            // {
+            //     this.log(chalk.red('You must initialize your Solution before creating a module.'));
+            //     return;
+            // }
 
             // Create New Module Prompts
             this.composeWith(require.resolve('../create-module/'), { options: parameters });

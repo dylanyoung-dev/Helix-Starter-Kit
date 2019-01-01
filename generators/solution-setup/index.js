@@ -10,8 +10,8 @@ var foreach = require('foreach');
 const solutionPrompts = require('../global/prompts/solution/base.prompts.js');
 const common = require('../global/common.js');
 const constants = require('../global/constants.js');
-const presets = common.GetConfig();
 
+let presets;
 let parameters = {};
 
 module.exports = class extends Generator {
@@ -19,6 +19,14 @@ module.exports = class extends Generator {
         super(args, opts);
 
         parameters = opts.options;
+
+        let isTesting = true;
+
+        var presetOptions = common.GetConfig(isTesting);
+
+        if (typeof(presetOptions) != 'undefined' && presetOptions != null) {
+            presets = presetOptions.Generators;
+        }
     }
 
     init() {
@@ -28,11 +36,11 @@ module.exports = class extends Generator {
     prompting() {
 
         // Only Prompt for Questions that don't have a preset config option
-        var prompts = common.TrimPrompts(solutionPrompts, presets.Generators);
+        var prompts = common.TrimPrompts(solutionPrompts, presets);
 
         if (typeof(prompts) != 'undefined') {
             return this.prompt(prompts).then((answers) => {
-                this._processParameters(answers, presets.Generators);
+                this._processParameters(answers, presets);
             });
         } else {
             this._processParameters(null, presets.Generators);
@@ -42,9 +50,7 @@ module.exports = class extends Generator {
     /// Process Parameters from Prompts & Presets
     _processParameters(answers, presets) {
         parameters.SolutionName = common.ProcessParameter(answers, presets, constants.SOLUTION_NAME);
-        parameters.SitecoreVersion = common.ProcessParameter(answers, presets, constants.SITECORE_VERSION);
         parameters.SolutionType = common.ProcessParameter(answers, presets, constants.SOLUTION_TYPE);
-        parameters.SolutionPrefix = common.ProcessParameter(answers, presets, constants.SOLUTION_PREFIX);
         parameters.EnvironmentRoot = common.ProcessParameter(answers, presets, constants.ENVIRONMENT_ROOT);
         parameters.EnvironmentUrl = common.ProcessParameter(answers, presets, constants.ENVIRONMENT_URL);
     }

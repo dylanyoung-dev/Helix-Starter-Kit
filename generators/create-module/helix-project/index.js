@@ -9,8 +9,8 @@ var guid = require('node-uuid');
 const projectPrompts = require('../../global/prompts/modules/project.prompts.js');
 const common = require('../../global/common.js');
 const constants = require('../../global/constants.js');
-const presets = common.GetConfig();
 
+let presets;
 let parameters = {};
 
 module.exports = class extends Generator {
@@ -18,6 +18,14 @@ module.exports = class extends Generator {
         super(args, opts);
 
         parameters = opts.options;
+
+        let isTesting = true;
+
+        var presetOptions = common.GetConfig(isTesting);
+
+        if (typeof(presetOptions) != 'undefined' && presetOptions != null) {
+            presets = presetOptions.Generators;
+        }
     }
 
     init() {
@@ -27,15 +35,14 @@ module.exports = class extends Generator {
     prompting() {
 
         // Only Prompt for Questions that don't have a preset config option set
-        let prompts = common.TrimPrompts(projectPrompts, presets.Generators);
+        let prompts = common.TrimPrompts(projectPrompts, presets);
 
         if (typeof(prompts) != 'undefined') {
             return this.prompt(prompts).then((answers) => {
-                // Add to Parameters to Use Throughout File
-                _processParameters(answers, presets.Generators);
+                _processParameters(answers, presets);
             });
         } else {
-            _processParameters(null, presets.Generators);
+            _processParameters(null, presets);
         }
     }
 

@@ -11,7 +11,12 @@ var exec = require('child_process').exec,
 
 module.exports = {
 
-    GetConfig() {
+    GetConfig(ignore) {
+
+        // Ignore Configuration During Most Tests
+        if (typeof(ignore) != 'undefined' && ignore == true) {
+            return null;
+        } 
 
         let mergeConfig = new merge();
 
@@ -39,7 +44,6 @@ module.exports = {
             return answers[presetName];
         }
 
-        //let preset = this.FindObjectByName(presets, presetName);
         let preset = presets.find(function (x) {
             return x.name == presetName;
         });
