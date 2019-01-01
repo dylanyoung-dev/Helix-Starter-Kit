@@ -3,6 +3,7 @@
 if [%1]==[setup] goto setup
 if [%1]==[run] goto run
 if [%1]==[test] goto test
+if [%1]==[testreport] goto testreport
 
 COLOR 07
 CLS
@@ -21,6 +22,17 @@ echo Configuring NPM Link (Yeoman)...
 call npm link
 
 REM Change Path back to Root
+cd ..\
+
+goto :eof
+
+:testreport
+
+echo Running jUnit Test Reports...
+cd .\generators
+
+call npm test-report
+
 cd ..\
 
 goto :eof
