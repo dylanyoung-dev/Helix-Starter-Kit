@@ -37,6 +37,9 @@ describe('Create Foundation Module Tests', (done) => {
                 ModuleName: moduleName,
                 GeneratorModuleType: 'foundation'
             })
+            .withOptions(
+                { testing: true }
+            )
             .withGenerators(deps)).then(function () {
                 done();
             });

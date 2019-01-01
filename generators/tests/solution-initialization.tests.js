@@ -33,6 +33,9 @@ describe('Solution Initialization Tests', () => {
                 EnvironmentUrl: 'https://starterkit.sc',
                 EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc'
             })
+            .withOptions(
+                { testing: true }
+            )
             .withGenerators(deps);
     });
     afterEach(() => {
@@ -45,6 +48,12 @@ describe('Solution Initialization Tests', () => {
         assert.file(path.join(__dirname, `tmp/${solutionName}.sln`));
 
         done();
+    });
+
+    it('Correct Version Nuget File - 9.1', (done) => {
+        assert.file(path.join(__dirname, `tmp/Nuget.config`));
+
+        assert.fileContent(path.join(__dirname, `tmp/NuGet.config`), '');
     });
 
 });

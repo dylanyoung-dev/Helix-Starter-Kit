@@ -37,6 +37,9 @@ describe('Create Project Module Tests', (done) => {
                 ModuleName: moduleName,
                 GeneratorModuleType: 'project'
             })
+            .withOptions(
+                { testing: true }
+            )
             .withGenerators(deps)).then(function () {
                 done();
             });

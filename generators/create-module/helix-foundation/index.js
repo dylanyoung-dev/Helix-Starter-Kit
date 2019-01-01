@@ -19,9 +19,7 @@ module.exports = class extends Generator {
 
         parameters = opts.options;
 
-        let isTesting = true;
-
-        var presetOptions = common.GetConfig(isTesting);
+        var presetOptions = common.GetConfig(parameters.Testing);
 
         if (typeof(presetOptions) != 'undefined' && presetOptions != null) {
             presets = presetOptions.Generators;

@@ -37,6 +37,9 @@ describe('Create Feature Module Tests', (done) => {
                 ModuleName: moduleName,
                 GeneratorModuleType: 'feature'
             })
+            .withOptions(
+                { testing: true }
+            )
             .withGenerators(deps)).then(function () {
                 done();
             });
