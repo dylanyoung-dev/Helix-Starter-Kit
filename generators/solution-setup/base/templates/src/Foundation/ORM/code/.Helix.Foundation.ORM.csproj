@@ -122,7 +122,6 @@
   <ItemGroup>
     <Content Include="App_Config\Include\Foundation\Foundation.ORM.Ioc.config" />
     <Content Include="README.md" />
-    <Content Include="App_Config\Include\Glass\z.Glass.Mapper.Sc.ViewRender.config.exclude" />
     <Content Include="App_Config\Include\Glass\Glass.Mapper.Sc.Start.config" />
     <Content Include="App_Config\Include\Glass\Glass.Mapper.Sc.config" />
     <None Include="Web.config" />
