@@ -29,12 +29,13 @@ module.exports = class extends Generator {
 
     init() {
         this.log(yosay('welcome to ' + chalk.magenta('Helix Starter Kit') + ' Yeoman generator!'));
-        this.log(chalk.magenta(`Running in Path: ${__dirname} - If this path is wrong, run .\\starter setup`));
     }
 
     prompting() {
 
         var prompts = common.TrimPrompts(introPrompts, presets);
+
+        this.log(chalk.magenta(`Running in Path: ${__dirname} - If this path is wrong, run .\\starter setup`));
 
         // If Prompts are undefined
         if (typeof(prompts) != 'undefined') {

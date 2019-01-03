@@ -48,10 +48,16 @@ describe('Create Foundation Module Tests', (done) => {
         rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
-    it('Generate Foundation Files', (done) => {
+    it('Generate Foundation CSProj File', (done) => {
 
         assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/${solutionPrefix}.Foundation.${moduleName}.csproj`));
+        done();
 
+    });
+
+    it('Generate Foundation Unicorn File', (done) => {
+
+        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/App_Config/Include/Foundation/Foundation.${moduleName}.csproj`));
         done();
 
     });
