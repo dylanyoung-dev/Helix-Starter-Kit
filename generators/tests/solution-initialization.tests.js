@@ -39,20 +39,13 @@ describe('Solution Initialization Tests', () => {
             .withGenerators(deps);
     });
     afterEach(() => {
-        rimraf.sync(path.join(__dirname, 'tmp'));
+        //rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
     it('Generate Solution Files', (done) => {
         // The object returned acts like a promise, so return it to wait until the process is done
         assert.file(path.join(__dirname, `tmp/gulpfile.js`));
         assert.file(path.join(__dirname, `tmp/${solutionName}.sln`));
-
-        done();
-    });
-
-    it('Correct Version Nuget File - 9.1', (done) => {
-        assert.file(path.join(__dirname, `tmp/Nuget.config`));
-        //assert.fileContent(path.join(__dirname, `tmp/NuGet.config`), '');
 
         done();
     });
