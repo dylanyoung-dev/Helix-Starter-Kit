@@ -130,10 +130,10 @@ module.exports = {
             `Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "${moduleName}", "${moduleName}", "{${projectFolderGuid}}"\r\n` + `EndProject\r\n`;
 
         let projectBuildConfig =
-            `		{${this.ProjectGuid}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
-            `		{${this.ProjectGuid}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
-            `		{${this.ProjectGuid}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
-            `		{${this.ProjectGuid}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
+            `		{${projectId}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n` +
+            `		{${projectId}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n` +
+            `		{${projectId}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n` +
+            `		{${projectId}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n`;
 
         slnText = this.ensureSolutionFolder(slnText, this.titleCase(layer));
         let layerFolderGuid = this.getSolutionFolderGuid(slnText, this.titleCase(layer));
