@@ -48,10 +48,17 @@ describe('Create Feature Module Tests', (done) => {
         rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
-    it('Generate Feature Files', (done) => {
+    it('Generate Feature CSProj File', (done) => {
 
         assert.file(path.join(__dirname, `tmp/src/Feature/${moduleName}/code/${solutionPrefix}.Feature.${moduleName}.csproj`));
 
+        done();
+
+    });
+
+    it('Generate Feature Unicorn File', (done) => {
+
+        assert.file(path.join(__dirname, `tmp/src/Feature/${moduleName}/code/App_Config/Include/Feature/Feature.${moduleName}.Serialization.config`));
         done();
 
     });

@@ -48,11 +48,18 @@ describe('Create Project Module Tests', (done) => {
         rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
-    it('Generate Project Files', (done) => {
+    it('Generate Project CSProj Files', (done) => {
 
         assert.file(path.join(__dirname, `tmp/src/Project/${moduleName}/code/${solutionPrefix}.Project.${moduleName}.csproj`));
 
         done();
 
+    });
+
+    it('Generate Project Unicorn File', (done) => {
+
+        assert.file(path.join(__dirname, `tmp/src/Project/${moduleName}/code/App_Config/Include/Project/Project.${moduleName}.Serialization.config`));
+        done();
+        
     });
 });

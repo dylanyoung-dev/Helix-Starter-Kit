@@ -71,7 +71,7 @@ module.exports = class extends Generator {
 
         this.fs.copyTpl(
             this.templatePath('./code/App_Config/Include/Foundation/.Foundation.Sample.Serialization.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Feature/', 'Foundation.' + parameters.ModuleName + '.Serialization.config')), {
+            this.destinationPath(path.join(this.targetPath, 'code/App_Config/Include/Foundation/', 'Foundation.' + parameters.ModuleName + '.Serialization.config')), {
                 Parameters: parameters
             }
         );

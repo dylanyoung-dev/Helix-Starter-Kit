@@ -57,7 +57,7 @@ describe('Create Foundation Module Tests', (done) => {
 
     it('Generate Foundation Unicorn File', (done) => {
 
-        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/App_Config/Include/Foundation/Foundation.${moduleName}.csproj`));
+        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/App_Config/Include/Foundation/Foundation.${moduleName}.Serialization.config`));
         done();
 
     });
