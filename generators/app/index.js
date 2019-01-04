@@ -39,7 +39,32 @@ module.exports = class extends Generator {
 
         // If Prompts are undefined
         if (typeof(prompts) != 'undefined') {
-            return this.prompt(prompts).then((answers) => {
+
+            // Remove Options Based on Current Scenarios
+            let filteredPrompts = prompts;
+            //if (!parameters.Testing) {
+                //var slnPath = common.getSolutionFilePath(this.destinationPath());
+
+                // if (typeof(slnPath) == 'undefined') {
+                //     // Remove Create Module Options
+                //     filteredPrompts = prompts.filter(function(question) {
+                //         question.filter(function(choice) { 
+                //             if(!typeof(question.choices) == 'undefined')
+                //             { 
+                //                 if (choices)
+                //                 result = d;
+                //             }
+                //         })
+                //     });
+                // } else {
+                //     // Remove Sln Setup
+                //     filteredPrompts = prompts.filter((item) => {
+                //         return item.choices.value == 'create-module';
+                //     });
+                // }
+            //}
+
+            return this.prompt(filteredPrompts).then((answers) => {
                 this._processParameters(answers, presets);
             });
         } else {
