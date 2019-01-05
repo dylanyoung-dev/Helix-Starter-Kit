@@ -142,9 +142,9 @@ module.exports = {
             `		{${projectId}} = {${projectFolderGuid}}\r\n` +
             `		{${projectFolderGuid}} = {${layerFolderGuid}}\r\n`;
 
-        slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&${projectDefinition}\r\n`);
-        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(ProjectConfigurationPlatforms\)[^\r\n]*\r\n/, `$&${projectBuildConfig}\r\n`);
-        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(NestedProjects\)[^\r\n]*\r\n/, `$&${projectNesting}\r\n`);
+        slnText = slnText.replace(/\r\nMinimumVisualStudioVersion[^\r\n]*\r\n/, `$&\r\n${projectDefinition}\r\n`);
+        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(ProjectConfigurationPlatforms\)[^\r\n]*\r\n/, `$&\r\n${projectBuildConfig}\r\n`);
+        slnText = slnText.replace(/\r\n[^\r\n]*GlobalSection\(NestedProjects\)[^\r\n]*\r\n/, `$&\r\n${projectNesting}\r\n`);
 
         fs.writeFileSync(slnFilePath, slnText, 'utf-8');
     },
