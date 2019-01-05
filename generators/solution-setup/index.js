@@ -64,6 +64,8 @@ module.exports = class extends Generator {
         }
 
         // Run NPM Install + Gulp Initialize Task (TODO)
-        common.installDependencies();
+        if (!parameters.Testing) {
+            common.installDependencies();
+        }
     }
 }

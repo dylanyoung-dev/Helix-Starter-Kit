@@ -45,7 +45,7 @@ describe('Create Feature Module Tests', (done) => {
             });
     });
     afterEach(() => {
-        rimraf.sync(path.join(__dirname, 'tmp'));
+        //rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
     it('Generate Feature CSProj File', (done) => {

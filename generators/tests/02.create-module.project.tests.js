@@ -10,12 +10,12 @@ const deps = [
     path.join(__dirname, '../solution-setup/base'),
     path.join(__dirname, '../solution-setup/website'),
     path.join(__dirname, '../solution-setup/module'),
-    path.join(__dirname, '../create-module/helix-foundation')
+    path.join(__dirname, '../create-module/helix-project')
 ];
 
 var MyGenerator = require(path.join(__dirname, '../app'));
 
-describe('Create Foundation Module Tests', (done) => {
+describe('Create Project Module Tests', (done) => {
 
     // Constants
     const moduleName = "Tests";
@@ -35,7 +35,7 @@ describe('Create Foundation Module Tests', (done) => {
                 EnvironmentUrl: 'https://starterkit.sc',
                 EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc',
                 ModuleName: moduleName,
-                GeneratorModuleType: 'foundation'
+                GeneratorModuleType: 'project'
             })
             .withOptions(
                 { testing: true }
@@ -45,20 +45,21 @@ describe('Create Foundation Module Tests', (done) => {
             });
     });
     afterEach(() => {
-        rimraf.sync(path.join(__dirname, 'tmp'));
+        //rimraf.sync(path.join(__dirname, 'tmp'));
     });
 
-    it('Generate Foundation CSProj File', (done) => {
+    it('Generate Project CSProj Files', (done) => {
 
-        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/${solutionPrefix}.Foundation.${moduleName}.csproj`));
+        assert.file(path.join(__dirname, `tmp/src/Project/${moduleName}/code/${solutionPrefix}.Project.${moduleName}.csproj`));
+
         done();
 
     });
 
-    it('Generate Foundation Unicorn File', (done) => {
+    it('Generate Project Unicorn File', (done) => {
 
-        assert.file(path.join(__dirname, `tmp/src/Foundation/${moduleName}/code/App_Config/Include/Foundation/Foundation.${moduleName}.Serialization.config`));
+        assert.file(path.join(__dirname, `tmp/src/Project/${moduleName}/code/App_Config/Include/Project/Project.${moduleName}.Serialization.config`));
         done();
-
+        
     });
 });
