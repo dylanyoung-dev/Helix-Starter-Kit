@@ -45,15 +45,6 @@ namespace Sitecore.Foundation.DependencyInjection
             {
                 serviceCollection.AddTransient(controller);
             }
-
-            // h/t Sean Holmesby and Akshay Sura: this adds Web API controller support
-            var apiControllers = GetTypesImplementing<ApiController>(assemblies)
-                .Where(controller => controller.Name.EndsWith("Controller", StringComparison.Ordinal));
-
-            foreach (var apiController in apiControllers)
-            {
-                serviceCollection.AddTransient(apiController);
-            }
         }
 
         public static Type[] GetTypesImplementing<T>(params Assembly[] assemblies)

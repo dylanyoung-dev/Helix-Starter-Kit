@@ -13,5 +13,23 @@ module.exports = {
     "Sitecore_Mvc": {
         "Package": "<package id=\"Sitecore.Mvc\" version=\"9.0.171219\" targetFramework=\"net471\" developmentDependency=\"true\" />",
         "Project": ""
+    },
+    "Microsoft_AspNet_Mvc": {
+        "Package": "<package id=\"Microsoft.AspNet.Mvc\" version=\"5.2.3\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
+    "Newtonsoft_Json": {
+        "Package": "<package id=\"Newtonsoft.Json\" version=\"9.0.1\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
+    "Microsoft_Extensions_DependencyInjection": {
+        "Package": "<package id=\"Microsoft.Extensions.DependencyInjection\" version=\"1.0.0\" targetFramework=\"net462\" />",
+        "Project": ""
+    },
+    "Microsoft_Extensions_DependencyInjection_Abstractions": {
+        "Package": "<package id=\"Microsoft.Extensions.DependencyInjection.Abstractions\" version=\"1.0.0\" targetFramework=\"net462\" />",
+        "Project": ""
     }
 };
+
+

@@ -233,5 +233,24 @@ module.exports = {
     "Sitecore_Zip": {
         "Package": "<package id=\"Sitecore.Zip\" version=\"12.0.0\" targetFramework=\"net471\" />",
         "Project": "<Reference Include=\"Sitecore.Zip, Version=12.0.0.0, Culture=neutral, processorArchitecture=MSIL\">\n \t<HintPath>..\\..\\..\\..\\packages\\Sitecore.Zip.12.0.0\\lib\\net471\\Sitecore.Zip.dll</HintPath>\n</Reference>"
+    },
+    "Microsoft_AspNet_Mvc": {
+        "Package": "<package id=\"Microsoft.AspNet.Mvc\" version=\"5.2.4\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
+    "Newtonsoft_Json": {
+        "Package": "<package id=\"Newtonsoft.Json\" version=\"11.0.2\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
+    "Microsoft_Extensions_DependencyInjection": {
+        "Package": "<package id=\"Microsoft.Extensions.DependencyInjection\" version=\"2.1.1\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
+    "Microsoft_Extensions_DependencyInjection_Abstractions": {
+        "Package": "<package id=\"Microsoft.Extensions.DependencyInjection.Abstractions\" version=\"2.1.1\" targetFramework=\"net471\" />",
+        "Project": ""
     }
 };
+
+
+
