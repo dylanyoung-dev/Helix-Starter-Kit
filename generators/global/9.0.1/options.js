@@ -46,15 +46,15 @@ module.exports = {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.Razor\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Razor.3.2.3\\lib\\net45\\System.Web.Razor.dll</HintPath>\n</Reference>"
     },
-    "System_Web_WebPages": {
+    "System_Web_Webpages": {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.Webpages\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Webpages.3.2.3\\lib\\net45\\System.Web.Webpages.dll</HintPath>\n</Reference>"
     },
-    "System_Web_WebPages_Deployment": {
+    "System_Web_Webpages_Deployment": {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.Webpages.Deployment\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Webpages.3.2.3\\lib\\net45\\System.Web.Webpages.Deployment.dll</HintPath>\n</Reference>"
     },
-    "System_Web_WebPages_Razor": {
+    "System_Web_Webpages_Razor": {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.Webpages.Razor\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Webpages.3.2.3\\lib\\net45\\System.Web.Webpages.Razor.dll</HintPath>\n</Reference>"
     }

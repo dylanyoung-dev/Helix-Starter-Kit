@@ -41,6 +41,7 @@ module.exports = class extends Generator {
         this._nugetSetup();
         this._projectSetup();
         this._webConfigSetup();
+        this._unicornSetup();
         this._packageSetup();
         this._gulpConfiguration();
         this._publishTargetConfiguration();
@@ -119,6 +120,18 @@ module.exports = class extends Generator {
                 }
             );
         }, this);
+    };
+
+    _unicornSetup() {
+
+        // TODO: This needs refactoring
+        if (parameters.SitecoreVersion == "9.1.0") {
+            this.fs.copyTpl(
+                this.templatePath('src/Foundation/Serialization/code/App_Config/Include/Unicorn/.Unicorn.UI.IdentityServer.config'),
+                this.destinationPath('src/Foundation/Serialization/code/App_Config/Include/Unicorn.UI.IdentityServer.config'),
+                    { Parameters: parameters }
+            );
+        }
     };
 
     _packageSetup() {

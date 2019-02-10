@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <%- Parameters.VersionOptions.System_Web_Razor.Project %>
-    <%- Parameters.VersionOptions.System_web_Webpages.Project %>
+    <%- Parameters.VersionOptions.System_Web_Webpages.Project %>
     <%- Parameters.VersionOptions.System_Web_Webpages_Deployment.Project %>
     <%- Parameters.VersionOptions.System_Web_Webpages_Razor.Project %>
     <%- Parameters.VersionOptions.System_Web_Helpers.Project %>
@@ -113,9 +113,9 @@
     <Content Include="App_Config\Include\Unicorn\Unicorn.config" />
     <Content Include="App_Config\Include\Unicorn\Unicorn.AutoPublish.config" />
     <Content Include="App_Config\Include\Foundation\Foundation.Serialization.config" />
-    <% if (Parameters.SitecoreVersion == '9.1.0') { %>
+    <% if (Parameters.SitecoreVersion == "9.1.0") { %>
       <Content Include="App_Config\Include\Unicorn\Unicorn.UI.IdentityServer.config" />
-    <% end if %>
+    <% } %>
     <Content Include="App_Config\Include\Foundation\Foundation.Serialization.Settings.config" />
     <Content Include="App_Config\Include\Unicorn.Base.config" />
     <Content Include="App_Config\Include\Environment.config" />

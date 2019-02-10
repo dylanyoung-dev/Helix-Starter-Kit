@@ -270,15 +270,15 @@ module.exports = {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Razor.3.2.6\\lib\\net45\\System.Web.Razor.dll</HintPath>\n</Reference>"
     },
-    "System_Web_WebPages": {
+    "System_Web_Webpages": {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.WebPages.dll</HintPath>\n</Reference>"
     },
-    "System_Web_WebPages_Deployment": {
+    "System_Web_Webpages_Deployment": {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.WebPages.Deployment.dll</HintPath>\n</Reference>"
     },
-    "System_Web_WebPages_Razor": {
+    "System_Web_Webpages_Razor": {
         "Package": "",
         "Project": "<Reference Include=\"System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.WebPages.Razor.dll</HintPath>\n</Reference>"
     }
