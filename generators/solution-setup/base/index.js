@@ -128,7 +128,7 @@ module.exports = class extends Generator {
         if (parameters.SitecoreVersion == "9.1.0") {
             this.fs.copyTpl(
                 this.templatePath('src/Foundation/Serialization/code/App_Config/Include/Unicorn/.Unicorn.UI.IdentityServer.config'),
-                this.destinationPath('src/Foundation/Serialization/code/App_Config/Include/Unicorn.UI.IdentityServer.config'),
+                this.destinationPath('src/Foundation/Serialization/code/App_Config/Include/Unicorn/Unicorn.UI.IdentityServer.config'),
                     { Parameters: parameters }
             );
         }
