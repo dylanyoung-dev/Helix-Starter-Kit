@@ -238,17 +238,49 @@ module.exports = {
         "Package": "<package id=\"Microsoft.AspNet.Mvc\" version=\"5.2.4\" targetFramework=\"net471\" />",
         "Project": ""
     },
+    "Microsoft_AspNet_Razor": {
+        "Package": "<package id=\"Microsoft.AspNet.Razor\" version=\"3.2.6\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
+    "Microsoft_AspNet_WebPages": {
+        "Package": "<package id=\"Microsoft.AspNet.WebPages\" version=\"3.2.6\" targetFramework=\"net471\" />",
+        "Project": ""
+    },
     "Newtonsoft_Json": {
         "Package": "<package id=\"Newtonsoft.Json\" version=\"11.0.2\" targetFramework=\"net471\" />",
-        "Project": ""
+        "Project": "<Reference Include=\"Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Newtonsoft.Json.11.0.2\\lib\\net45\\Newtonsoft.Json.dll</HintPath></Reference>"
     },
     "Microsoft_Extensions_DependencyInjection": {
         "Package": "<package id=\"Microsoft.Extensions.DependencyInjection\" version=\"2.1.1\" targetFramework=\"net471\" />",
-        "Project": ""
+        "Project": "<Reference Include=\"Microsoft.Extensions.DependencyInjection, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.Extensions.DependencyInjection.2.1.1\\lib\\net461\\Microsoft.Extensions.DependencyInjection.dll</HintPath>\n</Reference>"
     },
     "Microsoft_Extensions_DependencyInjection_Abstractions": {
         "Package": "<package id=\"Microsoft.Extensions.DependencyInjection.Abstractions\" version=\"2.1.1\" targetFramework=\"net471\" />",
-        "Project": ""
+        "Project": "<Reference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.Extensions.DependencyInjection.Abstractions.2.1.1\\lib\\netstandard2.0\\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>\n</Reference>"
+    },
+    "System_Web_Mvc": {
+        "Package": "",
+        "Project": "<Reference Include=\"System.Web.Mvc, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Mvc.5.2.4\\lib\\net45\\System.Web.Mvc.dll</HintPath>\n</Reference>"
+    },
+    "System_Web_Helpers": {
+        "Package": "",
+        "Project": "<Reference Include=\"System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.Helpers.dll</HintPath>\n</Reference>"
+    },
+    "System_Web_Razor": {
+        "Package": "",
+        "Project": "<Reference Include=\"System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.Razor.3.2.6\\lib\\net45\\System.Web.Razor.dll</HintPath>\n</Reference>"
+    },
+    "System_Web_WebPages": {
+        "Package": "",
+        "Project": "<Reference Include=\"System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.WebPages.dll</HintPath>\n</Reference>"
+    },
+    "System_Web_WebPages_Deployment": {
+        "Package": "",
+        "Project": "<Reference Include=\"System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.WebPages.Deployment.dll</HintPath>\n</Reference>"
+    },
+    "System_Web_WebPages_Razor": {
+        "Package": "",
+        "Project": "<Reference Include=\"System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\n<HintPath>..\\..\\..\\..\\packages\\Microsoft.AspNet.WebPages.3.2.6\\lib\\net45\\System.Web.WebPages.Razor.dll</HintPath>\n</Reference>"
     }
 };
 
