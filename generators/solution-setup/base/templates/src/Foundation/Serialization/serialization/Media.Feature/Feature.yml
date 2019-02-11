@@ -1,5 +1,5 @@
 ﻿---
-ID: "6d91ebc6-9c46-43f5-99c3-0954c43ba186"
+ID: "e41078c5-6141-49df-929f-432892ab5eb1"
 Parent: "3d6658d8-a0bf-4e75-b3e2-d050fabcf4e1"
 Template: "fe5dd826-48c6-436d-b87a-7c4210c7413b"
 Path: /sitecore/media library/Feature
@@ -15,8 +15,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20180428T164036Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
+      Value: 20190211T000423Z

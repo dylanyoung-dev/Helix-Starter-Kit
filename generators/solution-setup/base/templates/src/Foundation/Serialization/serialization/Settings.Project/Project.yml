@@ -1,5 +1,5 @@
 ﻿---
-ID: "d437e24c-ac95-4af6-84d2-cdc9fc9641a1"
+ID: "2d3fa57a-d077-4d35-b5e1-99b814458f2d"
 Parent: "087e1ea5-6280-4575-9e70-85b588db91b2"
 Template: "a87a00b1-e6db-45ab-8b54-636fec3b5523"
 Path: /sitecore/system/Settings/Project
@@ -7,7 +7,7 @@ DB: master
 SharedFields:
 - ID: "06d5295c-ed2f-4a54-9bf2-26228d113318"
   Hint: __Icon
-  Value: applications/32x32/folder_window.png
+  Value: Applications/32x32/folder_window.png
 Languages:
 - Language: en
   Versions:
@@ -15,8 +15,4 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20180428T162325Z
-    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
-      Hint: __Created by
-      Value: |
-        sitecore\admin
+      Value: 20190210T235520Z
