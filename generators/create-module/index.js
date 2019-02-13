@@ -43,6 +43,7 @@ module.exports = class extends Generator {
 
     _processParameters(answers, presets) {
         parameters.GeneratorModuleType = common.ProcessParameter(answers, presets, constants.GENERATOR_MODULE_TYPE);
+        parameters.ModuleHasTemplates = common.ProcessParameter(answers, presets, constants.MODULE_HAS_TEMPLATES);
     }
 
     runGenerator() {

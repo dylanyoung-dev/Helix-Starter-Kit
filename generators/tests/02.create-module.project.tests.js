@@ -35,7 +35,8 @@ describe('Create Project Module Tests - 9.0.2', (done) => {
                 EnvironmentUrl: 'https://starterkit.sc',
                 EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc',
                 ModuleName: moduleName,
-                GeneratorModuleType: 'project'
+                GeneratorModuleType: 'project',
+                ModuleHasTemplates: true
             })
             .withOptions(
                 { testing: true }

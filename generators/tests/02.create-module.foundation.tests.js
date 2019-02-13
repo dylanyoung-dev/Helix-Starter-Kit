@@ -35,7 +35,8 @@ describe('Create Foundation Module Tests - 9.0.2', (done) => {
                 EnvironmentUrl: 'https://starterkit.sc',
                 EnvironmentRoot: 'c:\\inetpub\\wwwroot\\starterkit.sc',
                 ModuleName: moduleName,
-                GeneratorModuleType: 'foundation'
+                GeneratorModuleType: 'foundation',
+                ModuleHasTemplates: true
             })
             .withOptions(
                 { testing: true }

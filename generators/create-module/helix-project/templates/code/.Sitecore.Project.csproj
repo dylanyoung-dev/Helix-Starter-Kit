@@ -70,6 +70,20 @@
       <HintPath>..\..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <% if (Parameters.ModuleHasTemplates == true) { %>
+    <Reference Include="Glass.Mapper, Version=5.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Glass.Mapper.Sc.90.Core.5.0.6\lib\net462\Glass.Mapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Glass.Mapper.Sc, Version=5.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Glass.Mapper.Sc.90.Core.5.0.6\lib\net462\Glass.Mapper.Sc.dll</HintPath>
+    </Reference>
+    <Reference Include="Glass.Mapper.Sc.Mvc, Version=5.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Glass.Mapper.Sc.90.Mvc.5.0.6\lib\net462\Glass.Mapper.Sc.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Glass.Mapper.Sc.WebForms, Version=5.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Glass.Mapper.Sc.90.WebForms.5.0.6\lib\net462\Glass.Mapper.Sc.WebForms.dll</HintPath>
+    </Reference>
+    <% } %>
     <%- Parameters.VersionOptions.System_Web_Mvc.Project %>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
@@ -93,6 +107,14 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
+  <% if (Parameters.ModuleHasTemplates == true) { %>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Foundation\ORM\code\Helix.Foundation.ORM.csproj">
+      <Project>{bfcfe76e-49ba-439d-ac87-92aeb9ae8321}</Project>
+      <Name>Helix.Foundation.ORM</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <% } %>
   <ItemGroup>
     <Content Include="App_Config\Include\Project\Project.<%= Parameters.ModuleName %>.Serialization.config" />
     <Content Include="packages.config" />

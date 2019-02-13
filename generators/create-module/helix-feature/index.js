@@ -110,14 +110,14 @@ module.exports = class extends Generator {
     }
 
     codeGeneration() {
-
-        this.fs.copyTpl(
-            this.templatePath('./code/.CodeGen.config'),
-            this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
-                Parameters: parameters
-            }
-        );
-
+        if (parameters.ModuleHasTemplates == true) {
+            this.fs.copyTpl(
+                this.templatePath('./code/.CodeGen.config'),
+                this.destinationPath(path.join(this.targetPath, 'code/', 'CodeGen.config')), {
+                    Parameters: parameters
+                }
+            );
+        }
     }
 
     configureSerializedItems() {

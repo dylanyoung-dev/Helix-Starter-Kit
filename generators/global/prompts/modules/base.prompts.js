@@ -16,5 +16,18 @@ module.exports = [{
         name: 'Foundation',
         value: 'foundation'
     }]
+},
+{
+    type: 'list',
+    name: 'ModuleHasTemplates',
+    message: 'Module will have Templates?',
+    choices: [{
+        name: 'Yes',
+        value: true
+    },
+    {
+        name: "No",
+        value: false
+    }]
 }];
 

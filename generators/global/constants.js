@@ -10,5 +10,6 @@ module.exports = {
     ENVIRONMENT_ROOT: "EnvironmentRoot",
     SITECORE_VERSION: "SitecoreVersion",
     SOLUTION_TYPE: "SolutionType",
-    WEBSITE_NAME: "WebsiteName"
+    WEBSITE_NAME: "WebsiteName",
+    MODULE_HAS_TEMPLATES: "ModuleHasTemplates"
 }
