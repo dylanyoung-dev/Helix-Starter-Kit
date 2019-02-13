@@ -120,7 +120,7 @@ module.exports = class extends Generator {
 
     }
 
-    _configureSerializedItems() {
+    configureSerializedItems() {
 
         // Create Unique Id's for Serialized Items
         parameters.UnicornTemplateId = guid.v4();
