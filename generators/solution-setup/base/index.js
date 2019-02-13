@@ -38,6 +38,7 @@ module.exports = class extends Generator {
         this._initialFolders();
         this._solutionSetup();
         this._environmentConfig();
+        this._leprechaunConfig();
         this._nugetSetup();
         this._projectSetup();
         this._webConfigSetup();
@@ -80,6 +81,16 @@ module.exports = class extends Generator {
             this.templatePath('src/Foundation/Serialization/code/App_Config/Include/.Environment.config'),
             this.destinationPath('src/Foundation/Serialization/code/App_Config/Include/Environment.config'),
                 { Parameters: parameters }
+        );
+    }
+
+    _leprechaunConfig() {
+        this.fs.copyTpl(
+            this.templatePath('.Leprechaun.config'),
+            this.destinationPath('Leprechaun.config'),
+            {
+                Parameters: parameters
+            }
         );
     }
 
