@@ -1,8 +1,10 @@
 'use strict';
 
+const constants = require('../constants.js');
+
 module.exports = [{
     type: 'list',
-    name: 'GeneratorType',
+    name: constants.GENERATOR_TYPE,
     message: 'What action do you want to perform?',
     choices: [{
         name: 'Initialize Solution',
@@ -14,7 +16,7 @@ module.exports = [{
     }]
 }, {
     type: 'list',
-    name: 'SitecoreVersion',
+    name: constants.SITECORE_VERSION,
     message: 'What version of Sitecore are you using?',
     choices: [{
         name: '9.1.0 (001564)',
@@ -28,7 +30,7 @@ module.exports = [{
     }]
 }, {
     type: 'input',
-    name: 'SolutionPrefix',
+    name: constants.SOLUTION_PREFIX,
     message: 'Enter the name of the Solution Prefix (ie. *Sitecore*.Project.Common or *Helix*.Foundation.Orm):',
     defaultvalue: 'Helix'
 }];

@@ -1,8 +1,10 @@
 'use strict';
 
+const constants = require('../../constants.js');
+
 module.exports = [{
     type: 'list',
-    name: 'GeneratorModuleType',
+    name: constants.GENERATOR_MODULE_TYPE,
     message: 'What is the layer of the module you are adding?',
     choices: [{
         name: 'Project',
@@ -19,7 +21,7 @@ module.exports = [{
 },
 {
     type: 'list',
-    name: 'ModuleHasTemplates',
+    name: constants.MODULE_HAS_TEMPLATES,
     message: 'Module will have Templates?',
     choices: [{
         name: 'Yes',
