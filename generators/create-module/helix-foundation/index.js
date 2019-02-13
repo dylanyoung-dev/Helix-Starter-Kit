@@ -117,6 +117,20 @@ module.exports = class extends Generator {
         );
     }
 
+    configureSerializedItems() {
+
+        // Create Unique Id's for Serialized Items
+        parameters.UnicornTemplateId = guid.v4();
+
+        this.fs.copyTpl(
+            this.templatePath('./serialization/Templates/.Template.yml'),
+            this.destinationPath(path.join(this.targetPath, 'serialization/', 'Templates/', parameters.ModuleName + '.yml')), {
+                Parameters: parameters
+            }
+        );
+
+    }
+
     solutionAttach() {
 
         common.addProjectToSolution("foundation", this.destinationPath(), this.ProjectGuid, parameters.SolutionPrefix, parameters.ModuleName);

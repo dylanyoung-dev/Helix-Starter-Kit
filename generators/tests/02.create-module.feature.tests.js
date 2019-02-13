@@ -15,7 +15,7 @@ const deps = [
 
 var MyGenerator = require(path.join(__dirname, '../app'));
 
-describe('Create Feature Module Tests', (done) => {
+describe('Create Feature Module Tests - 9.0.2', (done) => {
 
     // Constants
     const moduleName = "Blog";

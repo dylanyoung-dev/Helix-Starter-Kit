@@ -63,6 +63,7 @@ module.exports = class extends Generator {
         this._configurePackages();
         this._configureAssembly();
         this._configureCodeGeneration();
+        this._configureSerializedItems();
         this._solutionAttach();
 
     }
@@ -148,6 +149,46 @@ module.exports = class extends Generator {
                 Parameters: parameters
             }
         );
+    }
+
+    _configureSerializedItems() {
+
+        // Create Unique Id's for Serialized Items
+        parameters.UnicornTemplateId = guid.v4();
+        parameters.UnicornRenderingId = guid.v4();
+        parameters.UnicornLayoutId = guid.v4();
+        parameters.UnicornMediaId = guid.v4();
+
+        this.fs.copyTpl(
+            this.templatePath('./serialization/Templates/.Template.yml'),
+            this.destinationPath(path.join(this.targetPath, 'serialization/', 'Templates/', parameters.ModuleName + '.yml')), {
+                Parameters: parameters
+            }
+        );
+
+        this.fs.copyTpl(
+            this.templatePath('./serialization/Renderings/.Rendering.yml'),
+            this.destinationPath(path.join(this.targetPath, 'serialization/', 'Renderings/', parameters.ModuleName + '.yml')),{
+                Parameters: parameters
+            }
+        );
+
+        this.fs.copyTpl(
+            this.templatePath('./serialization/Layout/.Layout.yml'),
+            this.destinationPath(path.join(this.targetPath, 'serialization/', 'Layout/', parameters.ModuleName + '.yml')),
+            {
+                Parameters: parameters
+            }
+        );
+
+        this.fs.copyTpl(
+            this.templatePath('./serialization/Media/.Media.yml'),
+            this.destinationPath(path.join(this.targetPath, 'serialization/', 'Layout/', parameters.ModuleName + '.yml')),
+            {
+                Parameters: parameters
+            }
+        );
+
     }
 
     _solutionAttach() {

@@ -26,7 +26,7 @@ if (fs.existsSync("./gulp-config.user.js")) {
 
 module.exports.config = config;
 
-starter.header("Helix Starter Kit","A starting point for any Sitecore Helix project","0.0.1");
+starter.header("Helix Starter Kit","A starting point for any Sitecore Helix project", "1.0.0");
 
 
 // Default Task
