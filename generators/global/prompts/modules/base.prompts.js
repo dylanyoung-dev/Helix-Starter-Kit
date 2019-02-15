@@ -25,11 +25,11 @@ module.exports = [{
     message: 'Module will have Templates?',
     choices: [{
         name: 'Yes',
-        value: "true"
+        value: true
     },
     {
         name: "No",
-        value: "false"
+        value: false
     }]
 }];
 
