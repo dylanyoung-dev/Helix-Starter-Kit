@@ -114,6 +114,9 @@
       <Name>Helix.Foundation.ORM</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeGen.config" />
+  </ItemGroup>
   <% } %>
   <ItemGroup>
     <Content Include="App_Config\Include\Feature\Feature.<%= Parameters.ModuleName %>.Serialization.config" />
@@ -133,9 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CodeGen.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfile\Debug.pubxml" />

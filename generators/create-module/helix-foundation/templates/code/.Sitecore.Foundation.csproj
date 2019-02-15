@@ -108,11 +108,14 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <% if (Parameters.ModuleHasTemplates == true) { %>
-<ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Foundation\ORM\code\Helix.Foundation.ORM.csproj">
       <Project>{bfcfe76e-49ba-439d-ac87-92aeb9ae8321}</Project>
       <Name>Helix.Foundation.ORM</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CodeGen.config" />
   </ItemGroup>
   <% } %>
   <ItemGroup>
@@ -133,9 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="CodeGen.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfile\Debug.pubxml" />

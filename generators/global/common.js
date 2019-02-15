@@ -71,7 +71,7 @@ module.exports = {
             return prompts;
         }
 
-        var filtered = prompts.find(function (x) {
+        var filtered = prompts.filter(function (x) {
             return !presets.find(function (y) {
                 return y.name == x.name && (typeof (y.value) != 'undefined');
             });
