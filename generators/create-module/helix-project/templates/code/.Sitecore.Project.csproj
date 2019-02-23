@@ -119,6 +119,7 @@
   </ItemGroup>
   <% } %>
   <ItemGroup>
+    <Content Include="App_Config\Include\Project\Project.<%= Parameters.ModuleName %>.config" />
     <Content Include="App_Config\Include\Project\Project.<%= Parameters.ModuleName %>.Serialization.config" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
