@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\<%= Parameters.ModuleName %>\" />
+    <Content Include="Views\<%= Parameters.ModuleName %>\Layout.cshtml">
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

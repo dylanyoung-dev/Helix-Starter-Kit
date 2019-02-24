@@ -103,6 +103,18 @@ module.exports = {
         }).join(' ');
     },
 
+    handleItems(startPath, outputPath, parameters) {
+
+        this.fs.copyTpl(
+            this.templatePath(startPath),
+            this.destinationPath(outputPath), {
+                Parameters: parameters,
+                Id: guid.v4()
+            }
+        );
+
+    },
+
     addProjectToSolution(layer, destinationPath, projectId, solutionPrefix, moduleName) {
 
         let slnFilePath = this.getSolutionFilePath(destinationPath);

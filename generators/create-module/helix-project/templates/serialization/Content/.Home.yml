@@ -1,8 +1,8 @@
 ﻿---
 ID: "<%= Id %>"
-Parent: "da04b275-8838-4a3a-afee-817cf1fdd2eb"
-Template: "93227c5d-4fef-474d-94c0-f252ec8e8219"
-Path: /sitecore/layout/Layouts/Project/<%= Parameters.ModuleName %>
+Parent: "71b6ecaa-e1ea-4757-b8bd-f533a469a750"
+Template: "19cb0203-de9c-4700-81d7-986c1b7c230d"
+Path: /sitecore/content/<%= Parameters.ModuleName %>/Home
 DB: master
 Languages:
 - Language: en
@@ -11,8 +11,8 @@ Languages:
     Fields:
     - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
       Hint: __Created
-      Value: 20190213T021130Z
+      Value: 20190223T074415Z
     - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
       Hint: __Created by
       Value: |
-        sitecore\Admin
+        sitecore\admin

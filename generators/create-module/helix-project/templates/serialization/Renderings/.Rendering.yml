@@ -1,5 +1,5 @@
 ﻿---
-ID: "<%= Parameters.UnicornRenderingId %>"
+ID: "<%= Id %>"
 Parent: "1995806f-0a84-42b5-93b0-88f0e2ff872c"
 Template: "7ee0975b-0698-493e-b3a2-0b2ef33d0522"
 Path: /sitecore/layout/Renderings/Project/<%= Parameters.ModuleName %>
