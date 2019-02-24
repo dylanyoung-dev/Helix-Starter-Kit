@@ -167,7 +167,7 @@ module.exports = class extends Generator {
         this.fs.copyTpl(this.templatePath('./serialization/Renderings/.Rendering.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Renderings/', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: guid.v4() });
 
         // Layout
-        this.fs.copyTpl(this.templatePath('./serialization/Layout/.Layout.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Layout/', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: guid.v4() });
+        this.fs.copyTpl(this.templatePath('./serialization/Layout/.Layout.yml'), this.destinationPath(path.join(this.targetPath, 'serialization', 'Layout', parameters.ModuleName, 'Layout.yml')), { Parameters: parameters, Id: guid.v4() });
 
         mkdir.sync(path.join(this.targetPath, 'serialization', 'Layout', parameters.ModuleName));
 
