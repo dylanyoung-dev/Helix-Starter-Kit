@@ -9,17 +9,30 @@
     "generator"
   ],
   "scripts": {
-    "postinstall": ""
+    "postinstall": "",
+    "test": "mocha tests/*.tests.js --timeout 60000 --config generators/test/mocha.opts",
+    "test-report": "mocha tests/*.tests.js --reporter mocha-junit-reporter --timeout 60000 --config generators/test/mocha.opts"
   },
   "dependencies": {
     "chalk": "^1.1.3",
-    "node-uuid": "^1.4.7",
-    "yeoman-generator": "^1.1.0",
-    "yosay": "^1.2.1",
+    "foreach": "2.0.5",
+    "fs": "0.0.1-security",
+    "generator-mocha": "2.0.1",
+    "js-yaml": "3.12.0",
+    "merge-config": "2.0.0",
     "mkdirp": "0.5.1",
-    "fs": "0.0.1-security"
+    "node-uuid": "^1.4.7",
+    "yeoman-generator": "3.2.0",
+    "yo": "^2.0.5",
+    "yosay": "^1.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha-test": "2.0.4",
+    "yeoman-assert": "3.1.1",
+    "yeoman-test": "1.9.1",
+    "rimraf": "2.6.2",
+    "mocha-junit-reporter": "1.18.0"
+  },
   "repository": {
     "type": "git"
   },

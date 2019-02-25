@@ -1,0 +1,2 @@
+C:\Development\Helix-Starter-Kit\build\Azure\obj\Debug\Azure.deployproj.CoreCompileInputs.cache
+C:\Development\Helix-Starter-Kit\build\Azure\bin\Debug\Deploy-AzureResourceGroup.ps1

@@ -1,0 +1,18 @@
+﻿---
+ID: "<%= Id %>"
+Parent: "71b6ecaa-e1ea-4757-b8bd-f533a469a750"
+Template: "19cb0203-de9c-4700-81d7-986c1b7c230d"
+Path: /sitecore/content/<%= Parameters.ModuleName %>/Home
+DB: master
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20190223T074415Z
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\admin
