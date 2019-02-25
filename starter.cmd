@@ -1,14 +1,16 @@
 @ECHO off
 
-if [%1]==[init] goto init
-if [%1]==[create] goto create
+if [%1]==[setup] goto setup
+if [%1]==[run] goto run
+if [%1]==[test] goto test
+if [%1]==[testreport] goto testreport
 
 COLOR 07
 CLS
 
 echo Executing %1
 
-:init
+:setup
 
 echo Running NPM Install...
 call npm install
@@ -24,7 +26,29 @@ cd ..\
 
 goto :eof
 
-:create
+:testreport
+
+echo Running jUnit Test Reports...
+cd .\generators
+
+call npm test-report
+
+cd ..\
+
+goto :eof
+
+:test
+
+echo Running Mocha Tests...
+cd .\generators
+
+call npm test
+
+cd ..\
+
+goto :eof
+
+:run
 
 echo Initializing Solution with Yeoman...
 call yo starter
