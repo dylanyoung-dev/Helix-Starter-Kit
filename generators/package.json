@@ -10,8 +10,8 @@
   ],
   "scripts": {
     "postinstall": "",
-    "test": "mocha tests/*.tests.js --timeout 60000 --config generators/test/mocha.opts",
-    "test-report": "mocha tests/*.tests.js --reporter mocha-junit-reporter --timeout 60000 --config generators/test/mocha.opts"
+    "test": "mocha tests/*.tests.js --timeout 60000",
+    "test-report": "mocha tests/*.tests.js --reporter mocha-junit-reporter --timeout 60000"
   },
   "dependencies": {
     "chalk": "^1.1.3",
