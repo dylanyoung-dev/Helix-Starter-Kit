@@ -1,6 +1,6 @@
 ﻿---
 ID: "<%= Id %>"
-Parent: "384bbdf5-520c-4a36-aeb6-ccb2bbbf8a56"
+Parent: "<%= ParentId %>"
 Template: "ab86861a-6030-46c5-b394-e8f99e8b87db"
 Path: /sitecore/templates/Project/<%= Parameters.ModuleName %>/Home
 DB: master
