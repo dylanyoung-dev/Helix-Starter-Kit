@@ -17,7 +17,8 @@
     "gulp-sass": "^3.1.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-flatten": "^0.4.0",
-    "yargs": "12.0.2"
+    "yargs": "12.0.2",
+    "yeoman-test": "1.9.1"
   },
   "devDependencies": {},
   "repository": {
