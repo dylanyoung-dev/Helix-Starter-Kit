@@ -157,11 +157,12 @@ module.exports = class extends Generator {
     _configureSerializedItems() {
 
         // Templates
-        this.fs.copyTpl(this.templatePath('./serialization/Templates/.Template.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Templates/', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: guid.v4() });
+        var templateId = guid.v4();
+        this.fs.copyTpl(this.templatePath('./serialization/Templates/.Template.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Templates/', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: templateId });
 
         mkdir.sync(path.join(this.targetPath, 'serialization', 'Templates', parameters.ModuleName));
         
-        this.fs.copyTpl(this.templatePath('./serialization/Templates/.Home.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Templates/', parameters.ModuleName, 'Home.yml')), { Parameters: parameters, Id: guid.v4() });
+        this.fs.copyTpl(this.templatePath('./serialization/Templates/.Home.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Templates/', parameters.ModuleName, 'Home.yml')), { Parameters: parameters, Id: guid.v4(), ParentId: templateId });
 
         // Renderings
         this.fs.copyTpl(this.templatePath('./serialization/Renderings/.Rendering.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Renderings/', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: guid.v4() });
@@ -177,11 +178,12 @@ module.exports = class extends Generator {
         this.fs.copyTpl(this.templatePath('./serialization/Media/.Media.yml'), this.destinationPath(path.join(this.targetPath, 'serialization/', 'Media/', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: guid.v4() });
 
         // Content Items
-        this.fs.copyTpl(this.templatePath('./serialization/Content/.Folder.yml'), this.destinationPath(path.join(this.targetPath, 'serialization', 'Content', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: guid.v4() });
+        var folderId = guid.v4();
+        this.fs.copyTpl(this.templatePath('./serialization/Content/.Folder.yml'), this.destinationPath(path.join(this.targetPath, 'serialization', 'Content', parameters.ModuleName + '.yml')), { Parameters: parameters, Id: folderId });
 
         mkdir.sync(path.join(this.targetPath, 'serialization', 'Content', parameters.ModuleName));
 
-        this.fs.copyTpl(this.templatePath('./serialization/Content/.Home.yml'), this.destinationPath(path.join(this.targetPath, 'serialization', 'Content', parameters.ModuleName, 'Home.yml')), { Parameters: parameters, Id: guid.v4() });
+        this.fs.copyTpl(this.templatePath('./serialization/Content/.Home.yml'), this.destinationPath(path.join(this.targetPath, 'serialization', 'Content', parameters.ModuleName, 'Home.yml')), { Parameters: parameters, Id: guid.v4(), ParentId: folderId });
 
     }
 
