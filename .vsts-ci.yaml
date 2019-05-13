@@ -1,0 +1,33 @@
+resources:
+- repo: self
+
+pool:
+  name: Hosted VS2017
+steps:
+- script: '.\starter setup'
+  displayName: 'Command Line Script'
+
+- script: '.\starter testreport'
+  displayName: 'Command Line Script'
+
+- task: Npm@1
+  displayName: 'npm install mocha-junit-reporter'
+  inputs:
+    verbose: false
+  enabled: false
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/test-results.xml'
+  inputs:
+    testResultsFiles: '**/test-results.xml'
+  continueOnError: true
+  condition: succeededOrFailed()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
+
+- task: PublishSymbols@2
+  displayName: 'Publish symbols path'
+  enabled: false
+
+
